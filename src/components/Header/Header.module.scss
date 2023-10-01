@@ -1,0 +1,140 @@
+@import "../../variables.scss";
+
+.header {
+  font-family: $Gotu;
+  text-transform: uppercase; 
+  padding: 6px;
+
+  &__content {
+    color: $dark;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__logo {
+      font-size: 2rem;
+      text-decoration: none;
+      color: $dark;
+      min-width: 200px;
+    }
+
+    &__div {
+      width: 100%;
+      top: 0;
+      right: 100%;
+      bottom: 0;
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba($dark, 0.9);
+      backdrop-filter: blur(2px);
+      transform: translate(0);
+      transition: 0.3s ease transform;
+
+      @include breakpoint(md) {
+        transform: none;
+        flex-direction: row;
+        background: transparent;
+        width: auto;
+        height: 100%;
+        position: static;
+      }
+      
+      &.isMenu {
+        transform: translate(100%);
+      }
+      ul{
+        margin:0;
+        list-style: none;
+        display: flex;
+        gap: 30px;
+        padding: 0;
+        justify-content: center;
+        @include breakpoint(md) {
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 0;
+        }
+        @include breakpoint(sm) {
+          flex-direction: column;
+          align-items: center;
+        }
+        li{
+          a{
+            text-decoration: none;
+            color:black;
+
+            &:hover{
+              text-decoration: underline;
+            }
+            @include breakpoint(sm) {
+              color:white
+            }
+      
+          }
+        }
+      }
+    }
+    
+    &__social{
+      min-width: 200px;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap:20px;
+      
+      a{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        &:active, &:hover, &:visited, &:link{
+          color:black;
+          text-decoration: none;
+        }
+        // &:first-child{
+        //   display: flex;
+        // }
+      }
+      @include breakpoint(sm) {
+        display: none;
+      }
+    }
+
+    &__toggle {
+      cursor: pointer;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      transition: 0.3s ease all;
+      position: relative;
+
+      &:hover {
+        font-weight: bolder;
+      }
+
+      @include breakpoint(md) {
+        display: none;
+      }
+
+      &__closeButton {
+        @include breakpoint(sm) {
+          color: white;
+        }
+      }
+    }
+  }
+}
+.active {
+  font-weight: 900;
+}
+.inactive {
+  font-weight: 500;
+}
+.header__content__div .active:hover {
+  text-decoration: none;
+}

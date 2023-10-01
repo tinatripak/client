@@ -1,0 +1,8 @@
+export {default as Home} from './Home/Home'
+export {default as EditHome} from './Home/EditHome'
+export {default as Bio} from './Bio/Bio'
+export {default as General} from './General/General'
+export {default as ContCalendaract} from './Calendar/Calendar'
+export {default as Admins} from './Admins/Admins'
+export {default as Photography} from './Photography/Photography'
+export {default as TypesOfPhotography} from './TypesOfPhotography/TypesOfPhotography'

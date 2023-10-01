@@ -1,0 +1,12 @@
+@import "../../variables.scss";
+
+.portfolio{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:20px
+}

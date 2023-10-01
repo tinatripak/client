@@ -1,0 +1,53 @@
+.home{
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 20px;
+
+    &__update{
+        position:absolute; 
+        border-radius:50%;
+        right: 15px;
+        top:15px;
+        z-index: 1;
+        :hover{
+            cursor: pointer;
+        }
+    }
+
+    &__gridPhotos{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 70px;
+
+        &__photoBlock{
+            border: 1px solid rgb(194, 194, 194);
+            border-radius: 10px;
+            width: min-content;
+            background-color: #EBEBEB;
+            p{
+                margin: 2px 2px 5px 2px;
+                text-align: center;
+            }
+            position:relative;
+        }
+    }
+    &__mainPhoto{
+        border: 1px solid rgb(194, 194, 194);
+        border-radius: 10px;
+        width: min-content;
+        margin-bottom: 20px;
+        background-color: #EBEBEB;
+        p{
+            margin: 2px 2px 5px 2px;
+            text-align: center;
+        }
+        position:relative;
+    }
+    img{
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+}

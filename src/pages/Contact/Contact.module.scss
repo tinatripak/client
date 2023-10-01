@@ -1,0 +1,51 @@
+@import "../../variables.scss";
+
+.contact{
+    &__content{
+        font-family: $Gotu;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh;
+        p{
+            text-align: center;
+        }
+        ul{
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap:15px;
+            list-style: none;
+            padding: 0;
+        }
+        @include breakpoint(xs) {
+            width: 80%;
+        }
+        &__icons{
+            &__telegram{
+                color:#269EDA;
+                font-size: 30px;
+            }
+            &__viber{
+                color:#7B519D;
+                font-size: 30px;
+            }
+            &__whatsapp{
+                color:#3FEA5F;
+                font-size: 30px;
+            }
+        }
+    }
+    &__contactForm{
+        margin-top: 7vh;
+        margin-bottom: 7vh;
+    }
+    &__image{
+        height: 85vh;
+        background-image: url("https://drive.google.com/uc?export=view&id=1Ph0Mu1RIETCe8s3f4fQiLL6cE47pPCJp");
+        background-size: cover;
+        background-position: center;
+        color:white;
+    }
+}

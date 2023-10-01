@@ -1,0 +1,67 @@
+@import "../../variables.scss";
+
+.footer {
+  font-family: $Gotu;
+
+  &__icons {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap:3vw;
+
+    a{
+      &:active, &:hover, &:visited, &:link{
+        color:black;
+      }
+      &:first-child{
+        display: flex;
+      }
+    }
+  }
+  &__content {
+    color: $dark;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__nav {
+      width: 100%;
+      align-items: center;
+      padding-right: 1.5vw;
+
+      ul{
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        align-items: center;
+        list-style: none;
+        color: black;
+        gap:1.5vw;
+        text-transform: uppercase; 
+        @include breakpoint(xxs) {
+          display: block;
+          text-align: center;
+        }
+
+        li{
+          a{
+            text-decoration: none;
+            &:active, &:hover, &:visited, &:link{
+              color:black;
+            }
+          }
+          span{
+            @include breakpoint(xxs) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__copyrigth {
+    text-align: center;
+  }
+}

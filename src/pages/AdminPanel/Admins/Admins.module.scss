@@ -1,0 +1,57 @@
+.admin{
+    margin-top: 8px;
+
+    &__add{
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 8px;
+        p{
+            font-size: 18px;
+        }
+    }
+    &__edit_button{
+        display: flex;
+        justify-content: center;
+    }
+    &__delete_button{
+        display: flex;
+        justify-content: center;
+    }
+    &__admin_table{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+        border: 1px solid;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        font-size: 20px;
+
+        &__header{
+            &__cell{
+                border: 1px solid ;
+                background-color: #ac83b7;
+                color: white;
+                text-align: left;
+                padding: 5px 10px;
+            }
+        }
+        &__body{
+            &__row{
+                &__cell{
+                    border: 1px solid white;
+                    border-right: 1px solid rgb(219, 219, 219);
+                    border-bottom: 1px solid rgb(219, 219, 219);
+                    padding: 5px 10px;
+                }
+            }
+
+            :hover{
+                font-weight: bolder;
+                background-color: #d9c2e2;
+            }
+        }
+    }
+}

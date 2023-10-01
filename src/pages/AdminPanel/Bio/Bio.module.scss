@@ -1,0 +1,66 @@
+.bio{
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 20px;
+
+    &__photo{
+        border: 1px solid rgb(194, 194, 194);
+        border-radius: 10px;
+        width: min-content;
+        background-color: #EBEBEB;
+        margin-bottom: 15px;
+        &__edit{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 18px;
+            &__icon{
+                :hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        img{
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-top-right-radius: 8px;
+            border-top-left-radius: 8px;
+        }
+    }
+    &__article{
+        padding-bottom: 15px;
+        &__edit{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: max-content;
+            gap: 20px;
+            font-size: 18px;
+            text-decoration: underline;
+            &__icon{
+                :hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    &__phoneNumber{
+        padding-bottom: 15px;
+        &__edit{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: max-content;
+            font-size: 18px;
+            text-decoration: underline;
+            &__icon{
+                :hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

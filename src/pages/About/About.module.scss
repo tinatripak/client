@@ -1,0 +1,48 @@
+@import "../../variables.scss";
+
+.about {
+  font-family: $Gotu;
+
+  &__content {
+    margin-top: 3vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10vw;
+    padding-bottom: 2vh;
+    @include breakpoint(sm) {
+        display: block;
+    }
+    &__p{
+        display: flex;
+        align-items: center;
+    }
+    p{
+        font-size: 20px;
+        width: 350px;
+        margin-left: auto;
+        text-align: center;
+        @include breakpoint(sm) {
+            margin-right: auto;
+        }
+        @include breakpoint(xxs) {
+            font-size: 16px;
+            width: 250px;
+        }
+    }
+    img{
+        margin-right: auto;
+        @include breakpoint(sm) {
+            margin-left: auto;
+            display: flex;
+        }
+        @include breakpoint(xxs) {
+            width: 90%;
+        }
+    }
+  }
+  &__photoshoots{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,8 @@
+export {default as Home} from './Home/Home'
+export {default as About} from './About/About'
+export {default as Contact} from './Contact/Contact'
+export {default as Portfolio} from './Portfolio/Portfolio'
+export {default as Price} from './Price/Price'
+export {default as Login} from './Login/Login'
+export {default as PortfolioOneShoot} from './PortfolioOneShoot/PortfolioOneShoot'
+export {default as AdminAccount} from './AdminAccount/AdminAccount'

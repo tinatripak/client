@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+
+$Gotu: "Gotu", sans-serif;
+
+$dark: rgb(29, 29, 29);
+$light: #fff;
+$primary: rgb(162, 162, 246);
+$gray:rgb(181, 181, 181);
+$bg: rgb(244, 244, 255);
+
+$spacing-md: 16px;
+$spacing-lg: 32px;
+
+$borderRadius: 12px;
+
+$headerHeight: 60px;
+
+@mixin breakpoint($point) {
+    @if $point == md {
+        @media (min-width: 880px) {
+            @content;
+        }
+    }
+    @if $point == sm {
+        @media (max-width: 879px) {
+            @content;
+        }
+    }
+    @if $point == xs {
+        @media (max-width: 750px) {
+            @content;
+        }
+    }
+    @if $point == xxs {
+        @media (max-width: 400px) {
+            @content;
+        }
+    }
+}

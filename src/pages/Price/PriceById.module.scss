@@ -1,0 +1,23 @@
+@import "../../variables.scss";
+.type{
+    min-height: 650px;
+    font-family: $Gotu;
+    &__name{
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 100px;
+    }
+    &__grid{
+        display: flex;
+        justify-content: center;
+        gap:200px;
+        &__photo{
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+        }
+        &__text{
+            font-size: 19px;
+        }
+    }
+}

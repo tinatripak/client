@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import classes from "./Login.module.scss";
@@ -8,9 +8,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import AdminPanel from '../AdminPanel/AdminPanel';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
     const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
+
     const [inputValue, setInputValue] = useState({
       email: "",
       password: "",
@@ -49,7 +52,7 @@ const Login = () => {
           handleSuccess(message);
           setUsername(data.username);
           setTimeout(() => {
-            navigate("/adminDashboard");
+            navigate("/adminDashboard/general");
           }, 1000);
         } else {
           handleError(message);
@@ -63,6 +66,17 @@ const Login = () => {
         password: "",
       });
     };
+
+    const removeUndefinedCookies = () => {
+      for (const cookieName in cookies) {
+          if (cookies.hasOwnProperty(cookieName) && cookies[cookieName] === undefined) {
+              removeCookie(cookieName);
+          }
+      }
+    };
+    useEffect(() => {
+      removeUndefinedCookies();
+    }, []);
 
     return (
         <div className={classes.login}>

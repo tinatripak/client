@@ -7,6 +7,13 @@ import {FiEdit2} from 'react-icons/fi';
 import {BsTrashFill} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
 
+const photoTextStyle = {
+  width: '300px', 
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+}
+
 const Admins = () => {
   const [adminList, setAdminList] = useState([]);
   const navigate = useNavigate();
@@ -43,12 +50,14 @@ const Admins = () => {
         Header: 'PHOTO',
         accessor: 'photo',
         Cell: ({ row }) => (
-          <p>{row.original.photo}</p>
-
+          (row.original.photo ? 
+            <img className={classes.admin__photo} src={row.original.photo} />
+            : <p className={classes.admin__text}>No photo</p>
+          )
         ),
       },
       {
-        Header: 'CREATED',
+        Header: 'ADDED',
         accessor: 'createdAt',
         Cell: ({ row }) => (
           <p>{row.original.createdAt}</p>
@@ -56,26 +65,26 @@ const Admins = () => {
         ),
       },
       {
-        Header: 'EDIT',
+        Header: '',
         accessor: 'edit',
         Cell: ({ row }) => (
           <span
             onClick={() => handleEdit(row.original)}
             className={classes.admin__edit_button}
           >
-            <FiEdit2 color='#523d5a' size={20} />
+            <FiEdit2 color='#616161' size={20} />
           </span>
         ),
       },
       {
-        Header: 'DELETE',
+        Header: '',
         accessor: 'delete',
         Cell: ({ row }) => (
           <span
             onClick={() => handleDelete(row.original)}
             className={classes.admin__delete_button}
           >
-            <BsTrashFill color='#523d5a' size={20} />
+            <BsTrashFill color='#616161' size={20} />
           </span>
         ),
       },
@@ -115,7 +124,7 @@ const Admins = () => {
     <div className={classes.admin}>
       <div className={classes.admin__add}>
         <p>Add an admin</p>
-        <IoAddCircle className={classes.admin__icon} color='#523d5a' size={35} onClick={handleCreate}/>
+        <IoAddCircle className={classes.admin__icon} color='#292929' size={35} onClick={handleCreate}/>
       </div>
       <table {...getTableProps()} className={classes.admin__admin_table}>
         <thead>

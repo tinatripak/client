@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 let cloudinary;
 let widget;
 
-const UploadWidget = ({ children, onUpload }) => {
+export function UploadWidget ({ children, onUpload }) {
 
   useEffect(() => {
     if ( !cloudinary ) {
@@ -33,9 +33,7 @@ const UploadWidget = ({ children, onUpload }) => {
   }
 
   function open() {
-    if ( !widget ) {
-      widget = createWidget();
-    }
+    widget = createWidget();
     widget && widget.open();
   }
 

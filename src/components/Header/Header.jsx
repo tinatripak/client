@@ -43,7 +43,7 @@ const Header = () => {
     <header className={classes.header}>
       <div className={classes.header__content}>
         <NavLink to="/" className={classes.header__content__logo}
-         style={{ color: location.pathname === "/contact" ? "white" : "black" }}>
+         style={{ color: location.pathname === "/booking" ? "white" : "black" }}>
           KSIGALLERY
         </NavLink>
         
@@ -61,7 +61,7 @@ const Header = () => {
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive
                   }
-                  style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
                 >
                   Home
                 </NavLink>
@@ -73,7 +73,7 @@ const Header = () => {
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive
                   }
-                  style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
                 >
                   About
                 </NavLink>
@@ -85,7 +85,7 @@ const Header = () => {
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive
                   }
-                  style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
                 >
                   Portfolio
                 </NavLink>
@@ -97,21 +97,21 @@ const Header = () => {
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive
                   }
-                  style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
                 >
                   Price
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="/contact"
+                  to="/booking"
                   onClick={menuToggleHandler}
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive
                   }
-                  style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
                 >
-                  Contact
+                  Booking
                 </NavLink>
               </li>
             </ul>
@@ -120,14 +120,14 @@ const Header = () => {
         <div className={classes.header__content__social}>
           <NavLink
             to="https://www.instagram.com/ksigallery/"
-            style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
           >
             <BsInstagram size={27} />
           </NavLink>
 
           <NavLink
             to="https://www.pinterest.com/ksisex/"
-            style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
           >
             <FontAwesome
               name="pinterest"
@@ -137,19 +137,19 @@ const Header = () => {
 
           <NavLink
             to="/login"
-            style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
           >
             <BiLogInCircle size={33} />
           </NavLink>
         </div>
         <div className={classes.header__content__toggle}>
           {!menuOpen ? (
-            <BiMenuAltRight onClick={menuToggleHandler}  style={{ color: location.pathname === "/contact" ? "white" : "black" }}/>
+            <BiMenuAltRight onClick={menuToggleHandler}  style={{ color: location.pathname === "/booking" ? "white" : "black" }}/>
           ) : (
             <AiOutlineClose
               className={classes.header__content__toggle__closeButton}
               onClick={menuToggleHandler}
-              style={{ color: location.pathname === "/contact" ? "white" : "black" }}
+              style={{ color: location.pathname === "/booking" ? "white" : "black" }}
             />
           )}
         </div>

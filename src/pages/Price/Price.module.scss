@@ -9,4 +9,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 80px;
+    a{
+        text-decoration: none;
+        color:black
+    }
 }

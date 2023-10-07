@@ -1,6 +1,6 @@
 @import "../../../../variables.scss";
 
-.editInfo {
+.editType {
     &__backButtonWithTitle {
         display: flex;
         align-items: center;
@@ -10,18 +10,16 @@
             text-align: center;
         }
     }
-    &__phoneNumber {
-        input {
-            margin-top: 5px;
-            padding: 5px 5px;
-            border-radius: 10px;
-            font-size: 15px;
-            width: 400px;
-            font-family: $Gotu;
-            border: 2px solid rgb(65, 65, 65);
-        }
+    input {
+        margin-top: 5px;
+        padding: 5px 5px;
+        border-radius: 10px;
+        font-size: 15px;
+        width: 400px;
+        font-family: $Gotu;
+        border: 2px solid rgb(65, 65, 65);
     }
-    &__bio {
+    &__text {
         textarea {
             height: 150px;
             text-wrap: wrap;
@@ -30,6 +28,7 @@
             border-radius: 10px;
             font-size: 15px;
             width: 400px;
+            font-family: $Gotu;
             border: 2px solid rgb(65, 65, 65);
         }
     }

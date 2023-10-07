@@ -1,0 +1,81 @@
+@import "../../../../variables.scss";
+
+.updatePhotography{
+    &__backButtonWithTitle{
+        display: flex;
+        align-items: center; 
+        justify-content: space-between;
+        width: 55%;
+        h3{
+            text-align: center;
+        }
+    }
+    &__button{
+        margin-top: 20px;
+        font-family: $Gotu;
+        padding: 6px 30px;
+        font-size: 21px;
+        border-radius: 15px;
+        background-color: rgb(30, 30, 30);
+        color: azure;
+        border-style: double;
+        border-color: white;
+    }
+    input, select{
+        margin-top: 5px;
+        padding: 5px 5px;
+        border-radius: 10px;
+        font-size: 15px;
+        width: 400px;
+        border: 2px solid rgb(65, 65, 65);
+        font-family: $Gotu;
+    }
+    select {
+        background-image: linear-gradient(45deg, transparent 50%, rgb(50, 50, 50) 60%),
+            linear-gradient(135deg, rgb(50, 50, 50) 40%, transparent 50%) !important;
+        background-position:
+            calc(100% - 30px) 14px,
+            calc(100% - 20px) 14px,
+            100% 0;
+        background-size:
+            10px 10px,
+            10px 10px;
+        background-repeat: no-repeat;
+        appearance: none;
+    }
+    img{
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 30px;
+    }
+    &__photo {
+        &__uploadmain{
+            font-family: $Gotu;
+            padding: 5px 15px;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 15px;
+            background-color: rgb(255, 255, 255);
+        }
+    }
+    &__allPhotos{
+        &__show{
+            display: flex;
+            gap:20px;
+            flex-wrap: wrap;
+            margin: 20px 20px;
+            &__block{
+                position:relative;
+                width: min-content;
+                &__delete{
+                    position:absolute; 
+                    border-radius:50%;
+                    right: 15px;
+                    top:15px;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}

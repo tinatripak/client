@@ -1,0 +1,127 @@
+@import "../../variables.scss";
+
+.booking{
+    &__content{
+        font-family: $Gotu;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3vh;
+        p{
+            text-align: center;
+        }
+        ul{
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap:15px;
+            list-style: none;
+            padding: 0;
+        }
+        @include breakpoint(xs) {
+            width: 80%;
+        }
+        &__icons{
+            &__telegram{
+                color:#269EDA;
+                font-size: 30px;
+            }
+            &__viber{
+                color:#7B519D;
+                font-size: 30px;
+            }
+            &__whatsapp{
+                color:#3FEA5F;
+                font-size: 30px;
+            }
+        }
+    }
+    // &__contactForm{
+    //     margin-top: 7vh;
+    //     margin-bottom: 7vh;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: start;
+    //     gap: 50px
+    // }
+    &__image{
+        height: 85vh;
+        background-image: url("http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png");
+        background-size: cover;
+        background-position: center;
+        color:white;
+    }
+
+    &__contactForm{
+        font-family: $Gotu;
+        color:#505050;
+        margin: 0;
+        &__commonBlock{
+            display: flex;
+            justify-content: center;
+            gap:60px;
+            @include breakpoint(xs) {
+                display: block;
+            }
+            &__formGroup{
+                &__input{
+    
+                    gap:2vw;
+                    input{
+                        border: none;
+                        border-bottom: 1px solid #B6B6B6;
+                        width: 250px;
+                        @include breakpoint(xs) {
+                            width: 50%;
+                        }
+                    }
+                    @include breakpoint(xs) {
+                        margin-bottom: 30px;
+                        padding-left: 3vw ;
+                    }
+                }
+                &__textarea{
+                    margin-top: 2vh;
+                    margin-bottom: 3vh;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: grid;
+                    justify-content: center;
+                    @include breakpoint(xs) {
+                        justify-content: flex-start;
+                        padding-left: 3vw;
+                    }
+                    textarea{
+                        border-radius: 10px;
+                        width: 640px;
+                        height: 25vh;
+                        display: block;
+                        padding: 10px 10px;
+                        font-size: 16px;
+                        font-family: $Gotu;
+                        @include breakpoint(xs) {
+                            width: 80vw;
+                        }
+                    }
+                    label{
+                        display: block;
+                    }
+                }
+    
+                &__button{
+                    border: none;
+                    background-color: rgb(0, 0, 0);
+                    color:white;
+                    border-radius: 13px;
+                    padding: 6px 40px;
+                    font-size: 16px;
+                    font-family: $Gotu;
+                    display: flex;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
+}

@@ -40,7 +40,7 @@ const Home = () => {
 
       </div>
       <div className={classes.home__contactForm}>
-        <img src="https://res.cloudinary.com/dcxuxc5uw/image/upload/v1695864485/photo_2022-07-21_17-16-08_n4aggc.jpg" alt="photographer"/>
+        <img src="https://res.cloudinary.com/dcxuxc5uw/image/upload/v1695952279/ptgpjkmmnofmmqcyiycj.jpg" alt="photographer"/>
         <ContactForm />
       </div>
       <Footer/>

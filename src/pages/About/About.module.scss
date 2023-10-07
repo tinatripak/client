@@ -31,12 +31,13 @@
     }
     img{
         margin-right: auto;
+        width: 55%;
         @include breakpoint(sm) {
             margin-left: auto;
             display: flex;
         }
         @include breakpoint(xxs) {
-            width: 90%;
+            width: 30%;
         }
     }
   }

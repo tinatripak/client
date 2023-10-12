@@ -9,12 +9,15 @@ const CreateTypeOfPhotography = () => {
   const navigate = useNavigate();
   const [typeOfPhotography, setTypeOfPhotography] = useState("");
   const [mainPhoto, setMainPhoto] = useState("");
+
+  const [shootingDuration, setShootingDuration] = useState("");
+
   const [text, setText] = useState("");
   const [error, updateError] = useState();
 
   const createType = () => {
-    console.log(typeOfPhotography, mainPhoto, text)
-    createOneTypeOfPhotography(typeOfPhotography, mainPhoto, text)
+    console.log(typeOfPhotography, shootingDuration, mainPhoto, text)
+    createOneTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text)
       .then((data) => {
         console.log(data);
       })
@@ -52,13 +55,19 @@ const CreateTypeOfPhotography = () => {
         <div className={classes.createType__typeOfPhotography}>
           <label htmlFor="type">Type of photography</label>
           <br />
-          <input type="text" name="type" placeholder="Enter your type" value={typeOfPhotography} onChange={e=>setTypeOfPhotography(e.target.value)}/>
+          <input type="text" name="type" placeholder="Enter the type" value={typeOfPhotography} onChange={e=>setTypeOfPhotography(e.target.value)}/>
+        </div>
+
+        <div className={classes.createType__shootingDuration}>
+          <label htmlFor="type">Duration of shooting</label>
+          <br />
+          <input type="text" name="duration" placeholder="Enter the duration" value={shootingDuration} onChange={e=>setShootingDuration(e.target.value)}/>
         </div>
 
         <div className={classes.createType__text}>
           <label htmlFor="title">Text</label>
           <br />
-          <textarea type="text" name="text" placeholder="Enter your text" value={text} onChange={e=>setText(e.target.value)}/>
+          <textarea type="text" name="text" placeholder="Enter the text" value={text} onChange={e=>setText(e.target.value)}/>
         </div>
 
         <div className={classes.createType__mainPhoto}>

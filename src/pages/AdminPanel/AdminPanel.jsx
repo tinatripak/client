@@ -10,7 +10,7 @@ import classes from "./AdminPanel.module.scss";
 
 import Home from './Home/Home';
 import Admins from './Admins/Admins';
-import Calendar from './Calendar/Calendar';
+import Booking from './Booking/Booking';
 import Bio from './Bio/Bio';
 import Photography from './Photography/Photography';
 import TypesOfPhotography from './TypesOfPhotography/TypesOfPhotography';
@@ -24,8 +24,8 @@ import { getAdminById } from '../../api';
 import { useUserContext } from '../../components/UserContext';
 import CreateTypeOfPhotography from './TypesOfPhotography/CreateTypeOfPhotography/CreateTypeOfPhotography';
 import EditTypeOfPhotography from './TypesOfPhotography/EditTypeOfPhotography/EditTypeOfPhotography';
-import CreateCalendar from './Calendar/CreateCalendar/CreateCalendar';
-import EditCalendar from './Calendar/EditCalendar/EditCalendar';
+import CreateBooking from './Booking/CreateBooking/CreateBooking';
+import EditBooking from './Booking/EditBooking/EditBooking';
 import UpdatePhotography from './Photography/UpdatePhotography/UpdatePhotography';
 import CreatePhotography from './Photography/CreatePhotography/CreatePhotography';
 
@@ -143,14 +143,14 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/calendar"}
+                                to={"/adminDashboard/booking"}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
                                     };
                                 }}
                             >
-                                Calendar with photoshoots
+                                Bookings
                             </NavLink>
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
@@ -226,9 +226,9 @@ const AdminPanel = () => {
                             <Route path="/types/edit/:id" element={<EditTypeOfPhotography />} />
                             <Route path="/types/create" element={<CreateTypeOfPhotography />} />
 
-                            <Route path="/calendar" element={<Calendar />} />
-                            <Route path="/calendar/edit/:id" element={<EditCalendar />} />
-                            <Route path="/calendar/create" element={<CreateCalendar />} />
+                            <Route path="/booking" element={<Booking />} />
+                            <Route path="/booking/edit/:id" element={<EditBooking />} />
+                            <Route path="/booking/create" element={<CreateBooking />} />
 
                             <Route path="/admins" element={<Admins />} />
                             <Route path="/admin/create" element={<CreateAnAdmin />} />

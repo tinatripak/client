@@ -6,9 +6,7 @@ import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import {
   getAllTypesOfPhotography,
   getPhotoshootById,
-  getTypeOfPhotographyById,
   updatePhotoshootById,
-  updateTypeOfPhotography,
 } from "../../../../api";
 import { RxCross2 } from "react-icons/rx";
 
@@ -151,7 +149,7 @@ const UpdatePhotography = () => {
         </div>
 
         <div className={classes.updatePhotography__photoType}>
-          <label htmlFor="title">Photo type id</label>
+          <label htmlFor="title">Type of photoshoot</label>
           <br />
 
           <select

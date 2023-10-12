@@ -111,7 +111,7 @@ const CreatePhotography = () => {
         </div>
 
         <div className={classes.createPhotography__photoType}>
-          <label htmlFor="title">Photo type name</label>
+          <label htmlFor="title">Type of photoshoot</label>
           <br />
 
           <select

@@ -17,6 +17,9 @@ const EditTypeOfPhotography = () => {
   const [newText, setNewText] = useState("");
   const [oldText, setOldText] = useState("");
 
+  const [newShootingDuration , setNewShootingDuration ] = useState("");
+  const [oldShootingDuration , setOldShootingDuration ] = useState("");
+
   const [newTypeOfPhotography, setNewTypeOfPhotography] = useState("");
   const [oldTypeOfPhotography, setOldTypeOfPhotography] = useState("");
 
@@ -31,10 +34,11 @@ const EditTypeOfPhotography = () => {
     const updatedText = newText !== "" ? newText : oldText;
     const updatedTypeOfPhotography =
       newTypeOfPhotography !== "" ? newTypeOfPhotography : oldTypeOfPhotography;
+    const updatedShootingDuration = newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
     console.log(id, updatedText, updatedTypeOfPhotography, updatedPhoto);
 
     updateTypeOfPhotography(
-      id, updatedTypeOfPhotography, updatedPhoto, updatedText
+      id, updatedTypeOfPhotography, updatedShootingDuration, updatedPhoto, updatedText
     )
       .then((data) => {
         console.log(data);
@@ -49,6 +53,7 @@ const EditTypeOfPhotography = () => {
       .then((data) => {
         console.log(data)
         setOldText(data?.data?.text);
+        setOldShootingDuration(data?.data?.shootingDuration);
         setOldPhoto(data?.data?.mainPhoto);
         setOldTypeOfPhotography(data?.data?.typeOfPhotography);
       })
@@ -84,9 +89,21 @@ const EditTypeOfPhotography = () => {
           <input
             type="text"
             name="type"
-            placeholder="Enter your type"
+            placeholder="Enter the type"
             defaultValue={oldTypeOfPhotography}
             onChange={(e) => setNewTypeOfPhotography(e.target.value)}
+          />
+        </div>
+
+        <div className={classes.editType__typeOfPhotography}>
+          <label htmlFor="type">Duration of shooting</label>
+          <br />
+          <input
+            type="text"
+            name="duration"
+            placeholder="Enter the duration"
+            defaultValue={oldShootingDuration}
+            onChange={(e) => setNewShootingDuration(e.target.value)}
           />
         </div>
 
@@ -96,7 +113,7 @@ const EditTypeOfPhotography = () => {
           <textarea
             type="text"
             name="text"
-            placeholder="Enter your text"
+            placeholder="Enter the text"
             defaultValue={oldText}
             onChange={(e) => setNewText(e.target.value)}
           />

@@ -174,6 +174,7 @@ export const getTypeOfPhotographyByName = async (name) => {
 
 export const createOneTypeOfPhotography = async (
   typeOfPhotography,
+  shootingDuration,
   mainPhoto,
   text
 ) => {
@@ -182,6 +183,7 @@ export const createOneTypeOfPhotography = async (
       `${baseURL}typesOfPhotography/createTypeOfPhotography`,
       {
         typeOfPhotography: typeOfPhotography,
+        shootingDuration: shootingDuration,
         mainPhoto: mainPhoto,
         text: text,
       }
@@ -194,6 +196,7 @@ export const createOneTypeOfPhotography = async (
 export const updateTypeOfPhotography = async (
   id,
   typeOfPhotography,
+  shootingDuration,
   mainPhoto,
   text
 ) => {
@@ -202,6 +205,7 @@ export const updateTypeOfPhotography = async (
       `${baseURL}typesOfPhotography/updateTypeOfPhotographyById/${id}`,
       {
         typeOfPhotography: typeOfPhotography,
+        shootingDuration: shootingDuration,
         mainPhoto: mainPhoto,
         text: text,
       }
@@ -319,28 +323,32 @@ export const getTheBookingById = async (id) => {
     return null;
   }
 };
+
 export const createABooking = async (
   name,
   email,
   message,
-  typeOfPhotosession,
+  photoTypeId,
   date,
-  status
+  startTime,
+  endTime
 ) => {
   try {
     const res = await axios.post(`${baseURL}booking/createABooking`, {
       name: name,
       email: email,
       message: message,
-      typeOfPhotosession: typeOfPhotosession,
+      photoTypeId: photoTypeId,
       date: date,
-      status: status,
+      startTime: startTime,
+      endTime: endTime
     });
     return res.data;
   } catch (error) {
     return null;
   }
 };
+
 export const acceptTheBooking = async (id, status) => {
   try {
     const res = await axios.put(`${baseURL}booking/acceptTheBooking/${id}`, {

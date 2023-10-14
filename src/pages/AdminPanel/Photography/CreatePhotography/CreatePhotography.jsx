@@ -10,6 +10,7 @@ import {
 } from "../../../../api";
 import { RxCross2 } from "react-icons/rx";
 
+
 const CreatePhotography = () => {
   const navigate = useNavigate();
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);

@@ -379,3 +379,53 @@ export const deleteTheDeclinedBooking = async (id) => {
     return null;
   }
 };
+
+//  router.get("/getAllMessages", GetAllMessages);
+// router.get("/getTheMessageById/:id", GetTheMessageById);
+// router.post("/createAMessage", CreateTheMessage);
+// router.delete("/deleteTheMessage/:id", DeleteTheMessage);
+
+
+export const getAllMessages = async () => {
+  try {
+    const res = await axios.get(`${baseURL}message/getAllMessages`);
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
+export const getTheMessageById = async (id) => {
+  try {
+    const res = await axios.get(`${baseURL}message/getTheMessageById/${id}`);
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const createAMessage = async (
+  name,
+  email,
+  question,
+) => {
+  try {
+    const res = await axios.post(`${baseURL}message/createAMessage`, {
+      name: name,
+      email: email,
+      question: question
+    });
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
+export const deleteTheMessage = async (id) => {
+  try {
+    const res = await axios.delete(
+      `${baseURL}message/deleteTheDeclinedBooking/${id}`
+    );
+    return res;
+  } catch (error) {
+    return null;
+  }
+};

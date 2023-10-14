@@ -8,9 +8,6 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
-    console.log("here");
-    console.log(name, email, message);
-
     createAMessage(name, email, message)
       .then((data) => {
         console.log(data);

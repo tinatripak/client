@@ -380,12 +380,6 @@ export const deleteTheDeclinedBooking = async (id) => {
   }
 };
 
-//  router.get("/getAllMessages", GetAllMessages);
-// router.get("/getTheMessageById/:id", GetTheMessageById);
-// router.post("/createAMessage", CreateTheMessage);
-// router.delete("/deleteTheMessage/:id", DeleteTheMessage);
-
-
 export const getAllMessages = async () => {
   try {
     const res = await axios.get(`${baseURL}message/getAllMessages`);

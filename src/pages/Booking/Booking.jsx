@@ -6,6 +6,7 @@ import { LiaTelegram } from "react-icons/lia";
 import { FaViber } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import {
+  createABooking,
   getAllBookings,
   getAllTypesOfPhotography,
   getPhotographerInfo,
@@ -64,14 +65,15 @@ const Booking = () => {
   };
 
   useEffect(() => {
+    if(photoTypeId){
     getTypeOfPhotographyById(photoTypeId)
-    .then((data) => {
-      console.log(data?.data)
-      setPhotoshootDuration(data?.data?.shootingDuration);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((data) => {
+        console.log(data?.data);
+        setPhotoshootDuration(data?.data?.shootingDuration);
+      })
+      .catch((error) => {
+        console.error(error);
+      });}
   }, [photoTypeId]);
 
   useEffect(() => {
@@ -179,40 +181,85 @@ const Booking = () => {
 
   useEffect(() => {
     if (date && allBookingsByDate.length > 0 && photoTypeId) {
-
-      if(photoTypeId !== "651ed528cc8ab7ca0e401fba"){
-        const bookedTimes = allBookingsByDate.map((booking) => booking.startTime);
+      if (photoTypeId !== "651ed528cc8ab7ca0e401fba") {
+        const bookedTimes = allBookingsByDate.map(
+          (booking) => booking.startTime
+        );
         const bookedTimeIndices = bookedTimes.map((bookedTime) =>
           timeOptions.indexOf(bookedTime)
         );
         const indicesToDelete = new Set();
-        console.log(photoshootDuration)
+        console.log(photoshootDuration);
 
-        // const matches = photoshootDuration.match(/\d+/);
+        const matches = photoshootDuration.match(/\d+/);
 
-        // if (matches) {
-        //   const number = parseInt(matches[0], 10);
-        //   const range = number * 2 + 1;
+        if (matches) {
+          const number = parseInt(matches[0], 10);
+          const range = number * 2 + 1;
 
-        //   bookedTimeIndices.forEach((index) => {
-        //     for (let i = -1; i <= range; i++) {
-        //       indicesToDelete.add(index + i);
-        //     }
-        //   });
-        // }
-        // const availableTimes = timeOptions.filter(
-        //   (_, index) => !indicesToDelete.has(index)
-        // );
-        // setFilteredTimeOptions(availableTimes);
+          bookedTimeIndices.forEach((index) => {
+            for (let i = -1; i <= range; i++) {
+              indicesToDelete.add(index + i);
+            }
+          });
+        }
+        const availableTimes = timeOptions.filter(
+          (_, index) => !indicesToDelete.has(index)
+        );
+        setFilteredTimeOptions(availableTimes);
       }
-
-     
     } else {
       setFilteredTimeOptions(timeOptions);
     }
   }, [date, allBookingsByDate, photoTypeId]);
 
-  const handleSubmit = () => {};
+  const addDurationToTime = (start, duration) => {
+    const [startHour, startPeriod] = start.split(" ");
+    const [startHourNumeric, startMinutes] = startHour.split(":");
+    let hours = parseInt(startHourNumeric, 10);
+
+    if (startPeriod === "P.M" && hours < 12) {
+      hours += 12;
+    }
+
+    const startDateObj = new Date();
+    startDateObj.setHours(hours, parseInt(startMinutes, 10), 0, 0);
+
+    const durationHours = parseInt(duration, 10);
+
+    const endDate = new Date(startDateObj);
+    endDate.setHours(startDateObj.getHours() + durationHours);
+
+    const endHour = endDate.getHours();
+    const endMinutes = endDate.getMinutes();
+    const period = endHour < 12 ? "A.M" : "P.M";
+    const formattedEndDate = `${endHour % 12}:${endMinutes
+      .toString()
+      .padStart(2, "0")} ${period}`;
+
+    return formattedEndDate;
+  };
+  const handleSubmit = () => {
+    const endTimePhotoshoot = addDurationToTime(
+      selectedTime,
+      photoshootDuration
+    );
+    createABooking(
+      name,
+      email,
+      message,
+      photoTypeId,
+      formatDate(date),
+      selectedTime,
+      endTimePhotoshoot
+    )
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className={classes.booking}>
@@ -249,7 +296,7 @@ const Booking = () => {
         <p>Also you can fill out the form bellow:</p>
       </div>
       <div className={classes.booking__contactForm}>
-        <form onSubmit={handleSubmit} method="POST">
+        <form onSubmit={handleSubmit}>
           <div className={classes.booking__contactForm__commonBlock}>
             <div
               className={
@@ -259,8 +306,8 @@ const Booking = () => {
               <label htmlFor="name">Name:</label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.name)}
+                defaultValue={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div
@@ -271,8 +318,8 @@ const Booking = () => {
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.name)}
+                defaultValue={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -369,8 +416,8 @@ const Booking = () => {
             <label htmlFor="message">Additional message:</label>
             <br />
             <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.name)}
+              defaultValue={message}
+              onChange={(e) => setMessage(e.target.value)}
             />
           </div>
           <button

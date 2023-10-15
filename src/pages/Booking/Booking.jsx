@@ -15,6 +15,7 @@ import {
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import "./CalendarForBooking.css";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Booking = () => {
   const [bio, setBio] = useState([]);
@@ -26,7 +27,7 @@ const Booking = () => {
   const [allBookings, setAllBookings] = useState([]);
   const [allBookingsByDate, setAllBookingsByDate] = useState([]);
   const [photoTypeId, setPhotoTypeId] = useState("");
-  const [photoTypeName, setPhotoTypeName] = useState("");
+  const [backgroundImageLoading, setBackgroundImageLoading] = useState(true);
 
   const [photoshootDuration, setPhotoshootDuration] = useState();
 
@@ -34,6 +35,18 @@ const Booking = () => {
   let timeOptions = [];
   let currentTime = new Date("2000-01-01T08:30:00");
   const endTime = new Date("2000-01-01T20:00:00");
+
+  useEffect(() => {
+    const backgroundImage = new Image();
+    backgroundImage.src =
+      "http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png";
+    backgroundImage.onload = () => {
+      setBackgroundImageLoading(false);
+    };
+    backgroundImage.onerror = () => {
+      setBackgroundImageLoading(false);
+    };
+  }, []);
 
   useEffect(() => {
     getPhotographerInfo()
@@ -168,9 +181,6 @@ const Booking = () => {
     setDate(value);
     setIsDateSelected(true);
 
-    const photoTypeName = allPhotoTypesName.find((x) => x.id === photoTypeId);
-    setPhotoTypeName(photoTypeName?.name);
-
     const bookingsForSelectedDate = allBookings.filter((booking) => {
       return formatDate(new Date(booking.date)) == formatDate(value);
     });
@@ -260,10 +270,23 @@ const Booking = () => {
         console.error(error);
       });
   };
+  
 
   return (
+    <>
+    <div style={{ display: backgroundImageLoading ? "block" : "none" }}>
+      <Spinner/>
+    </div>
+    <div style={{ display: backgroundImageLoading ? "none" : "block" }}>
     <div className={classes.booking}>
-      <div className={classes.booking__image}>
+      <div className={classes.booking__image} 
+      style={{
+          backgroundImage: `url("http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          color: "white",
+          // position: "relative",
+        }}>
         <Header />
       </div>
       <div className={classes.booking__content}>
@@ -349,68 +372,77 @@ const Booking = () => {
               ))}
             </select>
           </div>
+          {photoTypeId ? (
+            
           <div className={classes.booking__contactForm__calendarBlock}>
-            <p>Please, choose the date and time of the photoshoot</p>
-            <div
-              className={
-                classes.booking__contactForm__calendarBlock__calendarWithSelect
-              }
-            >
-              <div>
-                {photoTypeId !== "651ed528cc8ab7ca0e401fba" ? (
-                  <Calendar
-                    onChange={handleDateChange}
-                    value={date}
-                    locale="en-En"
-                    minDate={new Date()}
-                    tileDisabled={isDateDisabled}
-                  />
-                ) : (
-                  <Calendar
-                    onChange={handleDateChange}
-                    value={date}
-                    locale="en-En"
-                    minDate={new Date()}
-                    tileDisabled={isDateDisabledForWedding}
-                  />
-                )}
-                {date !== null && (
-                  <span>
-                    You chose {formatDate(date)}{" "}
-                    {selectedTime !== null && <span>{selectedTime}</span>}
-                  </span>
-                )}
-              </div>
-
-              {isDateSelected && photoTypeId && (
-                <select
-                  value={selectedTime}
-                  onChange={handleTimeChange}
-                  className={
-                    classes.booking__contactForm__calendarBlock__calendarWithSelect__select
-                  }
-                >
-                  <option
-                    value=""
-                    disabled
-                    className={
-                      classes.booking__contactForm__calendarBlock__calendarWithSelect__select_default
-                    }
-                  >
-                    Choose time
-                  </option>
-                  {filteredTimeOptions.map((time, index) => (
-                    <option key={index} value={time}>
-                      {time}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-          </div>
+          <p>Please, choose the date and time of the photoshoot</p>
           <div
             className={
-              classes.booking__contactForm__commonBlock__formGroup__textarea
+              classes.booking__contactForm__calendarBlock__calendarWithSelect
+            }
+          >
+            <div>
+              {photoTypeId !== "651ed528cc8ab7ca0e401fba" ? (
+                <Calendar
+                  onChange={handleDateChange}
+                  value={date}
+                  locale="en-En"
+                  minDate={new Date()}
+                  tileDisabled={isDateDisabled}
+                />
+              ) : (
+                <Calendar
+                  onChange={handleDateChange}
+                  value={date}
+                  locale="en-En"
+                  minDate={new Date()}
+                  tileDisabled={isDateDisabledForWedding}
+                />
+              )}
+              {date !== null && (
+                <span>
+                  You chose {formatDate(date)}{" "}
+                  {selectedTime !== null && <span>{selectedTime}</span>}
+                </span>
+              )}
+            </div>
+
+            {isDateSelected && photoTypeId && (
+              <select
+                value={selectedTime}
+                onChange={handleTimeChange}
+                className={
+                  classes.booking__contactForm__calendarBlock__calendarWithSelect__select
+                }
+              >
+                <option
+                  value=""
+                  disabled
+                  className={
+                    classes.booking__contactForm__calendarBlock__calendarWithSelect__select_default
+                  }
+                >
+                  Choose time
+                </option>
+                {filteredTimeOptions.map((time, index) => (
+                  <option key={index} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        </div>
+          ) : (
+            <div  className={
+              classes.booking__contactForm__withoutPhotoshootType
+            }>
+              Please, choose the type of photo shoot and you will have an opportunity to choose the date and time !
+            </div>
+          )}
+          <div
+            className={
+              classes.booking__contactForm__textarea
             }
           >
             <label htmlFor="message">Additional message:</label>
@@ -422,7 +454,7 @@ const Booking = () => {
           </div>
           <button
             className={
-              classes.booking__contactForm__commonBlock__formGroup__button
+              classes.booking__contactForm__button
             }
             type="submit"
           >
@@ -432,6 +464,8 @@ const Booking = () => {
       </div>
       <Footer />
     </div>
+      </div>
+    </>
   );
 };
 

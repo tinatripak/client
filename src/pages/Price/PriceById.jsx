@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./PriceById.module.scss";
 import { getTypeOfPhotographyByName } from "../../api";
+import Spinner from "../../components/Spinner/Spinner";
 
 const PriceById = () => {
   const { name } = useParams();
@@ -18,7 +19,17 @@ const PriceById = () => {
       });
   }, []);
 
+  const [loading, setLoading] = useState(true);
+  const imageLoaded = () => {
+    setLoading(false);
+  };
+
   return (
+    <>
+    <div style={{ display: loading ? "block" : "none" }}>
+      <Spinner/>
+    </div>
+    <div style={{ display: loading ? "none" : "block" }}>
     <div>
       <Header />
       <div className={classes.type}>
@@ -37,11 +48,14 @@ const PriceById = () => {
           <img
             src={typeOfPhotography?.mainPhoto}
             className={classes.type__grid__photo}
+            onLoad={imageLoaded}
           />
         </div>
       </div>
       <Footer />
     </div>
+      </div>
+    </>
   );
 };
 

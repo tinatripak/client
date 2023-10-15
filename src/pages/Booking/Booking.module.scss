@@ -40,17 +40,18 @@
     
     &__image {
         height: 85vh;
-        background-image: url("http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png");
-        background-size: cover;
-        background-position: center;
-        color: white;
+        // background-image: url("http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png");
+        // background-size: cover;
+        // background-position: center;
+        // color: white;
     }
 
     &__contactForm {
         font-family: $Gotu;
         color: #505050;
-        width: max-content;
+        width: min-content;
         margin: 0 auto;
+
         &__calendarBlock {
             display: block;
             p{
@@ -139,48 +140,53 @@
                         appearance: none;
                     }
                 }
-                &__textarea {
-                    margin-top: 30px;
-                    margin-bottom: 3vh;
-                    margin-left: auto;
-                    margin-right: auto;
-                    display: grid;
-                    justify-content: center;
-                    @include breakpoint(xs) {
-                        justify-content: flex-start;
-                        padding-left: 3vw;
-                    }
-                    textarea {
-                        border-radius: 10px;
-                        width: 640px;
-                        height: 25vh;
-                        display: block;
-                        padding: 10px 10px;
-                        font-size: 16px;
-                        font-family: $Gotu;
-                        @include breakpoint(xs) {
-                            width: 80vw;
-                        }
-                    }
-                    label {
-                        display: block;
-                    }
-                }
-
-                &__button {
-                    border: none;
-                    background-color: rgb(0, 0, 0);
-                    color: white;
-                    border-radius: 13px;
-                    padding: 6px 40px;
-                    font-size: 16px;
-                    font-family: $Gotu;
-                    display: flex;
-                    margin-left: auto;
-                    margin-right: auto;
-                    margin-bottom: 50px;
+            }
+        }
+        
+        &__withoutPhotoshootType{
+            padding-top: 30px;
+            color: #b80000;
+        }
+        &__textarea {
+            margin-top: 30px;
+            margin-bottom: 3vh;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            justify-content: center;
+            @include breakpoint(xs) {
+                justify-content: flex-start;
+                padding-left: 3vw;
+            }
+            textarea {
+                border-radius: 10px;
+                width: 640px;
+                height: 25vh;
+                display: block;
+                padding: 10px 10px;
+                font-size: 16px;
+                font-family: $Gotu;
+                @include breakpoint(xs) {
+                    width: 80vw;
                 }
             }
+            label {
+                display: block;
+            }
+        }
+
+        &__button {
+            border: none;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border-radius: 13px;
+            padding: 6px 40px;
+            font-size: 16px;
+            font-family: $Gotu;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px;
         }
     }
 }

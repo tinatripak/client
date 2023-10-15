@@ -1,0 +1,29 @@
+.spinner {
+  margin: 0;
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  background: linear-gradient(45deg, #ccc, #fff);
+
+  &__loader {
+    width: 120px;
+    padding: 15px;
+    background: #dfa343;
+
+    aspect-ratio: 1;
+    border-radius: 50%;
+    --_m: conic-gradient(#0000, #000), linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    box-sizing: border-box;
+    animation: load 1s linear infinite;
+  }
+
+  @keyframes load {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}

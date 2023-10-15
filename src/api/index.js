@@ -14,8 +14,12 @@ export const loginUser = async (inputValue) => {
       }
     );
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -24,16 +28,24 @@ export const getAllAdmins = async () => {
   try {
     const res = await axios.get(`${baseURL}admin/getAllAdmins`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const getAdminById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}admin/getAdminById/${id}`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const createAnAdmin = async (username, email, password, photo) => {
@@ -45,8 +57,12 @@ export const createAnAdmin = async (username, email, password, photo) => {
       photo: photo,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const updateAdminById = async (id, username, email, password, photo) => {
@@ -58,16 +74,24 @@ export const updateAdminById = async (id, username, email, password, photo) => {
       photo: photo,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const deleteAdmin = async (id) => {
   try {
     const res = await axios.delete(`${baseURL}admin/deleteTheAdmin/${id}`);
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -76,8 +100,12 @@ export const getHomePhotos = async () => {
   try {
     const res = await axios.get(`${baseURL}home/getAllHomePhotos`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -85,8 +113,12 @@ export const getHomePhotoById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}home/getHomePhotoById/${id}`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -96,8 +128,12 @@ export const updateHomePhotoById = async (id, photo) => {
       photo: photo,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -106,8 +142,12 @@ export const getPhotographerInfo = async () => {
   try {
     const res = await axios.get(`${baseURL}photographer/getPhotographerBio`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -117,8 +157,12 @@ export const getPhotographerInfoById = async (id) => {
       `${baseURL}photographer/getPhotographerBioById/${id}`
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -133,8 +177,12 @@ export const updatePhotographerInfo = async (id, bio, phoneNumber, photo) => {
       }
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -145,8 +193,12 @@ export const getAllTypesOfPhotography = async () => {
       `${baseURL}typesOfPhotography/getAllTypesOfPhotography`
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -156,8 +208,12 @@ export const getTypeOfPhotographyById = async (id) => {
       `${baseURL}typesOfPhotography/getTypeOfPhotographyById/${id}`
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -167,8 +223,12 @@ export const getTypeOfPhotographyByName = async (name) => {
       `${baseURL}typesOfPhotography/getTypeOfPhotographyByTypeName/${name}`
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -189,8 +249,12 @@ export const createOneTypeOfPhotography = async (
       }
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const updateTypeOfPhotography = async (
@@ -211,8 +275,12 @@ export const updateTypeOfPhotography = async (
       }
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const deleteTypeOfPhotography = async (id) => {
@@ -221,8 +289,12 @@ export const deleteTypeOfPhotography = async (id) => {
       `${baseURL}typesOfPhotography/deleteTypeOfPhotographyById/${id}`
     );
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -232,25 +304,39 @@ export const getPhotoshoots = async () => {
   try {
     const res = await axios.get(`${baseURL}portfolio/getPhotoshoots`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const getPhotoshootById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}portfolio/getPhotoshootById/${id}`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
 export const getPhotoshootByName = async (name) => {
   try {
-    const res = await axios.get(`${baseURL}portfolio/getPhotoshootByName/${name}`);
+    const res = await axios.get(
+      `${baseURL}portfolio/getPhotoshootByName/${name}`
+    );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const createPhotoshoot = async (
@@ -267,8 +353,12 @@ export const createPhotoshoot = async (
       arrayOfPhotos: arrayOfPhotos,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const updatePhotoshootById = async (
@@ -289,8 +379,12 @@ export const updatePhotoshootById = async (
       }
     );
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -300,8 +394,12 @@ export const deletePhotoshootById = async (id) => {
       `${baseURL}portfolio/deletePhotoshootById/${id}`
     );
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -311,16 +409,24 @@ export const getAllBookings = async () => {
   try {
     const res = await axios.get(`${baseURL}booking/getAllBookings`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const getTheBookingById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}booking/getTheBookingById/${id}`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -341,11 +447,15 @@ export const createABooking = async (
       photoTypeId: photoTypeId,
       date: date,
       startTime: startTime,
-      endTime: endTime
+      endTime: endTime,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -355,18 +465,26 @@ export const acceptTheBooking = async (id, status) => {
       status: status,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
-export const declineTheBookingF = async (id, status) => {
+export const declineTheBooking = async (id, status) => {
   try {
     const res = await axios.put(`${baseURL}booking/declineTheBooking/${id}`, {
       status: status,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const deleteTheDeclinedBooking = async (id) => {
@@ -375,8 +493,12 @@ export const deleteTheDeclinedBooking = async (id) => {
       `${baseURL}booking/deleteTheDeclinedBooking/${id}`
     );
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
@@ -384,33 +506,41 @@ export const getAllMessages = async () => {
   try {
     const res = await axios.get(`${baseURL}message/getAllMessages`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const getTheMessageById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}message/getTheMessageById/${id}`);
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 
-export const createAMessage = async (
-  name,
-  email,
-  question,
-) => {
+export const createAMessage = async (name, email, question) => {
   try {
     const res = await axios.post(`${baseURL}message/createAMessage`, {
       name: name,
       email: email,
-      question: question
+      question: question,
     });
     return res.data;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };
 export const deleteTheMessage = async (id) => {
@@ -419,7 +549,11 @@ export const deleteTheMessage = async (id) => {
       `${baseURL}message/deleteTheDeclinedBooking/${id}`
     );
     return res;
-  } catch (error) {
-    return null;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
   }
 };

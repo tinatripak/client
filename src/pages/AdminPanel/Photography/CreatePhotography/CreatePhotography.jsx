@@ -5,8 +5,7 @@ import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import {
   createPhotoshoot,
-  getAllTypesOfPhotography,
-  getPhotoshoots,
+  getAllTypesOfPhotography
 } from "../../../../api";
 import { RxCross2 } from "react-icons/rx";
 

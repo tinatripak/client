@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateAnAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { createAnAdmin } from '../../../../api';
+import { createAdmin } from '../../../../api';
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 
 const CreateAnAdmin = () => {
@@ -15,8 +15,8 @@ const CreateAnAdmin = () => {
 
 
 
-  const createAdmin = () => {
-    createAnAdmin(username, email, password, photo)
+  const addAdmin = () => {
+    createAdmin(username, email, password, photo)
       .then((data) => {
         console.log(data);
       })
@@ -47,7 +47,7 @@ const CreateAnAdmin = () => {
         </Link>
         <h3>Create admin</h3>
       </div>
-      <form onSubmit={createAdmin}>
+      <form onSubmit={addAdmin}>
         <div className={classes.createAdmin__username}>
           <label htmlFor="title">Full name</label>
           <br />

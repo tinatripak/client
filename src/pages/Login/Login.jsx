@@ -9,6 +9,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import AdminPanel from '../AdminPanel/AdminPanel';
 import { useCookies } from 'react-cookie';
+import { loginUser } from '../../api';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Login = () => {
     });
     const [username, setUsername] = useState('');
     const { email, password } = inputValue;
+    const [data, setData] = useState({})
     const handleOnChange = (e) => {
       const { name, value } = e.target;
       setInputValue({
@@ -40,13 +42,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const { data } = await axios.post(
-          "http://localhost:4000/login",
-          {
-            ...inputValue,
-          },
-          { withCredentials: true }
-        );
+        loginUser(inputValue)
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
         const { success, message } = data;
         if (success) {
           handleSuccess(message);

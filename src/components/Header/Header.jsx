@@ -92,7 +92,7 @@ const Header = () => {
               </li>
               <li>
                 <NavLink
-                  to="/price"
+                  to="/types"
                   onClick={menuToggleHandler}
                   className={({ isActive }) =>
                     isActive ? classes.active : classes.inactive

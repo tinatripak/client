@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import classes from "./Home.module.scss";
-import { getHomePhotos } from "../../api";
+import { getAllHomePhotos } from "../../api";
 import Spinner from "../../components/Spinner/Spinner";
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
   const [imagesLoading, setImagesLoading] = useState(true);
 
   useEffect(() => {
-    getHomePhotos()
+    getAllHomePhotos()
       .then((data) => {
         setArrayOfPhotos(data?.data);
       })

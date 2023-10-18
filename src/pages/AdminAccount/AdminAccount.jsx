@@ -8,7 +8,6 @@ import AdminPanel from "../AdminPanel/AdminPanel";
 const AdminAccount = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
-  const [username, setUsername] = useState("");
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
@@ -20,7 +19,6 @@ const AdminAccount = () => {
         { withCredentials: true }
       );
       const { status, user } = data;
-      setUsername(user);
       return status
         ? console.log(`hello ${user}`)
         : (removeCookie("token"), navigate("/login"));

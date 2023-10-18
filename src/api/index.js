@@ -48,9 +48,9 @@ export const getAdminById = async (id) => {
     }
   }
 };
-export const createAnAdmin = async (username, email, password, photo) => {
+export const createAdmin = async (username, email, password, photo) => {
   try {
-    const res = await axios.post(`${baseURL}admin/createAnAdmin`, {
+    const res = await axios.post(`${baseURL}admin/createAdmin`, {
       username: username,
       email: email,
       password: password,
@@ -67,7 +67,7 @@ export const createAnAdmin = async (username, email, password, photo) => {
 };
 export const updateAdminById = async (id, username, email, password, photo) => {
   try {
-    const res = await axios.put(`${baseURL}admin/updateTheAdmin/${id}`, {
+    const res = await axios.put(`${baseURL}admin/updateAdminById/${id}`, {
       username: username,
       email: email,
       password: password,
@@ -82,9 +82,9 @@ export const updateAdminById = async (id, username, email, password, photo) => {
     }
   }
 };
-export const deleteAdmin = async (id) => {
+export const deleteAdminById = async (id) => {
   try {
-    const res = await axios.delete(`${baseURL}admin/deleteTheAdmin/${id}`);
+    const res = await axios.delete(`${baseURL}admin/deleteAdminById/${id}`);
     return res;
   } catch (err) {
     if (err.response.status === 404) {
@@ -96,7 +96,7 @@ export const deleteAdmin = async (id) => {
 };
 
 //home
-export const getHomePhotos = async () => {
+export const getAllHomePhotos = async () => {
   try {
     const res = await axios.get(`${baseURL}home/getAllHomePhotos`);
     return res.data;
@@ -108,7 +108,6 @@ export const getHomePhotos = async () => {
     }
   }
 };
-
 export const getHomePhotoById = async (id) => {
   try {
     const res = await axios.get(`${baseURL}home/getHomePhotoById/${id}`);
@@ -121,7 +120,6 @@ export const getHomePhotoById = async (id) => {
     }
   }
 };
-
 export const updateHomePhotoById = async (id, photo) => {
   try {
     const res = await axios.put(`${baseURL}home/updateHomePhotoById/${id}`, {
@@ -138,9 +136,9 @@ export const updateHomePhotoById = async (id, photo) => {
 };
 
 // bio
-export const getPhotographerInfo = async () => {
+export const getPhotographers = async () => {
   try {
-    const res = await axios.get(`${baseURL}photographer/getPhotographerBio`);
+    const res = await axios.get(`${baseURL}photographer/getPhotographers`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -150,11 +148,10 @@ export const getPhotographerInfo = async () => {
     }
   }
 };
-
-export const getPhotographerInfoById = async (id) => {
+export const getPhotographerById = async (id) => {
   try {
     const res = await axios.get(
-      `${baseURL}photographer/getPhotographerBioById/${id}`
+      `${baseURL}photographer/getPhotographerById/${id}`
     );
     return res.data;
   } catch (err) {
@@ -165,11 +162,10 @@ export const getPhotographerInfoById = async (id) => {
     }
   }
 };
-
-export const updatePhotographerInfo = async (id, bio, phoneNumber, photo) => {
+export const updatePhotographerById = async (id, bio, phoneNumber, photo) => {
   try {
     const res = await axios.put(
-      `${baseURL}photographer/updatePhotographerBioById/${id}`,
+      `${baseURL}photographer/updatePhotographerById/${id}`,
       {
         bio: bio,
         phoneNumber: phoneNumber,
@@ -190,7 +186,7 @@ export const updatePhotographerInfo = async (id, bio, phoneNumber, photo) => {
 export const getAllTypesOfPhotography = async () => {
   try {
     const res = await axios.get(
-      `${baseURL}typesOfPhotography/getAllTypesOfPhotography`
+      `${baseURL}typeOfPhotography/getAllTypesOfPhotography`
     );
     return res.data;
   } catch (err) {
@@ -201,11 +197,10 @@ export const getAllTypesOfPhotography = async () => {
     }
   }
 };
-
 export const getTypeOfPhotographyById = async (id) => {
   try {
     const res = await axios.get(
-      `${baseURL}typesOfPhotography/getTypeOfPhotographyById/${id}`
+      `${baseURL}typeOfPhotography/getTypeOfPhotographyById/${id}`
     );
     return res.data;
   } catch (err) {
@@ -216,11 +211,10 @@ export const getTypeOfPhotographyById = async (id) => {
     }
   }
 };
-
-export const getTypeOfPhotographyByName = async (name) => {
+export const getTypeOfPhotographyByTypeName = async (name) => {
   try {
     const res = await axios.get(
-      `${baseURL}typesOfPhotography/getTypeOfPhotographyByTypeName/${name}`
+      `${baseURL}typeOfPhotography/getTypeOfPhotographyByTypeName/${name}`
     );
     return res.data;
   } catch (err) {
@@ -231,8 +225,7 @@ export const getTypeOfPhotographyByName = async (name) => {
     }
   }
 };
-
-export const createOneTypeOfPhotography = async (
+export const createTypeOfPhotography = async (
   typeOfPhotography,
   shootingDuration,
   mainPhoto,
@@ -240,7 +233,7 @@ export const createOneTypeOfPhotography = async (
 ) => {
   try {
     const res = await axios.post(
-      `${baseURL}typesOfPhotography/createTypeOfPhotography`,
+      `${baseURL}typeOfPhotography/createTypeOfPhotography`,
       {
         typeOfPhotography: typeOfPhotography,
         shootingDuration: shootingDuration,
@@ -257,7 +250,7 @@ export const createOneTypeOfPhotography = async (
     }
   }
 };
-export const updateTypeOfPhotography = async (
+export const updateTypeOfPhotographyById = async (
   id,
   typeOfPhotography,
   shootingDuration,
@@ -266,7 +259,7 @@ export const updateTypeOfPhotography = async (
 ) => {
   try {
     const res = await axios.put(
-      `${baseURL}typesOfPhotography/updateTypeOfPhotographyById/${id}`,
+      `${baseURL}typeOfPhotography/updateTypeOfPhotographyById/${id}`,
       {
         typeOfPhotography: typeOfPhotography,
         shootingDuration: shootingDuration,
@@ -283,10 +276,10 @@ export const updateTypeOfPhotography = async (
     }
   }
 };
-export const deleteTypeOfPhotography = async (id) => {
+export const deleteTypeOfPhotographyById = async (id) => {
   try {
     const res = await axios.delete(
-      `${baseURL}typesOfPhotography/deleteTypeOfPhotographyById/${id}`
+      `${baseURL}typeOfPhotography/deleteTypeOfPhotographyById/${id}`
     );
     return res;
   } catch (err) {
@@ -302,7 +295,7 @@ export const deleteTypeOfPhotography = async (id) => {
 
 export const getPhotoshoots = async () => {
   try {
-    const res = await axios.get(`${baseURL}portfolio/getPhotoshoots`);
+    const res = await axios.get(`${baseURL}photoshoot/getPhotoshoots`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -314,7 +307,7 @@ export const getPhotoshoots = async () => {
 };
 export const getPhotoshootById = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}portfolio/getPhotoshootById/${id}`);
+    const res = await axios.get(`${baseURL}photoshoot/getPhotoshootById/${id}`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -324,11 +317,10 @@ export const getPhotoshootById = async (id) => {
     }
   }
 };
-
 export const getPhotoshootByName = async (name) => {
   try {
     const res = await axios.get(
-      `${baseURL}portfolio/getPhotoshootByName/${name}`
+      `${baseURL}photoshoot/getPhotoshootByName/${name}`
     );
     return res.data;
   } catch (err) {
@@ -346,7 +338,7 @@ export const createPhotoshoot = async (
   arrayOfPhotos
 ) => {
   try {
-    const res = await axios.post(`${baseURL}portfolio/createPhotoshoot`, {
+    const res = await axios.post(`${baseURL}photoshoot/createPhotoshoot`, {
       name: name,
       photoTypeId: photoTypeId,
       mainPhoto: mainPhoto,
@@ -370,7 +362,7 @@ export const updatePhotoshootById = async (
 ) => {
   try {
     const res = await axios.put(
-      `${baseURL}portfolio/updatePhotoshootById/${id}`,
+      `${baseURL}photoshoot/updatePhotoshootById/${id}`,
       {
         name: name,
         photoTypeId: photoTypeId,
@@ -387,11 +379,10 @@ export const updatePhotoshootById = async (
     }
   }
 };
-
 export const deletePhotoshootById = async (id) => {
   try {
     const res = await axios.delete(
-      `${baseURL}portfolio/deletePhotoshootById/${id}`
+      `${baseURL}photoshoot/deletePhotoshootById/${id}`
     );
     return res;
   } catch (err) {
@@ -417,9 +408,9 @@ export const getAllBookings = async () => {
     }
   }
 };
-export const getTheBookingById = async (id) => {
+export const getBookingById = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}booking/getTheBookingById/${id}`);
+    const res = await axios.get(`${baseURL}booking/getBookingById/${id}`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -429,8 +420,7 @@ export const getTheBookingById = async (id) => {
     }
   }
 };
-
-export const createABooking = async (
+export const createBooking = async (
   name,
   email,
   message,
@@ -440,7 +430,7 @@ export const createABooking = async (
   endTime
 ) => {
   try {
-    const res = await axios.post(`${baseURL}booking/createABooking`, {
+    const res = await axios.post(`${baseURL}booking/createBooking`, {
       name: name,
       email: email,
       message: message,
@@ -458,10 +448,9 @@ export const createABooking = async (
     }
   }
 };
-
-export const acceptTheBooking = async (id, status) => {
+export const acceptBookingById = async (id, status) => {
   try {
-    const res = await axios.put(`${baseURL}booking/acceptTheBooking/${id}`, {
+    const res = await axios.put(`${baseURL}booking/acceptBookingById/${id}`, {
       status: status,
     });
     return res.data;
@@ -473,9 +462,9 @@ export const acceptTheBooking = async (id, status) => {
     }
   }
 };
-export const declineTheBooking = async (id, status) => {
+export const declineBookingById = async (id, status) => {
   try {
-    const res = await axios.put(`${baseURL}booking/declineTheBooking/${id}`, {
+    const res = await axios.put(`${baseURL}booking/declineBookingById/${id}`, {
       status: status,
     });
     return res.data;
@@ -487,10 +476,10 @@ export const declineTheBooking = async (id, status) => {
     }
   }
 };
-export const deleteTheDeclinedBooking = async (id) => {
+export const deleteDeclinedBookingById = async (id) => {
   try {
     const res = await axios.delete(
-      `${baseURL}booking/deleteTheDeclinedBooking/${id}`
+      `${baseURL}booking/deleteDeclinedBookingById/${id}`
     );
     return res;
   } catch (err) {
@@ -501,10 +490,26 @@ export const deleteTheDeclinedBooking = async (id) => {
     }
   }
 };
-
-export const getAllMessages = async () => {
+export const verifyBooking = async (uniqueString) => {
   try {
-    const res = await axios.get(`${baseURL}message/getAllMessages`);
+    const res = await axios.put(
+      `${baseURL}booking/verifyBooking/${uniqueString}`
+    );
+    return res.data;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Booking could not be found!");
+    } else {
+      console.log(err.message);
+    }
+  }
+};
+
+//questions
+
+export const getAllQuestions = async () => {
+  try {
+    const res = await axios.get(`${baseURL}question/getAllQuestions`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -514,9 +519,9 @@ export const getAllMessages = async () => {
     }
   }
 };
-export const getTheMessageById = async (id) => {
+export const getQuestionById = async (id) => {
   try {
-    const res = await axios.get(`${baseURL}message/getTheMessageById/${id}`);
+    const res = await axios.get(`${baseURL}question/getQuestionById/${id}`);
     return res.data;
   } catch (err) {
     if (err.response.status === 404) {
@@ -526,10 +531,9 @@ export const getTheMessageById = async (id) => {
     }
   }
 };
-
-export const createAMessage = async (name, email, question) => {
+export const createQuestion = async (name, email, question) => {
   try {
-    const res = await axios.post(`${baseURL}message/createAMessage`, {
+    const res = await axios.post(`${baseURL}question/createQuestion`, {
       name: name,
       email: email,
       question: question,
@@ -543,10 +547,10 @@ export const createAMessage = async (name, email, question) => {
     }
   }
 };
-export const deleteTheMessage = async (id) => {
+export const deleteQuestionById = async (id) => {
   try {
     const res = await axios.delete(
-      `${baseURL}message/deleteTheDeclinedBooking/${id}`
+      `${baseURL}question/deleteQuestionById/${id}`
     );
     return res;
   } catch (err) {

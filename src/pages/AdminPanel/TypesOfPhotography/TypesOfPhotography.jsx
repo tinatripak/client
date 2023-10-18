@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { RiEditCircleLine } from "react-icons/ri";
 import {
-  deleteTypeOfPhotography,
-  getAllTypesOfPhotography,
+  deleteTypeOfPhotographyById,
+  getAllTypesOfPhotography
 } from "../../../api";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
@@ -29,7 +29,7 @@ const TypesOfPhotography = () => {
   };
 
   const handleDeleteTypeOfPhotography = (id) => {
-    deleteTypeOfPhotography(id)
+    deleteTypeOfPhotographyById(id)
       .then(() => {
         setArrayOfTypes((prevList) => prevList.filter((x) => x._id !== id));
       })
@@ -39,7 +39,7 @@ const TypesOfPhotography = () => {
   };
 
   const handleCreate = () => {
-    navigate("/adminDashboard/types/create");
+    navigate("/adminDashboard/type/create");
   };
 
   return (
@@ -69,7 +69,7 @@ const TypesOfPhotography = () => {
                     classes.types__cards__card__titleWithActions__actions
                   }
                 >
-                  <Link to={`/adminDashboard/types/edit/${el?._id}`}>
+                  <Link to={`/adminDashboard/type/edit/${el?._id}`}>
                     <RiEditCircleLine
                       size={22}
                       className={

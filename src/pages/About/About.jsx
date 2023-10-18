@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./About.module.scss";
-import { getAllTypesOfPhotography, getPhotographerInfo } from "../../api";
+import { getAllTypesOfPhotography, getPhotographers } from "../../api";
 import Spinner from "../../components/Spinner/Spinner";
 
 
 const About = () => {
   const [bio, setBio] = useState([]);
   useEffect(() => {
-    getPhotographerInfo()
+    getPhotographers()
       .then((data) => {
-        setBio(data?.data[0]);
+        if(data?.data.length === 1){
+          setBio(data?.data[0]);
+        }
       })
       .catch((error) => {
         console.error(error);

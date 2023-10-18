@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import classes from "./Price.module.scss";
-import { getAllTypesOfPhotography } from "../../api";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
+import classes from "./TypesOfShooting.module.scss";
+import { getAllTypesOfPhotography } from "../../../api";
 import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner/Spinner";
+import Spinner from "../../../components/Spinner/Spinner";
 
-const Price = () => {
+const TypesOfShooting = () => {
   const [typesOfPhotography, setTypesOfPhotography] = useState([]);
   useEffect(() => {
     getAllTypesOfPhotography()
@@ -35,19 +35,19 @@ const Price = () => {
       <div style={{ display: loading ? "none" : "block" }}>
         <div>
           <Header />
-          <div className={classes.price}>
+          <div className={classes.types}>
             {typesOfPhotography.map((el, index) => (
               <div key={index}>
-                <Link to={`/price/${el?.typeOfPhotography}`}>
-                  <div className={classes.price__element}>
+                <Link to={`/type/${el?.typeOfPhotography}`}>
+                  <div className={classes.types__element}>
                     <article>
                       <img
                         src={el?.mainPhoto}
                         alt="background"
-                        className={classes.price__element__img}
+                        className={classes.types__element__img}
                         onLoad={imageLoaded}
                       />
-                      <h1 className={classes.price__element__h1}>
+                      <h1 className={classes.types__element__h1}>
                         {el?.typeOfPhotography}
                       </h1>
                     </article>
@@ -63,4 +63,4 @@ const Price = () => {
   );
 };
 
-export default Price;
+export default TypesOfShooting;

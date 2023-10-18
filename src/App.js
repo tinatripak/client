@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { About, Booking, Home, Portfolio, Price, PortfolioOneShoot, Login, AdminAccount } from "./pages";
+import { About, Booking, Home, Portfolio, TypesOfShooting, TypeOfShooting, PortfolioOneShoot, Login, AdminAccount, VerifyBooking } from "./pages";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
-import PriceById from "./pages/Price/PriceById";
 
 function App() {
   return (
@@ -10,8 +9,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/price" element={<Price />} />
-        <Route path="/price/:name" element={<PriceById />} />
+        <Route path="/types" element={<TypesOfShooting />} />
+        <Route path="/verifyBooking/:uniqueString" element={<VerifyBooking />} />
+        <Route path="/type/:name" element={<TypeOfShooting />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:name" element={<PortfolioOneShoot />} />

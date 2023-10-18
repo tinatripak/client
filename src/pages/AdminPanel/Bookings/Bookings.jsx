@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllBookings, getAllTypesOfPhotography } from "../../../api";
 import { useTable } from "react-table";
-import classes from "./Booking.module.scss";
+import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { BsCheckLg } from "react-icons/bs";
 
@@ -71,24 +71,24 @@ const Booking = () => {
         Header: "ACCEPT",
         accessor: "accept",
         Cell: ({ row }) => (
-          <span
+          <div
             onClick={() => handleAccept(row.original)}
             className={classes.booking__accept_button}
           >
             <BsCheckLg color="green" size={20} />
-          </span>
+          </div>
         ),
       },
       {
         Header: "DECLINE",
         accessor: "decline",
         Cell: ({ row }) => (
-          <span
+          <div
             onClick={() => handleDecline(row.original)}
             className={classes.booking__decline_button}
           >
             <RxCross2 color="#red" size={20} />
-          </span>
+          </div>
         ),
       },
     ],

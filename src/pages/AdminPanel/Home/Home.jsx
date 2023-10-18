@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RiEditCircleLine } from "react-icons/ri";
 import classes from "./Home.module.scss";
 import { Link } from "react-router-dom";
-import { getHomePhotos } from "../../../api";
+import { getAllHomePhotos } from "../../../api";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   const getPhotos = () => {
-    getHomePhotos()
+    getAllHomePhotos()
       .then((data) => {
         setArrayOfPhotos(data?.data);
       })

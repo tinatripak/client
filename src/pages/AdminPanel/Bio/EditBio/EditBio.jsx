@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditBio.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getPhotographerInfoById, updatePhotographerInfo } from "../../../../api";
+import { getPhotographerById, updatePhotographerById } from "../../../../api";
 
 const EditBio = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const EditBio = () => {
     const updatedPhoneNumber = newPhoneNumber !== "" ? newPhoneNumber : oldPhoneNumber;
     console.log(id, updatedBio, updatedPhoneNumber, updatedPhoto)
 
-    updatePhotographerInfo(id, updatedBio, updatedPhoneNumber, updatedPhoto)
+    updatePhotographerById(id, updatedBio, updatedPhoneNumber, updatedPhoto)
       .then((data) => {
         console.log(data);
       })
@@ -39,7 +39,7 @@ const EditBio = () => {
   };
 
   const getOldBio = () => {
-    getPhotographerInfoById(id)
+    getPhotographerById(id)
       .then((data) => {
         console.log(data)
         setOldBio(data?.data?.bio);

@@ -10,7 +10,7 @@ import classes from "./AdminPanel.module.scss";
 
 import Home from './Home/Home';
 import Admins from './Admins/Admins';
-import Booking from './Booking/Booking';
+import Bookings from './Bookings/Bookings';
 import Bio from './Bio/Bio';
 import Photography from './Photography/Photography';
 import TypesOfPhotography from './TypesOfPhotography/TypesOfPhotography';
@@ -21,18 +21,17 @@ import { CreateAnAdmin, EditAdmin } from './Admins';
 
 import jwtDecode from 'jwt-decode';
 import { getAdminById } from '../../api';
-import { useUserContext } from '../../components/UserContext';
 import CreateTypeOfPhotography from './TypesOfPhotography/CreateTypeOfPhotography/CreateTypeOfPhotography';
 import EditTypeOfPhotography from './TypesOfPhotography/EditTypeOfPhotography/EditTypeOfPhotography';
-import CreateBooking from './Booking/CreateBooking/CreateBooking';
-import EditBooking from './Booking/EditBooking/EditBooking';
+import CreateBooking from './Bookings/CreateBooking/CreateBooking';
+import EditBooking from './Bookings/EditBooking/EditBooking';
 import UpdatePhotography from './Photography/UpdatePhotography/UpdatePhotography';
 import CreatePhotography from './Photography/CreatePhotography/CreatePhotography';
+import Questions from './Questions/Questions';
 
 
 const AdminPanel = () => {
     const navigate = useNavigate();
-    const {userData} = useUserContext();
     const [cookies, removeCookie] = useCookies([]);
     const Logout = () => {
         removeCookie("token");
@@ -143,7 +142,7 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/booking"}
+                                to={"/adminDashboard/bookings"}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -163,6 +162,18 @@ const AdminPanel = () => {
                                 }}
                             >
                                 Admins
+                            </NavLink>
+                        </div>
+                        <div className={classes.panel__menu__navLinks__link}>
+                            <NavLink
+                                to={"/adminDashboard/questions"}
+                                style={({ isActive }) => {
+                                    return {
+                                      textDecoration: isActive ? "underline" : "",
+                                    };
+                                }}
+                            >
+                                Questions
                             </NavLink>
                         </div>
                     </div>
@@ -188,8 +199,8 @@ const AdminPanel = () => {
                 <div className={classes.panel__main__settings}>
                     <BsBell className={classes.panel__main__settings__icon} size={20}/>
                     <div className={classes.panel__main__settings__user}>
-                        <img src={admin?.photo || userData?.photo} alt="User photo" />
-                            <p>{admin?.username || userData?.username}</p>
+                        <img src={admin?.photo} alt="User photo" />
+                            <p>{admin?.username}</p>
                             <div className={classes.panel__main__settings__user__menu}>
                             {isArrowDown ? (
                                     <IoIosArrowDown onClick={toggleArrow} />
@@ -223,10 +234,10 @@ const AdminPanel = () => {
                             <Route path="/photography/create" element={<CreatePhotography />} />
 
                             <Route path="/types" element={<TypesOfPhotography />} />
-                            <Route path="/types/edit/:id" element={<EditTypeOfPhotography />} />
-                            <Route path="/types/create" element={<CreateTypeOfPhotography />} />
+                            <Route path="/type/edit/:id" element={<EditTypeOfPhotography />} />
+                            <Route path="/type/create" element={<CreateTypeOfPhotography />} />
 
-                            <Route path="/booking" element={<Booking />} />
+                            <Route path="/bookings" element={<Bookings />} />
                             <Route path="/booking/edit/:id" element={<EditBooking />} />
                             <Route path="/booking/create" element={<CreateBooking />} />
 
@@ -234,6 +245,7 @@ const AdminPanel = () => {
                             <Route path="/admin/create" element={<CreateAnAdmin />} />
                             <Route path="/admin/edit/:id" element={<EditAdmin />} />
 
+                            <Route path="/questions" element={<Questions />} />
                         </Routes>
                 </div>
             </div>

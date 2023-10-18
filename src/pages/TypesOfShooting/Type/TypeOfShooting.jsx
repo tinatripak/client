@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import classes from "./PriceById.module.scss";
-import { getTypeOfPhotographyByName } from "../../api";
-import Spinner from "../../components/Spinner/Spinner";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
+import classes from "./TypeOfShooting.module.scss";
+import { getTypeOfPhotographyByTypeName } from "../../../api";
+import Spinner from "../../../components/Spinner/Spinner";
 
-const PriceById = () => {
+const TypeOfShooting = () => {
   const { name } = useParams();
   const [typeOfPhotography, setTypeOfPhotography] = useState([]);
   useEffect(() => {
-    getTypeOfPhotographyByName(name)
+    getTypeOfPhotographyByTypeName(name)
       .then((data) => {
         setTypeOfPhotography(data?.data);
       })
@@ -59,4 +59,4 @@ const PriceById = () => {
   );
 };
 
-export default PriceById;
+export default TypeOfShooting;

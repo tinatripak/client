@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAdmins, deleteAdmin } from '../../../api';
+import { deleteAdminById, getAllAdmins } from '../../../api';
 import { useTable } from 'react-table';
 import classes from "./Admins.module.scss";
-import { IoAddCircle, IoTrash } from 'react-icons/io5';
+import { IoAddCircle } from 'react-icons/io5';
 import {FiEdit2} from 'react-icons/fi';
 import {BsTrashFill} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
-
-const photoTextStyle = {
-  width: '300px', 
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-}
 
 const Admins = () => {
   const [adminList, setAdminList] = useState([]);
@@ -107,7 +100,7 @@ const Admins = () => {
   };
 
   const handleDelete = (admin) => {
-    deleteAdmin(admin._id)
+    deleteAdminById(admin._id)
       .then(() => {
         setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
         alert(`Admin ${admin.username} was deleted`)

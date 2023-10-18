@@ -5,7 +5,7 @@ import classes from "./EditTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import {
   getTypeOfPhotographyById,
-  updateTypeOfPhotography,
+  updateTypeOfPhotographyById,
 } from "../../../../api";
 
 const EditTypeOfPhotography = () => {
@@ -37,7 +37,7 @@ const EditTypeOfPhotography = () => {
     const updatedShootingDuration = newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
     console.log(id, updatedText, updatedTypeOfPhotography, updatedPhoto);
 
-    updateTypeOfPhotography(
+    updateTypeOfPhotographyById(
       id, updatedTypeOfPhotography, updatedShootingDuration, updatedPhoto, updatedText
     )
       .then((data) => {

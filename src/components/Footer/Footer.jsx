@@ -35,7 +35,7 @@ const Footer = () => {
             </li>
             <li><span>|</span></li>
             <li>
-              <NavLink to="/price">Price</NavLink>
+              <NavLink to="/types">Price</NavLink>
             </li>
             <li><span>|</span></li>
             <li>

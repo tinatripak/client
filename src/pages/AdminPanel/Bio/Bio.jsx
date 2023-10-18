@@ -1,7 +1,7 @@
 import {RiEditCircleLine} from 'react-icons/ri';
 import React, { useEffect, useState } from 'react'
 import classes from "./Bio.module.scss";
-import { getPhotographerInfo } from '../../../api';
+import { getPhotographers } from '../../../api';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const Bio = () => {
   const [bioInfo, setBioInfo] = useState({});
 
     useEffect(() => {
-      getPhotographerInfo()
+      getPhotographers()
         .then((data) => {
           setBioInfo(data?.data[0]);
         })

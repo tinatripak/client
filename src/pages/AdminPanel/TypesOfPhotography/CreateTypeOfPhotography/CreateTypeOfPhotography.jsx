@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import { createOneTypeOfPhotography } from "../../../../api";
+import { createTypeOfPhotography } from "../../../../api";
 
 const CreateTypeOfPhotography = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const CreateTypeOfPhotography = () => {
 
   const createType = () => {
     console.log(typeOfPhotography, shootingDuration, mainPhoto, text)
-    createOneTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text)
+    createTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text)
       .then((data) => {
         console.log(data);
       })

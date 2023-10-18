@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { createAMessage } from "../../api";
 import classes from "./ConactForm.module.scss";
+import { createQuestion } from "../../api";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -8,7 +8,7 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
-    createAMessage(name, email, message)
+    createQuestion(name, email, message)
       .then((data) => {
         console.log(data);
       })
@@ -29,6 +29,7 @@ const ContactForm = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+
           <div className={classes.contactForm__commonBlock__emailInput}>
             <label htmlFor="email">Email:</label>
             <input
@@ -47,6 +48,7 @@ const ContactForm = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
         </div>
+        
         <button className={classes.contactForm__sendButton} type="submit">
           Send
         </button>

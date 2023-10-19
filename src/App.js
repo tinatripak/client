@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { About, Booking, Home, Portfolio, TypesOfShooting, TypeOfShooting, PortfolioOneShoot, Login, AdminAccount, VerifyBooking } from "./pages";
+import { About, Booking, Home, Portfolio, TypesOfShooting, TypeOfShooting, PortfolioOneShoot, Login, AdminAccount, VerifyBooking, ContactUs } from "./pages";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/types" element={<TypesOfShooting />} />
+        <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/verifyBooking/:uniqueString" element={<VerifyBooking />} />
         <Route path="/type/:name" element={<TypeOfShooting />} />
         <Route path="/booking" element={<Booking />} />

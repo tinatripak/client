@@ -28,6 +28,7 @@ import EditBooking from './Bookings/EditBooking/EditBooking';
 import UpdatePhotography from './Photography/UpdatePhotography/UpdatePhotography';
 import CreatePhotography from './Photography/CreatePhotography/CreatePhotography';
 import Questions from './Questions/Questions';
+import AnswerQuestion from './Questions/AnswerQuestion/AnswerQuestion';
 
 
 const AdminPanel = () => {
@@ -246,6 +247,7 @@ const AdminPanel = () => {
                             <Route path="/admin/edit/:id" element={<EditAdmin />} />
 
                             <Route path="/questions" element={<Questions />} />
+                            <Route path="/question/answer/:id" element={<AnswerQuestion />} />
                         </Routes>
                 </div>
             </div>

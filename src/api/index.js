@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:4000/";
+const baseURL = "http://localhost:8000/";
 
 export const loginUser = async (inputValue) => {
   try {
@@ -553,6 +553,23 @@ export const deleteQuestionById = async (id) => {
       `${baseURL}question/deleteQuestionById/${id}`
     );
     return res;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
+  }
+};
+
+export const answerToQuestion = async ( id, email, question, answer) => {
+  try {
+    await axios.post(`${baseURL}question/answerToQuestion`, {
+      id: id,
+      email: email,
+      question: question,
+      answer: answer,
+    });
   } catch (err) {
     if (err.response.status === 404) {
       console.log("Resource could not be found!");

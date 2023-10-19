@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useTable } from "react-table";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import classes from "./Questions.module.scss";
-import { getAllQuestions } from '../../../api';
-
+import { getAllQuestions } from "../../../api";
+import NotFound from "../../../components/NotFound/NotFound";
+import { Link } from "react-router-dom";
 
 const Questions = () => {
   const [listOfQuestions, setListOfQuestions] = useState([]);
+
   useEffect(() => {
     getAllQuestions()
       .then((data) => {
@@ -16,7 +18,6 @@ const Questions = () => {
         console.error(error);
       });
   }, [listOfQuestions]);
-
 
   const columns = React.useMemo(
     () => [
@@ -31,77 +32,92 @@ const Questions = () => {
         Cell: ({ row }) => <p>{row.original.email}</p>,
       },
       {
-        Header: "MESSAGE",
-        accessor: "message",
-        Cell: ({ row }) => <p>{row.original.message}</p>,
+        Header: "QUESTION",
+        accessor: "question",
+        Cell: ({ row }) => <p>{row.original.question}</p>,
       },
       {
         Header: "ANSWER",
         accessor: "answer",
-        Cell: ({ row }) => <div
-          onClick={() => answerQuestion(row.original)}
-            className={classes.question__answer_button}>
-          <RiQuestionAnswerFill/>
-        </div>
-      }
-    ], []
+        Cell: ({ row }) => (
+          <div
+            className={classes.question__answer_button}
+          >
+            <Link to={`/adminDashboard/question/answer/${row.original._id}`}>
+              <RiQuestionAnswerFill size={30}/>
+            </Link>
+          </div>
+        ),
+      },
+    ],
+    []
   );
-  const answerQuestion = () => {
-    console.log("answer")
-  }
 
   const data = React.useMemo(() => listOfQuestions, [listOfQuestions]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-  
+
   return (
     <div className={classes.question}>
-      <table {...getTableProps()} className={classes.question__question_table}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr
-              {...headerGroup.getHeaderGroupProps()}
-              className={classes.question__question_table__header}
-            >
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className={classes.question__question_table__header__cell}
+      {listOfQuestions.length === 0 ? (
+        <div>
+          <NotFound />
+        </div>
+      ) : (
+        <div>
+          <table
+            {...getTableProps()}
+            className={classes.question__question_table}
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  {...headerGroup.getHeaderGroupProps()}
+                  className={classes.question__question_table__header}
                 >
-                  {column.render("Header")}
-                </th>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps()}
+                      className={classes.question__question_table__header__cell}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody
-          {...getTableBodyProps()}
-          className={classes.question__question_table__body}
-        >
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                className={classes.question__question_table__body__row}
-                key={row.id}
-              >
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps()}
-                    className={classes.question__question_table__body__row__cell}
+            </thead>
+            <tbody
+              {...getTableBodyProps()}
+              className={classes.question__question_table__body}
+            >
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    className={classes.question__question_table__body__row}
+                    key={row.id}
                   >
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    {row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps()}
+                        className={
+                          classes.question__question_table__body__row__cell
+                        }
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Questions
+export default Questions;

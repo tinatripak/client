@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap');
+
+.question{
+    font-family: 'Cormorant Garamond';
+    margin-top: 30px;
+  
+      &__question_table{
+          width: 90%;
+          margin-left: auto;
+          margin-right: auto;
+          border-collapse: collapse;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+          font-size: 18px;
+  
+  
+          &__header{
+  
+              &__cell{
+                  background-color: #f6f6f6;
+                  text-align: center;
+                  color: #616161;
+                  padding: 5px 10px;
+                  height: 60px;
+  
+              }
+          }
+          &__body{
+              &__row{
+                  &__cell{
+                      border: 1px solid white;
+                      border-right: 1px solid rgb(219, 219, 219);
+                      border-bottom: 1px solid rgb(219, 219, 219);
+                      padding: 5px 10px;
+                  }
+              }
+  
+              :hover{
+                  font-weight: bolder;
+                  background-color: #e2e2e2;
+              }
+          }
+      }
+      &__answer_button{
+            text-align: center;
+            cursor: pointer;
+      }
+  }
+  

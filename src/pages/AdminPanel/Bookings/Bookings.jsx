@@ -4,6 +4,7 @@ import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { BsCheckLg } from "react-icons/bs";
+import NotFound from "../../../components/NotFound/NotFound";
 
 const Booking = () => {
   const [bookingList, setBookingList] = useState([]);
@@ -17,7 +18,7 @@ const Booking = () => {
         console.error(error);
       });
   }, [bookingList]);
-  
+
   useEffect(() => {
     getAllTypesOfPhotography()
       .then((res) => {
@@ -27,9 +28,9 @@ const Booking = () => {
         console.error(error);
       });
   }, [arrayOfTypes]);
-  
+
   const findPhotoNameById = (photoTypeId) => {
-    if(arrayOfTypes){
+    if (arrayOfTypes) {
       const type = arrayOfTypes.find((type) => type?._id === photoTypeId);
       return type?.typeOfPhotography;
     }
@@ -55,7 +56,7 @@ const Booking = () => {
       {
         Header: "PHOTOSHOOT",
         accessor: "photoType",
-        Cell: ({ row }) => <p>{findPhotoNameById(row.original.photoTypeId)}</p>,
+        Cell: ({ row }) => <p>{row.original.photoTypeId}</p>,
       },
       {
         Header: "DATE",
@@ -118,49 +119,62 @@ const Booking = () => {
 
   return (
     <div className={classes.booking}>
-      <table {...getTableProps()} className={classes.booking__booking_table}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr
-              {...headerGroup.getHeaderGroupProps()}
-              className={classes.booking__booking_table__header}
-            >
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  className={classes.booking__booking_table__header__cell}
+      {bookingList.length === 0 ? (
+        <div>
+          <NotFound />
+        </div>
+      ) : (
+        <div>
+          <table
+            {...getTableProps()}
+            className={classes.booking__booking_table}
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  {...headerGroup.getHeaderGroupProps()}
+                  className={classes.booking__booking_table__header}
                 >
-                  {column.render("Header")}
-                </th>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps()}
+                      className={classes.booking__booking_table__header__cell}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody
-          {...getTableBodyProps()}
-          className={classes.booking__booking_table__body}
-        >
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                className={classes.booking__booking_table__body__row}
-                key={row.id}
-              >
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps()}
-                    className={classes.booking__booking_table__body__row__cell}
+            </thead>
+            <tbody
+              {...getTableBodyProps()}
+              className={classes.booking__booking_table__body}
+            >
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    {...row.getRowProps()}
+                    className={classes.booking__booking_table__body__row}
+                    key={row.id}
                   >
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    {row.cells.map((cell) => (
+                      <td
+                        {...cell.getCellProps()}
+                        className={
+                          classes.booking__booking_table__body__row__cell
+                        }
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

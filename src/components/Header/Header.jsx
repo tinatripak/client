@@ -114,6 +114,18 @@ const Header = () => {
                   Booking
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/contactUs"
+                  onClick={menuToggleHandler}
+                  className={({ isActive }) =>
+                    isActive ? classes.active : classes.inactive
+                  }
+                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
+                >
+                  Contact Us
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </div>

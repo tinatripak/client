@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
+import NotFound from "../../../components/NotFound/NotFound";
 
 const TypesOfPhotography = () => {
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
@@ -89,16 +90,7 @@ const TypesOfPhotography = () => {
             </div>
           ))
         ) : (
-          <div className={classes.types__notFound}>
-            <div className={classes.types__notFound__photo}>
-              <LazyLoadImage
-                src="http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696457741/ue0nzgv7y4j7mlcw0qml.png"
-                effect="blur"
-              />
-            </div>
-            <h3>No records has been added yet.</h3>
-            <h4>Add a new record by clicking the button on top center side.</h4>
-          </div>
+          <NotFound/>
         )}
       </div>
     </div>

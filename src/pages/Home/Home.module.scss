@@ -73,24 +73,4 @@
             grid-row: 6 / span 3;
         }
     }
-    &__contactForm{
-        margin-top: 7vh;
-        margin-bottom: 7vh;
-        img{
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit:cover;
-            margin-bottom: 3vh;
-        }
-        &__title{
-            font-family: $Gotu;
-            font-size: 18px;
-            text-align: center;
-            padding-bottom: 20px;
-        }
-    }
 }

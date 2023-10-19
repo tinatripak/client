@@ -39,7 +39,7 @@ const Booking = () => {
   useEffect(() => {
     const backgroundImage = new Image();
     backgroundImage.src =
-      "http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png";
+      "https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg";
     backgroundImage.onload = () => {
       setBackgroundImageLoading(false);
     };
@@ -282,7 +282,7 @@ const Booking = () => {
           <div
             className={classes.booking__image}
             style={{
-              backgroundImage: `url("http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696621609/hx6bqbb3tzhdengkxgnt.png")`,
+              backgroundImage: `url("https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg")`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               color: "white",

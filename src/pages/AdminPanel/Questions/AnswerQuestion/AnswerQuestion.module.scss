@@ -1,0 +1,27 @@
+@import "../../../../variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap');
+
+.answer{
+      &__textarea{
+            border-radius: 10px;
+            width: 640px;
+            height: 20vh;
+            display: block;
+            padding: 10px 10px;
+            font-size: 16px;
+            @include breakpoint(xs) {
+                width: 80vw;
+            }
+      }
+      &__button{
+            margin-top: 4vh;
+            border: none;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border-radius: 13px;
+            padding: 6px 40px;
+            font-size: 14px;
+            font-family: $Gotu;
+            display: flex;
+      }
+}

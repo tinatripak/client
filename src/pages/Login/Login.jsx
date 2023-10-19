@@ -42,13 +42,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        loginUser(inputValue)
-        .then((data) => {
-          setData(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        const { data } = await axios.post(
+          "http://localhost:8000/login",
+          {
+            ...inputValue,
+          },
+          { withCredentials: true }
+        );
         const { success, message } = data;
         if (success) {
           handleSuccess(message);

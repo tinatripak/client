@@ -14,22 +14,7 @@
             font-size: 18px;
         }
     }
-
-    &__notFound{
-        margin-top: 50px;
-        &__photo{
-            display: flex;
-            justify-content: center;
-            margin-bottom: 0px;
-            img{
-                width: 300px;
-            }
-        }
-        h3,h4{
-            text-align: center;
-        }
-    }
-
+    
     &__cards{
         display: flex;
         flex-wrap: wrap;

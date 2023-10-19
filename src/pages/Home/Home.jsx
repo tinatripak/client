@@ -91,13 +91,6 @@ const Home = () => {
             </figure>
           ))}
         </div>
-        <div className={classes.home__photoOfPhotographer}></div>
-        <div className={classes.home__contactForm}>
-          <p className={classes.home__contactForm__title}>
-            If you have any questions, ask them here:
-          </p>
-          <ContactForm />
-        </div>
         <Footer />
       </div>
     </div>

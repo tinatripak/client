@@ -2,6 +2,18 @@ import axios from "axios";
 
 const baseURL = "http://localhost:8000/";
 
+export const userVerification = async () => {
+  try {
+    const res = await axios.post(`${baseURL}`, {}, { withCredentials: true });
+    return res;
+  } catch (err) {
+    if (err.response.status === 404) {
+      console.log("Resource could not be found!");
+    } else {
+      console.log(err.message);
+    }
+  }
+};
 export const loginUser = async (inputValue) => {
   try {
     const res = await axios.post(
@@ -562,7 +574,7 @@ export const deleteQuestionById = async (id) => {
   }
 };
 
-export const answerToQuestion = async ( id, email, question, answer) => {
+export const answerToQuestion = async (id, email, question, answer) => {
   try {
     await axios.post(`${baseURL}question/answerToQuestion`, {
       id: id,

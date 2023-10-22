@@ -37,7 +37,7 @@ abbr[title] {
     color: #010101;
 }
 .react-calendar__tile--now {
-    background: #c5a5df;
+    background: #c5a5df !important;
     font-weight: bold;
     color: #ffffff;
 }

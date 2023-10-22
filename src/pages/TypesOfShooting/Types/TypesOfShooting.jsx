@@ -1,38 +1,30 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import classes from "./TypesOfShooting.module.scss";
 import { getAllTypesOfPhotography } from "../../../api";
 import { Link } from "react-router-dom";
-import Spinner from "../../../components/Spinner/Spinner";
+import ConditionalRender from "../../../components/ConditionalRender/ConditionalRender";
 
 const TypesOfShooting = () => {
   const [typesOfPhotography, setTypesOfPhotography] = useState([]);
+  const [isLoadedTypes, setIsLoadedTypes] = useState(false);
+
   useEffect(() => {
     getAllTypesOfPhotography()
       .then((data) => {
         setTypesOfPhotography(data?.data);
+        setIsLoadedTypes(true);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-  const [loading, setLoading] = useState(true);
-  const counter = useRef(0);
-  const imageLoaded = () => {
-    counter.current += 1;
-    if (counter.current >= typesOfPhotography.length) {
-      setLoading(false);
-    }
-  };
-
   return (
-    <>
-      <div style={{ display: loading ? "block" : "none" }}>
-        <Spinner />
-      </div>
-      <div style={{ display: loading ? "none" : "block" }}>
+    <ConditionalRender
+      conditions={[isLoadedTypes]}
+      content={
         <div>
           <Header />
           <div className={classes.types}>
@@ -45,7 +37,6 @@ const TypesOfShooting = () => {
                         src={el?.mainPhoto}
                         alt="background"
                         className={classes.types__element__img}
-                        onLoad={imageLoaded}
                       />
                       <h1 className={classes.types__element__h1}>
                         {el?.typeOfPhotography}
@@ -58,8 +49,8 @@ const TypesOfShooting = () => {
           </div>
           <Footer />
         </div>
-      </div>
-    </>
+      }
+    />
   );
 };
 

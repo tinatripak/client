@@ -34,23 +34,23 @@ import AnswerQuestion from './Questions/AnswerQuestion/AnswerQuestion';
 const AdminPanel = () => {
     const navigate = useNavigate();
     const [cookies, removeCookie] = useCookies([]);
-    const Logout = () => {
-        removeCookie("token");
-        navigate("/login");
-    };
+    
     const [admin, setAdmin] = useState([])
-
-    const decoded = jwtDecode(cookies.token);
-
     const [isArrowDown, setIsArrowDown] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isSwitchOff, setIsSwitchOff] = useState(true);
+
+    const decoded = jwtDecode(cookies.token);
 
     const toggleArrow = () => {
         setIsArrowDown(!isArrowDown);
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const [isSwitchOff, setIsSwitchOff] = useState(true);
+    const Logout = () => {
+        removeCookie("token");
+        navigate("/login");
+    };
 
     const toggleSwitch = () => {
         setIsSwitchOff(!isSwitchOff);
@@ -64,11 +64,6 @@ const AdminPanel = () => {
         }
     };
 
-    useEffect(() => {
-        removeUndefinedCookies();
-        getAdmin();
-    }, []);
-
     const getAdmin = () =>{
         getAdminById(decoded.id)
         .then((data) => {
@@ -79,6 +74,10 @@ const AdminPanel = () => {
         });
     }
 
+    useEffect(() => {
+        removeUndefinedCookies();
+        getAdmin();
+    }, []);
 
     return (
         <div className={classes.panel}>

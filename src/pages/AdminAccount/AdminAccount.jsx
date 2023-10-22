@@ -1,38 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import AdminPanel from "../AdminPanel/AdminPanel";
+import { userVerification } from "../../api";
 
 const AdminAccount = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
+  
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
         navigate("/login");
       }
-      const { data } = await axios.post(
-        "http://localhost:4000",
-        {},
-        { withCredentials: true }
-      );
-      const { status, user } = data;
-      return status
-        ? console.log(`hello ${user}`)
-        : (removeCookie("token"), navigate("/login"));
+      const { data } = await userVerification();
+      const { status } = data;
+      if(!status) {
+        removeCookie("token");
+        navigate("/login")
+      }
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
 
   return (
-    <>
-      <div className="home_page">
-        <AdminPanel/>
-      </div>
+    <div>
+      <AdminPanel/>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

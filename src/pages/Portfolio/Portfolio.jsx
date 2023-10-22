@@ -1,32 +1,33 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Portfolio.module.scss";
-import {
-  getAllTypesOfPhotography,
-  getPhotoshoots,
-} from "../../api";
+import { getAllTypesOfPhotography, getPhotoshoots } from "../../api";
 import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner/Spinner";
+import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const Portfolio = () => {
   const [photoshoots, setPhotoshoots] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [isLoadedPhotoshoots, setIsLoadedPhotoshoots] = useState(false);
+  const [isLoadedTypes, setIsLoadedTypes] = useState(false);
+
   useEffect(() => {
     getPhotoshoots()
       .then((data) => {
         setPhotoshoots(data?.data);
+        setIsLoadedPhotoshoots(true);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-  const [types, setTypes] = useState([]);
-
   useEffect(() => {
     getAllTypesOfPhotography()
       .then((data) => {
         setTypes(data?.data);
+        setIsLoadedTypes(true);
       })
       .catch((error) => {
         console.error(error);
@@ -38,21 +39,10 @@ const Portfolio = () => {
     return type ? type.typeOfPhotography : "";
   };
 
-  const [loading, setLoading] = useState(true);
-  const counter = useRef(0);
-  const imageLoaded = () => {
-    counter.current += 1;
-    if (counter.current >= photoshoots.length) {
-      setLoading(false);
-    }
-  };
-
   return (
-    <>
-      <div style={{ display: loading ? "block" : "none" }}>
-        <Spinner/>
-      </div>
-      <div style={{ display: loading ? "none" : "block" }}>
+    <ConditionalRender
+      conditions={[isLoadedPhotoshoots, isLoadedTypes]}
+      content={
         <div>
           <Header />
           <div className={classes.portfolio}>
@@ -65,7 +55,6 @@ const Portfolio = () => {
                         src={el?.mainPhoto}
                         className={classes.portfolio__element__div__img}
                         alt="photo"
-                        onLoad={imageLoaded}
                       />
                       <p className={classes.portfolio__element__div__name}>
                         {el?.name}
@@ -81,8 +70,8 @@ const Portfolio = () => {
           </div>
           <Footer />
         </div>
-      </div>
-    </>
+      }
+    />
   );
 };
 

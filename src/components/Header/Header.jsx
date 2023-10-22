@@ -10,10 +10,10 @@ import FontAwesome from 'react-fontawesome'
 
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [size, setSize] = useState({
-    width: undefined,
-    height: undefined,
+    width: null,
+    height: null,
   });
 
   useEffect(() => {
@@ -29,13 +29,13 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (size.width > 880 && menuOpen) {
-      setMenuOpen(false);
+    if (size.width > 880 && isMenuOpen) {
+      setIsMenuOpen(false);
     }
-  }, [size.width, menuOpen]);
+  }, [size.width, isMenuOpen]);
 
   const menuToggleHandler = () => {
-    setMenuOpen((p) => !p);
+    setIsMenuOpen((status) => !status);
   };
   const location = useLocation();
 
@@ -49,7 +49,7 @@ const Header = () => {
         
         <div
           className={`${classes.header__content__div} ${
-            menuOpen && size.width < 880 ? classes.isMenu : ""
+            isMenuOpen && size.width < 880 ? classes.isMenu : ""
           }`}
         >
           <nav>
@@ -155,7 +155,7 @@ const Header = () => {
           </NavLink>
         </div>
         <div className={classes.header__content__toggle}>
-          {!menuOpen ? (
+          {!isMenuOpen ? (
             <BiMenuAltRight onClick={menuToggleHandler}  style={{ color: location.pathname === "/booking" ? "white" : "black" }}/>
           ) : (
             <AiOutlineClose

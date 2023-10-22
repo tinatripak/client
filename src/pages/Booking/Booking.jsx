@@ -30,8 +30,10 @@ const Booking = () => {
   const [backgroundImageLoading, setBackgroundImageLoading] = useState(true);
 
   const [photoshootDuration, setPhotoshootDuration] = useState();
-
   const [selectedTime, setSelectedTime] = useState("");
+  const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
+  const [date, setDate] = useState(null);
+
   let timeOptions = [];
   let currentTime = new Date("2000-01-01T08:30:00");
   const endTime = new Date("2000-01-01T20:00:00");
@@ -95,6 +97,7 @@ const Booking = () => {
   }, [allBookings]);
 
   const isDateDisabled = ({ date }) => {
+    const today = new Date();
     const weddingBookings = allBookings.find(
       (x) => x.photoTypeId === "651ed528cc8ab7ca0e401fba"
     );
@@ -113,13 +116,15 @@ const Booking = () => {
       return (
         weddingDateObject.getDate() === date.getDate() &&
         weddingDateObject.getMonth() === date.getMonth() &&
-        weddingDateObject.getFullYear() === date.getFullYear()
+        weddingDateObject.getFullYear() === date.getFullYear() 
+        
       );
     }
-    return false;
+    return date < today;
   };
 
   const isDateDisabledForWedding = ({ date }) => {
+    const today = new Date();
     if (photoTypeId) {
       if (allBookings instanceof Array) {
         return allBookings.some((booking) => {
@@ -135,10 +140,10 @@ const Booking = () => {
         return (
           bookingDateObject.getDate() === date.getDate() &&
           bookingDateObject.getMonth() === date.getMonth() &&
-          bookingDateObject.getFullYear() === date.getFullYear()
+          bookingDateObject.getFullYear() === date.getFullYear() 
         );
       }
-      return false;
+      return date < today;
     }
   };
 
@@ -165,8 +170,6 @@ const Booking = () => {
     setSelectedTime(event.target.value);
   };
 
-  const [date, setDate] = useState(null);
-
   const formatDate = (date) => {
     if (date instanceof Date) {
       return date.toLocaleDateString("en-US", {
@@ -188,19 +191,18 @@ const Booking = () => {
     setAllBookingsByDate(bookingsForSelectedDate);
   };
 
-  const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
-
   useEffect(() => {
+    const indicesToDelete = new Set();
+
     if (date && allBookingsByDate.length > 0 && photoTypeId) {
       if (photoTypeId !== "651ed528cc8ab7ca0e401fba") {
         const bookedTimes = allBookingsByDate.map(
           (booking) => booking.startTime
         );
+
         const bookedTimeIndices = bookedTimes.map((bookedTime) =>
           timeOptions.indexOf(bookedTime)
         );
-        const indicesToDelete = new Set();
-        console.log(photoshootDuration);
 
         const matches = photoshootDuration.match(/\d+/);
 
@@ -226,29 +228,28 @@ const Booking = () => {
 
   const addDurationToTime = (start, duration) => {
     const [startHour, startPeriod] = start.split(" ");
-    const [startHourNumeric, startMinutes] = startHour.split(":");
-    let hours = parseInt(startHourNumeric, 10);
+  const [startHourNumeric, startMinutes] = startHour.split(":");
+  let hours = parseInt(startHourNumeric, 10);
 
-    if (startPeriod === "P.M" && hours < 12) {
-      hours += 12;
-    }
+  if (startPeriod === "PM" && hours < 12) {
+    hours += 12;
+  }
 
-    const startDateObj = new Date();
-    startDateObj.setHours(hours, parseInt(startMinutes, 10), 0, 0);
+  const startDateObj = new Date();
+  startDateObj.setHours(hours, parseInt(startMinutes, 10), 0, 0);
 
-    const durationHours = parseInt(duration, 10);
+  const durationHours = parseInt(duration, 10);
 
-    const endDate = new Date(startDateObj);
-    endDate.setHours(startDateObj.getHours() + durationHours);
+  const endDate = new Date(startDateObj);
+  endDate.setHours(startDateObj.getHours() + durationHours);
 
-    const endHour = endDate.getHours();
-    const endMinutes = endDate.getMinutes();
-    const period = endHour < 12 ? "A.M" : "P.M";
-    const formattedEndDate = `${endHour % 12}:${endMinutes
-      .toString()
-      .padStart(2, "0")} ${period}`;
+  const endHour = endDate.getHours() % 12 || 12;
 
-    return formattedEndDate;
+  const endMinutes = endDate.getMinutes();
+  const period = endDate.getHours() < 12 ? "AM" : "PM";
+  const formattedEndDate = `${endHour}:${endMinutes.toString().padStart(2, "0")} ${period}`;
+
+  return formattedEndDate;
   };
   const handleSubmit = () => {
     const endTimePhotoshoot = addDurationToTime(

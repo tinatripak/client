@@ -21,9 +21,6 @@ const UpdatePhotography = () => {
 
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
 
-  // const [newTypeOfPhotography, setNewTypeOfPhotography] = useState("");
-  // const [oldTypeOfPhotography, setOldTypeOfPhotography] = useState("");
-
   const [newPhotoTypeId, setNewPhotoTypeId] = useState("");
   const [oldPhotoTypeId, setOldPhotoTypeId] = useState("");
 

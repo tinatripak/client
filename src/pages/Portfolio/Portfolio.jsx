@@ -9,6 +9,7 @@ import ConditionalRender from "../../components/ConditionalRender/ConditionalRen
 const Portfolio = () => {
   const [photoshoots, setPhotoshoots] = useState([]);
   const [types, setTypes] = useState([]);
+  
   const [isLoadedPhotoshoots, setIsLoadedPhotoshoots] = useState(false);
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 

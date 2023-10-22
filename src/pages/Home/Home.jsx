@@ -24,37 +24,35 @@ const Home = () => {
     <ConditionalRender
       conditions={[isLoaded]}
       content={
-        <div>
+        <div className={classes.home}>
           <Header />
-          <div
-            className={classes.home__main__image}
-            style={{ backgroundImage: `url('${arrayOfPhotos[0]?.photo}')` }}
-          >
-            <p>Photography Is My Life</p>
-          </div>
-          <div className={classes.home__main__text}>
-            I'm a Ukrainian photographer.
-            <br />
-            Photography is my passion and my life
+          <div className={classes.home__main}>
+            <div
+              className={classes.home__main__image}
+              style={{ backgroundImage: `url('${arrayOfPhotos[0]?.photo}')` }}
+            >
+              <p>Photography Is My Life</p>
+            </div>
+            <div className={classes.home__main__text}>
+              I'm a Ukrainian photographer.
+              <br />
+              Photography is my passion and my life
+            </div>
           </div>
           <div className={classes.home__photos}>
-            {arrayOfPhotos.slice(1).map((el, index) => (
-              <div
-                className={
-                  classes[
-                    `home__photos__item${index + 1} home__photos__divImage`
-                  ]
-                }
-                key={index}
-              >
-                <img
-                  src={el?.photo}
-                  alt="gallery image"
-                  className={classes.home__photos__img}
-                />
-              </div>
-            ))}
-          </div>
+          {arrayOfPhotos.slice(1).map((el, index) => (
+            <figure
+              className={classes[`home__photos__item${index + 1}`]}
+              key={index}
+            >
+              <img
+                src={el?.photo}
+                alt="gallery image"
+                className={classes.home__photos__img}
+              />
+            </figure>
+          ))}
+        </div>
           <Footer />
         </div>
       }

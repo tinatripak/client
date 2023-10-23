@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import {
-  createPhotoshoot,
-  getAllTypesOfPhotography
-} from "../../../../api";
+
+import { createPhotoshoot } from '../../../../services/PhotoshootService'
+import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
+
 import { RxCross2 } from "react-icons/rx";
+import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
 
 
 const CreatePhotography = () => {
@@ -50,7 +51,7 @@ const CreatePhotography = () => {
         console.error(error);
       });
 
-    navigate("/adminDashboard/photography");
+    navigate(`${adminDashboardLink}${photographyLink}`);
   };
 
   function handleOnUploadForMainPhoto(error, result, widget) {
@@ -91,7 +92,7 @@ const CreatePhotography = () => {
   return (
     <div className={classes.createPhotography}>
       <div className={classes.createPhotography__backButtonWithTitle}>
-        <Link to={"/adminDashboard/photography"}>
+        <Link to={`${adminDashboardLink}${photographyLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>
@@ -206,7 +207,7 @@ const CreatePhotography = () => {
                   <IoAddCircle
                     onClick={handleOnClickArray}
                     className={classes.createPhotography__photo__uploadall}
-                    color="#292929"
+                    color={darkColor}
                     size={45}
                   />
                 );

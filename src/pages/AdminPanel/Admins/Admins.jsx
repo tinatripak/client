@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { deleteAdminById, getAllAdmins } from '../../../api';
+import {deleteAdminById, getAllAdmins} from '../../../services/AdminService'
 import { useTable } from 'react-table';
 import classes from "./Admins.module.scss";
 import { IoAddCircle } from 'react-icons/io5';
 import {FiEdit2} from 'react-icons/fi';
 import {BsTrashFill} from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
+import { adminDashboardLink, adminLink, createLink, darkColor, editLink } from '../../../constants';
 
 const Admins = () => {
   const [adminList, setAdminList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchAdminsData();
+  }, [adminList]);
+
+  const fetchAdminsData = () => {
     getAllAdmins()
       .then((response) => {
         setAdminList(response.data); 
@@ -20,7 +25,7 @@ const Admins = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [adminList]);
+  }
 
   const columns = React.useMemo(
     () => [
@@ -96,7 +101,7 @@ const Admins = () => {
   } = useTable({ columns, data });
 
   const handleEdit = (admin) => {
-    navigate(`/adminDashboard/admin/edit/${admin._id}`);
+    navigate(`${adminDashboardLink}${adminLink}${editLink}/${admin._id}`);
   };
 
   const handleDelete = (admin) => {
@@ -110,14 +115,14 @@ const Admins = () => {
       });
   };
   const handleCreate = () => {
-    navigate("/adminDashboard/admin/create");
+    navigate(`${adminDashboardLink}${adminLink}${createLink}`);
   };
 
   return (
     <div className={classes.admin}>
       <div className={classes.admin__add}>
         <p>Add an admin</p>
-        <IoAddCircle className={classes.admin__icon} color='#292929' size={35} onClick={handleCreate}/>
+        <IoAddCircle className={classes.admin__icon} color={darkColor} size={35} onClick={handleCreate}/>
       </div>
       <table {...getTableProps()} className={classes.admin__admin_table}>
         <thead>

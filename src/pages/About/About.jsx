@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./About.module.scss";
-import { getAllTypesOfPhotography, getPhotographers } from "../../api";
+import {getPhotographers} from '../../services/BioService'
+import {getAllTypesOfPhotography} from '../../services/PhototypeService'
 import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const About = () => {
@@ -11,7 +12,7 @@ const About = () => {
   const [isLoadedBio, setIsLoadedBio] = useState(false);
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
-  useEffect(() => {
+  const fetchBioData = () => {
     getPhotographers()
       .then((data) => {
         if (data?.data.length === 1) {
@@ -22,9 +23,9 @@ const About = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
-  useEffect(() => {
+  const fetchTypesOfPhotography = () => {
     getAllTypesOfPhotography()
       .then((data) => {
         setTypesOfPhotography(data?.data);
@@ -33,6 +34,11 @@ const About = () => {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    fetchBioData();
+    fetchTypesOfPhotography();
   }, []);
 
   return (

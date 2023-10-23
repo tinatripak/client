@@ -1,13 +1,14 @@
 import React from "react";
 import classes from "./NotFound.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import {notFoundImage} from "../../constants.js"
 
 const NotFound = () => {
   return (
     <div className={classes.notFound}>
       <div className={classes.notFound__photo}>
         <LazyLoadImage
-          src="http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696457741/ue0nzgv7y4j7mlcw0qml.png"
+          src={notFoundImage}
           effect="blur"
         />
       </div>

@@ -3,10 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import {
-  getTypeOfPhotographyById,
-  updateTypeOfPhotographyById,
-} from "../../../../api";
+import { getTypeOfPhotographyById, updateTypeOfPhotographyById, } from '../../../../services/PhototypeService'
+import { adminDashboardLink, typesLink } from "../../../../constants";
+
 
 const EditTypeOfPhotography = () => {
   const { id } = useParams();
@@ -76,7 +75,7 @@ const EditTypeOfPhotography = () => {
   return (
     <div className={classes.editType}>
       <div className={classes.editType__backButtonWithTitle}>
-        <Link to={"/adminDashboard/types"}>
+        <Link to={`${adminDashboardLink}${typesLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

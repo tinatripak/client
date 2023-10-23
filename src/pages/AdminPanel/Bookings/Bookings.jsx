@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getAllBookings, getAllTypesOfPhotography } from "../../../api";
+import { getAllBookings } from '../../../services/BookingService'
+import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
+
 import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
@@ -10,6 +12,10 @@ const Booking = () => {
   const [bookingList, setBookingList] = useState([]);
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
   useEffect(() => {
+    fetchBookingsData()
+  }, [bookingList]);
+
+  const fetchBookingsData = () => {
     getAllBookings()
       .then((res) => {
         setBookingList(res.data);
@@ -17,9 +23,9 @@ const Booking = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [bookingList]);
+  }
 
-  useEffect(() => {
+  const fetchTypesOfPhotographyData = () => {
     getAllTypesOfPhotography()
       .then((res) => {
         setArrayOfTypes(res.data);
@@ -27,6 +33,10 @@ const Booking = () => {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  useEffect(() => {
+    fetchTypesOfPhotographyData();
   }, [arrayOfTypes]);
 
   const findPhotoNameById = (photoTypeId) => {

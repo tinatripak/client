@@ -20,7 +20,7 @@ import EditBio from './Bio/EditBio/EditBio';
 import { CreateAnAdmin, EditAdmin } from './Admins';
 
 import jwtDecode from 'jwt-decode';
-import { getAdminById } from '../../api';
+import {getAdminById} from '../../services/AdminService'
 import CreateTypeOfPhotography from './TypesOfPhotography/CreateTypeOfPhotography/CreateTypeOfPhotography';
 import EditTypeOfPhotography from './TypesOfPhotography/EditTypeOfPhotography/EditTypeOfPhotography';
 import CreateBooking from './Bookings/CreateBooking/CreateBooking';
@@ -29,6 +29,7 @@ import UpdatePhotography from './Photography/UpdatePhotography/UpdatePhotography
 import CreatePhotography from './Photography/CreatePhotography/CreatePhotography';
 import Questions from './Questions/Questions';
 import AnswerQuestion from './Questions/AnswerQuestion/AnswerQuestion';
+import { adminDashboardLink, adminLink, adminsLink, answerLink, bioLink, bookingLink, bookingsLink, createLink, editLink, generalLink, homeLink, photographyLink, questionsLink, typeLink, typesLink } from '../../constants';
 
 
 const AdminPanel = () => {
@@ -83,7 +84,7 @@ const AdminPanel = () => {
         <div className={classes.panel}>
             <div className={classes.panel__menu}>
                 <div>
-                    <Link to='/adminDashboard/general'>
+                    <Link to={`${adminDashboardLink}${generalLink}`}>
                         <div className={classes.panel__menu__logo}>
                             <img src="/logo-camera.png" alt="Logo"/>
                             <p>KSIGALLERY</p>
@@ -92,7 +93,7 @@ const AdminPanel = () => {
                     <div className={classes.panel__menu__navLinks}>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/home"}
+                                to={`${adminDashboardLink}${homeLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -105,7 +106,7 @@ const AdminPanel = () => {
 
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/bio"}
+                                to={`${adminDashboardLink}${bioLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -118,7 +119,7 @@ const AdminPanel = () => {
                         
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/photography"}
+                                to={`${adminDashboardLink}${photographyLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -130,7 +131,7 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/types"}
+                                to={`${adminDashboardLink}${typesLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -142,7 +143,7 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/bookings"}
+                                to={`${adminDashboardLink}${bookingsLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -154,7 +155,7 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/admins"}
+                                to={`${adminDashboardLink}${adminsLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -166,7 +167,7 @@ const AdminPanel = () => {
                         </div>
                         <div className={classes.panel__menu__navLinks__link}>
                             <NavLink
-                                to={"/adminDashboard/questions"}
+                                to={`${adminDashboardLink}${questionsLink}`}
                                 style={({ isActive }) => {
                                     return {
                                       textDecoration: isActive ? "underline" : "",
@@ -221,32 +222,32 @@ const AdminPanel = () => {
                 
                 <div className={classes.panel__main__block}>
                         <Routes>
-                            <Route path="/general" element={<General />} />
+                            <Route path={`${generalLink}`} element={<General />} />
 
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/home/edit/:id" element={<EditHome />} />
+                            <Route path={`${homeLink}`} element={<Home />} />
+                            <Route path={`${homeLink}${editLink}/:id`} element={<EditHome />} />
 
-                            <Route path="/bio" element={<Bio />} />
-                            <Route path="/bio/edit/:id" element={<EditBio />} />
+                            <Route path={`${bioLink}`} element={<Bio />} />
+                            <Route path={`${bioLink}${editLink}/:id`} element={<EditBio />} />
 
-                            <Route path="/photography" element={<Photography />} />
-                            <Route path="/photography/edit/:id" element={<UpdatePhotography />} />
-                            <Route path="/photography/create" element={<CreatePhotography />} />
+                            <Route path={`${photographyLink}`} element={<Photography />} />
+                            <Route path={`${photographyLink}${editLink}/:id`} element={<UpdatePhotography />} />
+                            <Route path={`${adminLink}${createLink}`} element={<CreatePhotography />} />
 
-                            <Route path="/types" element={<TypesOfPhotography />} />
-                            <Route path="/type/edit/:id" element={<EditTypeOfPhotography />} />
-                            <Route path="/type/create" element={<CreateTypeOfPhotography />} />
+                            <Route path={`${typesLink}`} element={<TypesOfPhotography />} />
+                            <Route path={`${typeLink}${editLink}/:id`} element={<EditTypeOfPhotography />} />
+                            <Route path={`${typeLink}${createLink}`} element={<CreateTypeOfPhotography />} />
 
-                            <Route path="/bookings" element={<Bookings />} />
-                            <Route path="/booking/edit/:id" element={<EditBooking />} />
-                            <Route path="/booking/create" element={<CreateBooking />} />
+                            <Route path={`${bookingsLink}`} element={<Bookings />} />
+                            <Route path={`${bookingLink}${editLink}/:id`} element={<EditBooking />} />
+                            <Route path={`${bookingLink}${createLink}`} element={<CreateBooking />} />
 
-                            <Route path="/admins" element={<Admins />} />
-                            <Route path="/admin/create" element={<CreateAnAdmin />} />
-                            <Route path="/admin/edit/:id" element={<EditAdmin />} />
+                            <Route path={`${adminsLink}`} element={<Admins />} />
+                            <Route path={`${adminLink}${editLink}/:id`} element={<CreateAnAdmin />} />
+                            <Route path={`${adminLink}${editLink}/:id`} element={<EditAdmin />} />
 
-                            <Route path="/questions" element={<Questions />} />
-                            <Route path="/question/answer/:id" element={<AnswerQuestion />} />
+                            <Route path={`${questionsLink}`} element={<Questions />} />
+                            <Route path={`${questionsLink}${answerLink}/:id`} element={<AnswerQuestion />} />
                         </Routes>
                 </div>
             </div>

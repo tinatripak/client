@@ -1,15 +1,21 @@
 import {RiEditCircleLine} from 'react-icons/ri';
 import React, { useEffect, useState } from 'react'
 import classes from "./Bio.module.scss";
-import { getPhotographers } from '../../../api';
+import { getPhotographers } from '../../../services/BioService'
+
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
+import { adminDashboardLink, bioLink, editLink } from '../../../constants';
 
 
 const Bio = () => {
   const [bioInfo, setBioInfo] = useState({});
 
     useEffect(() => {
+      fetchBioData();
+    },[]);
+
+    const fetchBioData = () => {
       getPhotographers()
         .then((data) => {
           setBioInfo(data?.data[0]);
@@ -17,7 +23,7 @@ const Bio = () => {
         .catch((error) => {
             console.error(error);
         });
-    },[]);
+    }
 
   return (
     <div className={classes.bio}>
@@ -28,7 +34,7 @@ const Bio = () => {
         <div className={classes.bio__photo__edit}>
           <p>Photographer</p>
           <span className={classes.bio__photo__edit__icon}>
-            <Link to={`/adminDashboard/bio/edit/${bioInfo?._id}`}>
+            <Link to={`${adminDashboardLink}${bioLink}${editLink}/${bioInfo?._id}`}>
               <RiEditCircleLine size={22} />
             </Link>
           </span>

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateAnAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { createAdmin } from '../../../../api';
+import { createAdmin } from '../../../../services/AdminService'
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const CreateAnAdmin = () => {
   const navigate = useNavigate();
@@ -12,8 +13,6 @@ const CreateAnAdmin = () => {
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState("");
   const [error, updateError] = useState();
-
-
 
   const addAdmin = () => {
     createAdmin(username, email, password, photo)
@@ -24,7 +23,7 @@ const CreateAnAdmin = () => {
         console.error(error);
       });
     
-    navigate("/adminDashboard/admins");
+    navigate(`${adminDashboardLink}${adminsLink}`);
   };
 
   function handleOnUpload(error, result, widget) {
@@ -41,7 +40,7 @@ const CreateAnAdmin = () => {
   return (
     <div className={classes.createAdmin}>
       <div className={classes.createAdmin__backButtonWithTitle}>
-        <Link to={"/adminDashboard/admins"}>
+        <Link to={`${adminDashboardLink}${adminsLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

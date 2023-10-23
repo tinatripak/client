@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import classes from "./EditAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getAdminById, updateAdminById } from '../../../../api';
+import { getAdminById, updateAdminById } from '../../../../services/AdminService'
+
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const EditAdmin = () => {
   const { id } = useParams();
@@ -72,7 +74,7 @@ const EditAdmin = () => {
   return (
     <div className={classes.editAdmin}>
       <div className={classes.editAdmin__backButtonWithTitle}>
-        <Link to={"/adminDashboard/admins"}>
+        <Link to={`${adminDashboardLink}${adminsLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

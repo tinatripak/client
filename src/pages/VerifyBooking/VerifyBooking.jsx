@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { verifyBooking } from "../../api";
+import { verifyBooking } from '../../services/BookingService';
+
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./VerifyBooking.module.scss";
@@ -12,6 +13,10 @@ const VerifyBooking = () => {
   const [isLoadedData, setIsLoadedData] = useState(false);
 
   useEffect(() => {
+    fetchVerifiedBookingData();
+  }, []);
+
+  const fetchVerifiedBookingData = () => {
     verifyBooking(uniqueString)
       .then((data) => {
         setData(data?.data);
@@ -20,7 +25,7 @@ const VerifyBooking = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   return (
     <ConditionalRender

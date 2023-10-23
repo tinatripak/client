@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { RiEditCircleLine } from "react-icons/ri";
 import classes from "./Home.module.scss";
 import { Link } from "react-router-dom";
-import { getAllHomePhotos } from "../../../api";
+import { getAllHomePhotos } from '../../../services/HomeService'
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { adminDashboardLink, editLink, emptyLink } from "../../../constants";
 
 const Home = () => {
   const [arrayOfPhotos, setArrayOfPhotos] = useState([]);
@@ -29,7 +31,7 @@ const Home = () => {
         {arrayOfPhotos.map((el, index) => (
           <div className={classes.home__gridPhotos__photoBlock} key={index}>
             <div className={classes.home__update}>
-              <Link to={`/adminDashboard/home/edit/${el?._id}`}>
+              <Link to={`${adminDashboardLink}${emptyLink}${editLink}/${el?._id}`}>
                 <RiEditCircleLine color="white" size={22} />
               </Link>
             </div>

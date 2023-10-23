@@ -3,19 +3,20 @@ import { NavLink } from "react-router-dom";
 import { BsInstagram } from "react-icons/bs";
 import classes from "./Footer.module.scss";
 import FontAwesome from 'react-fontawesome'
+import {aboutLink, bookingLink, instagramURL, portfolioLink, typesLink} from '../../constants.js'
 
 const Footer = () => {
   return (
     <div className={classes.footer}>
       <div className={classes.footer__icons}>
         <NavLink
-          to="https://www.instagram.com/ksigallery/"
+          to={instagramURL}
         >
           <BsInstagram size={27} />
         </NavLink>
 
         <NavLink
-          to="https://www.pinterest.com/ksisex/"
+          to={instagramURL}
         >
           <FontAwesome
             name="pinterest"
@@ -27,19 +28,19 @@ const Footer = () => {
         <nav className={classes.footer__content__nav}>
           <ul>
             <li>
-              <NavLink to="/about">About</NavLink>
+              <NavLink to={aboutLink}>About</NavLink>
             </li>
             <li><span>|</span></li>
             <li>
-              <NavLink to="/portfolio">Portfolio</NavLink>
+              <NavLink to={portfolioLink}>Portfolio</NavLink>
             </li>
             <li><span>|</span></li>
             <li>
-              <NavLink to="/types">Price</NavLink>
+              <NavLink to={typesLink}>Price</NavLink>
             </li>
             <li><span>|</span></li>
             <li>
-              <NavLink to="/booking">Contact</NavLink>
+              <NavLink to={bookingLink}>Contact</NavLink>
             </li>
           </ul>
         </nav>

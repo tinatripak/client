@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import classes from "./TypeOfShooting.module.scss";
-import { getTypeOfPhotographyByTypeName } from "../../../api";
+import { getTypeOfPhotographyByTypeName } from '../../../services/PhototypeService';
+
 import ConditionalRender from "../../../components/ConditionalRender/ConditionalRender";
 
 const TypeOfShooting = () => {
@@ -12,6 +13,10 @@ const TypeOfShooting = () => {
   const [isLoadedType, setIsLoadedType] = useState(false);
 
   useEffect(() => {
+    fetchTypeOfPhotographyData();
+  }, []);
+
+  const fetchTypeOfPhotographyData = () => {
     getTypeOfPhotographyByTypeName(name)
       .then((data) => {
         setTypeOfPhotography(data?.data);
@@ -20,7 +25,7 @@ const TypeOfShooting = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   return (
     <ConditionalRender

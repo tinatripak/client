@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./ContactUs.module.scss";
 import ContactForm from "../../components/ContactForm/ContactForm";
+import { instagramURL } from "../../constants";
 
 const ContactsUs = () => {
   return (
@@ -24,7 +25,7 @@ const ContactsUs = () => {
           </div>
           <div className={classes.contacts__info__out}>
             <h4>CHECK US OUT</h4>
-            <a href="https://www.instagram.com/ksigallery/">Instagram</a>
+            <a href={instagramURL}>Instagram</a>
           </div>
         </div>
         <div>

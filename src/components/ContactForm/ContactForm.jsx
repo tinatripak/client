@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./ConactForm.module.scss";
-import { createQuestion } from "../../api";
+import {createQuestion} from '../../services/QuestionService'
 
 const ContactForm = () => {
   const [name, setName] = useState("");

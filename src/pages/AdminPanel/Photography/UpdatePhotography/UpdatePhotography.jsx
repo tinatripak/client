@@ -3,12 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./UpdatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
-import {
-  getAllTypesOfPhotography,
-  getPhotoshootById,
-  updatePhotoshootById,
-} from "../../../../api";
+import { getPhotoshootById, updatePhotoshootById } from '../../../../services/PhotoshootService'
+import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
+
+
 import { RxCross2 } from "react-icons/rx";
+import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
 
 const UpdatePhotography = () => {
   const { id } = useParams();
@@ -126,7 +126,7 @@ const UpdatePhotography = () => {
   return (
     <div className={classes.updatePhotography}>
       <div className={classes.updatePhotography__backButtonWithTitle}>
-        <Link to={"/adminDashboard/photography"}>
+        <Link to={`${adminDashboardLink}${photographyLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>
@@ -249,7 +249,7 @@ const UpdatePhotography = () => {
                   <IoAddCircle
                     onClick={handleOnClickArray}
                     className={classes.updatePhotography__photo__uploadall}
-                    color="#292929"
+                    color={darkColor}
                     size={45}
                   />
                 );

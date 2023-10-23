@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditBio.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getPhotographerById, updatePhotographerById } from "../../../../api";
+import { getPhotographerById, updatePhotographerById } from '../../../../services/BioService'
+import { adminDashboardLink, bioLink } from "../../../../constants";
 
 const EditBio = () => {
   const { id } = useParams();
@@ -65,7 +66,7 @@ const EditBio = () => {
   return (
     <div className={classes.editInfo}>
       <div className={classes.editInfo__backButtonWithTitle}>
-        <Link to={"/adminDashboard/bio"}>
+        <Link to={`${adminDashboardLink}${bioLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

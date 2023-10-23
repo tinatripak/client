@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Home.module.scss";
-import { getAllHomePhotos } from "../../api";
+import { getAllHomePhotos } from '../../services/HomeService'
+
 import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const Home = () => {
@@ -10,6 +11,10 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    fetchHomeData();
+  }, []);
+
+  const fetchHomeData = () => {
     getAllHomePhotos()
       .then((data) => {
         setArrayOfPhotos(data?.data);
@@ -18,7 +23,7 @@ const Home = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   return (
     <ConditionalRender

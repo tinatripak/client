@@ -5,8 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./Photography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
-import { deletePhotoshootById, getAllTypesOfPhotography, getPhotoshoots } from "../../../api";
+import { deletePhotoshootById, getPhotoshoots } from '../../../services/PhotoshootService'
+import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
+
+
 import NotFound from "../../../components/NotFound/NotFound";
+import { adminDashboardLink, createLink, darkColor, editLink, photographyLink } from "../../../constants";
 
 const Photography = () => {
   const [arrayOfPhotographs, setArrayOfPhotographs] = useState([]);
@@ -52,7 +56,7 @@ const Photography = () => {
   };
 
   const handleCreate = () => {
-    navigate("/adminDashboard/photography/create");
+    navigate(`${adminDashboardLink}${photographyLink}${createLink}`);
   };
 
   const arrayOfPhotographyWithTypesName = arrayOfPhotographs.map((el) => {
@@ -69,7 +73,7 @@ const Photography = () => {
         <p>Add a photo shoot</p>
         <IoAddCircle
           className={classes.photography__add__icon}
-          color="#292929"
+          color={darkColor}
           size={35}
           onClick={handleCreate}
         />
@@ -98,7 +102,7 @@ const Photography = () => {
                     classes.photography__cards__card__nameithActionss__actions
                   }
                 >
-                  <Link to={`/adminDashboard/photography/edit/${el?._id}`}>
+                  <Link to={`${adminDashboardLink}${photographyLink}${editLink}/${el?._id}`}>
                     <RiEditCircleLine
                       size={22}
                       className={

@@ -6,10 +6,13 @@ import { AiOutlineClose } from "react-icons/ai";
 
 import classes from "./Header.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
-import FontAwesome from 'react-fontawesome'
-
+import FontAwesome from "react-fontawesome";
+import { sizeWidth, emptyLink, loginLink, aboutLink, portfolioLink, typesLink, bookingLink, contactUsLink, instagramURL, pinterestURL } from "../../constants";
 
 const Header = () => {
+  const location = useLocation();
+  const textColor = location.pathname === bookingLink ? "white" : "black"
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [size, setSize] = useState({
     width: null,
@@ -17,6 +20,19 @@ const Header = () => {
   });
 
   useEffect(() => {
+    resizeMenu();
+  }, []);
+
+  useEffect(() => {
+    checkMenuSize();
+  }, [size.width, isMenuOpen]);
+
+  const checkMenuSize = () => {
+    if (size.width > sizeWidth && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }
+  const resizeMenu = () => {
     const handleResize = () => {
       setSize({
         width: window.innerWidth,
@@ -26,142 +42,91 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (size.width > 880 && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, [size.width, isMenuOpen]);
+  }
 
   const menuToggleHandler = () => {
     setIsMenuOpen((status) => !status);
   };
-  const location = useLocation();
+
+  const createNavLink = (to, text) => (
+    <li>
+      <NavLink
+        to={to}
+        onClick={menuToggleHandler}
+        className={({ isActive }) =>
+          isActive ? classes.active : classes.inactive
+        }
+        style={{ color: textColor }}
+      >
+        {text}
+      </NavLink>
+    </li>
+  );
+
+  const createLinkIcons = (to, text) => {
+    <NavLink
+      to={to}
+      style={{ color: textColor }}
+    >
+      {text}
+    </NavLink>;
+  };
 
   return (
     <header className={classes.header}>
       <div className={classes.header__content}>
-        <NavLink to="/" className={classes.header__content__logo}
-         style={{ color: location.pathname === "/booking" ? "white" : "black" }}>
+        <NavLink
+          to="/"
+          className={classes.header__content__logo}
+          style={{
+            color: textColor,
+          }}
+        >
           KSIGALLERY
         </NavLink>
-        
+
         <div
           className={`${classes.header__content__div} ${
-            isMenuOpen && size.width < 880 ? classes.isMenu : ""
+            isMenuOpen && size.width < sizeWidth ? classes.isMenu : ""
           }`}
         >
           <nav>
             <ul>
-              <li>
-                <NavLink
-                  to="/"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/about"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/portfolio"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  Portfolio
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/types"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  Price
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/booking"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  Booking
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contactUs"
-                  onClick={menuToggleHandler}
-                  className={({ isActive }) =>
-                    isActive ? classes.active : classes.inactive
-                  }
-                  style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-                >
-                  Contact Us
-                </NavLink>
-              </li>
+              {createNavLink(emptyLink, "Home")}
+              {createNavLink(aboutLink, "About")}
+              {createNavLink(portfolioLink, "Portfolio")}
+              {createNavLink(typesLink, "Price")}
+              {createNavLink(bookingLink, "Booking")}
+              {createNavLink(contactUsLink, "Contact Us")}
             </ul>
           </nav>
         </div>
         <div className={classes.header__content__social}>
-          <NavLink
-            to="https://www.instagram.com/ksigallery/"
-            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-          >
+          {createLinkIcons(
+            instagramURL,
+            <FontAwesome name="pinterest" size="2x" />
+          )}
+          {createLinkIcons(
+            pinterestURL,
             <BsInstagram size={27} />
-          </NavLink>
-
-          <NavLink
-            to="https://www.pinterest.com/ksisex/"
-            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-          >
-            <FontAwesome
-              name="pinterest"
-              size="2x"
-            />
-          </NavLink>
-
-          <NavLink
-            to="/login"
-            style={{ color: location.pathname === "/booking" ? "white" : "black" }}
-          >
-            <BiLogInCircle size={33} />
-          </NavLink>
+          )}
+          {createLinkIcons(loginLink, <BiLogInCircle size={33} />)}
         </div>
         <div className={classes.header__content__toggle}>
           {!isMenuOpen ? (
-            <BiMenuAltRight onClick={menuToggleHandler}  style={{ color: location.pathname === "/booking" ? "white" : "black" }}/>
+            <BiMenuAltRight
+              onClick={menuToggleHandler}
+              style={{
+                color: textColor,
+              }}
+            />
           ) : (
             <AiOutlineClose
               className={classes.header__content__toggle__closeButton}
               onClick={menuToggleHandler}
-              style={{ color: location.pathname === "/booking" ? "white" : "black" }}
+              style={{
+                color: textColor,
+              }}
             />
           )}
         </div>

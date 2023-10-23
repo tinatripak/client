@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Portfolio.module.scss";
-import { getAllTypesOfPhotography, getPhotoshoots } from "../../api";
+import { getAllTypesOfPhotography } from '../../services/PhototypeService'
+import { getPhotoshoots } from '../../services/PhotoshootService'
+
 import { Link } from "react-router-dom";
 import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
+import { portfolioLink } from "../../constants";
 
 const Portfolio = () => {
   const [photoshoots, setPhotoshoots] = useState([]);
@@ -14,6 +17,11 @@ const Portfolio = () => {
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
   useEffect(() => {
+    fetchPhotoshootsoData()
+    fetchTypesData();
+  }, []);
+
+  const fetchPhotoshootsoData = () => {
     getPhotoshoots()
       .then((data) => {
         setPhotoshoots(data?.data);
@@ -22,9 +30,9 @@ const Portfolio = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
-  useEffect(() => {
+  const fetchTypesData = () => {
     getAllTypesOfPhotography()
       .then((data) => {
         setTypes(data?.data);
@@ -33,7 +41,7 @@ const Portfolio = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   const getTypeNameById = (id) => {
     const type = types.find((type) => type._id === id);
@@ -49,7 +57,7 @@ const Portfolio = () => {
           <div className={classes.portfolio}>
             {photoshoots.map((el, index) => (
               <div key={index}>
-                <Link to={`/portfolio/${el?.name}`}>
+                <Link to={`${portfolioLink}/${el?.name}`}>
                   <div className={classes.portfolio__element}>
                     <div className={classes.portfolio__element__div}>
                       <img

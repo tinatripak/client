@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { answerToQuestion, getQuestionById } from "../../../../api";
+import { answerToQuestion, getQuestionById } from '../../../../services/QuestionService'
+
 import { useParams } from "react-router-dom";
 import classes from "./AnswerQuestion.module.scss";
 
@@ -9,6 +10,10 @@ const AnswerQuestion = () => {
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
+    fetchQuestionData()
+  }, [question]);
+
+  const fetchQuestionData = () => {
     getQuestionById(id)
       .then((data) => {
         setQuestion(data?.data);
@@ -16,7 +21,7 @@ const AnswerQuestion = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [question]);
+  };
 
   const handleSubmit = () => {
     answerToQuestion(question?._id, question?.email, question?.question, answer)

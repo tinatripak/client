@@ -7,7 +7,9 @@ import { TfiEmail } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useCookies } from "react-cookie";
-import { loginUser } from "../../api";
+import { loginUser } from '../../services/LoginService'
+import { adminDashboardLink, cameraImage, generalLink } from "../../constants";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ const Login = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/adminDashboard/general");
+          navigate(`${adminDashboardLink}/${generalLink}`);
         }, 1000);
       } else {
         handleError(message);
@@ -80,7 +82,7 @@ const Login = () => {
       <div className={classes.login__block}>
         <div className={classes.login__block__img}>
           <img
-            src="https://www.onlygfx.com/wp-content/uploads/2018/08/5-old-photo-camera-drawing-4.png"
+            src={cameraImage}
             alt="Camera"
           />
         </div>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getHomePhotoById, updateHomePhotoById } from "../../../../api";
+import { getHomePhotoById, updateHomePhotoById } from '../../../../services/HomeService'
+
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditHome.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
+import { adminDashboardLink, emptyLink } from "../../../../constants";
 
 const EditHome = () => {
   const { id } = useParams();
@@ -56,7 +58,7 @@ const EditHome = () => {
   return (
     <div className={classes.edit_home}>
       <div className={classes.edit_home__backButtonWithTitle}>
-        <Link to={"/adminDashboard/home"}>
+        <Link to={`${adminDashboardLink}${emptyLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

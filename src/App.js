@@ -1,23 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import { About, Booking, Home, Portfolio, TypesOfShooting, TypeOfShooting, PortfolioOneShoot, Login, AdminAccount, VerifyBooking, ContactUs } from "./pages";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
+import { aboutLink, adminDashboardLink, bookingLink, contactUsLink, emptyLink, loginLink, portfolioLink, typeLink, typesLink, verifyBooking, verifyBookingLink } from "./constants";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/types" element={<TypesOfShooting />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/verifyBooking/:uniqueString" element={<VerifyBooking />} />
-        <Route path="/type/:name" element={<TypeOfShooting />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/portfolio/:name" element={<PortfolioOneShoot />} />
-        <Route path="/adminDashboard" element={<AdminAccount />} />
-        <Route path="/adminDashboard/*" element={<AdminPanel />} />
+        <Route path={emptyLink} element={<Home />} />
+        <Route path={aboutLink} element={<About />} />
+        <Route path={loginLink} element={<Login />} />
+        <Route path={typesLink} element={<TypesOfShooting />} />
+        <Route path={contactUsLink} element={<ContactUs />} />
+        <Route path={`${verifyBookingLink}/:uniqueString`} element={<VerifyBooking />} />
+        <Route path={`${typeLink}/:name`} element={<TypeOfShooting />} />
+        <Route path={bookingLink} element={<Booking />} />
+        <Route path={portfolioLink} element={<Portfolio />} />
+        <Route path={`${portfolioLink}/:name`} element={<PortfolioOneShoot />} />
+        <Route path={adminDashboardLink} element={<AdminAccount />} />
+        <Route path={`${adminDashboardLink}\*`} element={<AdminPanel />} />
       </Routes>
     </div>
   );

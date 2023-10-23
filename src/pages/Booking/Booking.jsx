@@ -5,17 +5,17 @@ import classes from "./Booking.module.scss";
 import { LiaTelegram } from "react-icons/lia";
 import { FaViber } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
-import {
-  createBooking,
-  getAllBookings,
-  getAllTypesOfPhotography,
-  getPhotographers,
-  getTypeOfPhotographyById,
-} from "../../api";
+
+import { createBooking,
+  getAllBookings } from '../../services/BookingService'
+import { getPhotographers } from '../../services/BioService'
+import { getAllTypesOfPhotography, getTypeOfPhotographyById } from '../../services/PhototypeService'
+
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import "./CalendarForBooking.css";
 import Spinner from "../../components/Spinner/Spinner";
+import {bookingBgImage, telegramURL, viberURL} from '../../constants.js'
 
 const Booking = () => {
   const [bio, setBio] = useState([]);
@@ -29,19 +29,24 @@ const Booking = () => {
   const [photoTypeId, setPhotoTypeId] = useState("");
   const [backgroundImageLoading, setBackgroundImageLoading] = useState(true);
 
+  //const [isLoaded, setIsLoaded] = useState(false)
+
   const [photoshootDuration, setPhotoshootDuration] = useState();
   const [selectedTime, setSelectedTime] = useState("");
   const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
   const [date, setDate] = useState(null);
+  
 
   let timeOptions = [];
   let currentTime = new Date("2000-01-01T08:30:00");
   const endTime = new Date("2000-01-01T20:00:00");
 
+  const { WEDDING_PHOTOTYPEID } = process.env;
+
+
   useEffect(() => {
     const backgroundImage = new Image();
-    backgroundImage.src =
-      "https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg";
+    backgroundImage.src = bookingBgImage
     backgroundImage.onload = () => {
       setBackgroundImageLoading(false);
     };
@@ -51,6 +56,10 @@ const Booking = () => {
   }, []);
 
   useEffect(() => {
+    fetchPhotographersData()
+  }, [bio]);
+
+  const fetchPhotographersData = () => {
     getPhotographers()
       .then((data) => {
         setBio(data?.data[0]);
@@ -58,7 +67,7 @@ const Booking = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [bio]);
+  };
 
   useEffect(() => {
     getAllPhotoTypesName();
@@ -80,6 +89,10 @@ const Booking = () => {
   };
 
   useEffect(() => {
+    fetchTypeOfPhotographyData();
+  }, [photoTypeId]);
+
+  const fetchTypeOfPhotographyData = () => {
     if (photoTypeId) {
       getTypeOfPhotographyById(photoTypeId)
         .then((data) => {
@@ -90,7 +103,7 @@ const Booking = () => {
           console.error(error);
         });
     }
-  }, [photoTypeId]);
+  };
 
   useEffect(() => {
     getBookings();
@@ -99,29 +112,29 @@ const Booking = () => {
   const isDateDisabled = ({ date }) => {
     const today = new Date();
     const weddingBookings = allBookings.find(
-      (x) => x.photoTypeId === "651ed528cc8ab7ca0e401fba"
+      (x) => x.photoTypeId === WEDDING_PHOTOTYPEID
     );
 
     if (weddingBookings instanceof Array) {
       return weddingBookings.some((booking) => {
         const weddingDateObject = new Date(booking.date);
-        return (
-          weddingDateObject.getDate() === date.getDate() &&
-          weddingDateObject.getMonth() === date.getMonth() &&
-          weddingDateObject.getFullYear() === date.getFullYear()
-        );
+        return equalData(weddingDateObject, date)
       });
     } else if (weddingBookings) {
       const weddingDateObject = new Date(weddingBookings.date);
-      return (
-        weddingDateObject.getDate() === date.getDate() &&
-        weddingDateObject.getMonth() === date.getMonth() &&
-        weddingDateObject.getFullYear() === date.getFullYear() 
-        
-      );
+      return equalData(weddingDateObject, date)
+
     }
     return date < today;
   };
+
+  const equalData = (weddingDate, date) => {
+    return (
+      weddingDate.getDate() === date.getDate() &&
+      weddingDate.getMonth() === date.getMonth() &&
+      weddingDate.getFullYear() === date.getFullYear()
+    )
+  }
 
   const isDateDisabledForWedding = ({ date }) => {
     const today = new Date();
@@ -192,10 +205,14 @@ const Booking = () => {
   };
 
   useEffect(() => {
+    getTimeOptions();
+  }, [date, allBookingsByDate, photoTypeId]);
+
+  const getTimeOptions = () => {
     const indicesToDelete = new Set();
 
     if (date && allBookingsByDate.length > 0 && photoTypeId) {
-      if (photoTypeId !== "651ed528cc8ab7ca0e401fba") {
+      if (photoTypeId !== WEDDING_PHOTOTYPEID) {
         const bookedTimes = allBookingsByDate.map(
           (booking) => booking.startTime
         );
@@ -224,7 +241,7 @@ const Booking = () => {
     } else {
       setFilteredTimeOptions(timeOptions);
     }
-  }, [date, allBookingsByDate, photoTypeId]);
+  };
 
   const addDurationToTime = (start, duration) => {
     const [startHour, startPeriod] = start.split(" ");
@@ -282,12 +299,6 @@ const Booking = () => {
         <div className={classes.booking}>
           <div
             className={classes.booking__image}
-            style={{
-              backgroundImage: `url("https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg")`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              color: "white",
-            }}
           >
             <Header />
           </div>
@@ -299,12 +310,12 @@ const Booking = () => {
             </p>
             <ul>
               <li>
-                <a href="viber://chat?number=+380953518578">
+                <a href={viberURL}>
                   <FaViber className={classes.booking__content__icons__viber} />{" "}
                 </a>
               </li>
               <li>
-                <a href="https://t.me/kseniatripak">
+                <a href={telegramURL}>
                   <LiaTelegram
                     className={classes.booking__content__icons__telegram}
                   />
@@ -386,7 +397,7 @@ const Booking = () => {
                     }
                   >
                     <div>
-                      {photoTypeId !== "651ed528cc8ab7ca0e401fba" ? (
+                      {photoTypeId !== WEDDING_PHOTOTYPEID ? (
                         <Calendar
                           onChange={handleDateChange}
                           value={date}

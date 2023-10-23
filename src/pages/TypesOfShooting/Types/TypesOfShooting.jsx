@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import classes from "./TypesOfShooting.module.scss";
-import { getAllTypesOfPhotography } from "../../../api";
+import { getAllTypesOfPhotography } from '../../../services/PhototypeService';
+
 import { Link } from "react-router-dom";
 import ConditionalRender from "../../../components/ConditionalRender/ConditionalRender";
+import { typeLink } from "../../../constants";
 
 const TypesOfShooting = () => {
   const [typesOfPhotography, setTypesOfPhotography] = useState([]);
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
   useEffect(() => {
+    fetchTypesOfPhotographyData();
+  }, []);
+
+  const fetchTypesOfPhotographyData = () => {
     getAllTypesOfPhotography()
       .then((data) => {
         setTypesOfPhotography(data?.data);
@@ -19,7 +25,7 @@ const TypesOfShooting = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
   return (
     <ConditionalRender
@@ -30,7 +36,7 @@ const TypesOfShooting = () => {
           <div className={classes.types}>
             {typesOfPhotography.map((el, index) => (
               <div key={index}>
-                <Link to={`/type/${el?.typeOfPhotography}`}>
+                <Link to={`${typeLink}/${el?.typeOfPhotography}`}>
                   <div className={classes.types__element}>
                     <article>
                       <img

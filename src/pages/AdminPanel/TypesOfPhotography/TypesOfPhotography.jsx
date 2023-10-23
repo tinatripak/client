@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { RiEditCircleLine } from "react-icons/ri";
-import {
-  deleteTypeOfPhotographyById,
-  getAllTypesOfPhotography
-} from "../../../api";
+
+import { deleteTypeOfPhotographyById,
+  getAllTypesOfPhotography } from '../../../services/PhototypeService'
+
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
 import NotFound from "../../../components/NotFound/NotFound";
+import { adminDashboardLink, createLink, darkColor, editLink, typeLink } from "../../../constants";
 
 const TypesOfPhotography = () => {
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
@@ -40,7 +41,7 @@ const TypesOfPhotography = () => {
   };
 
   const handleCreate = () => {
-    navigate("/adminDashboard/type/create");
+    navigate(`${adminDashboardLink}${typeLink}${createLink}`);
   };
 
   return (
@@ -49,7 +50,7 @@ const TypesOfPhotography = () => {
         <p>Add a type of photography</p>
         <IoAddCircle
           className={classes.types__add__icon}
-          color="#292929"
+          color={darkColor}
           size={35}
           onClick={handleCreate}
         />
@@ -70,7 +71,7 @@ const TypesOfPhotography = () => {
                     classes.types__cards__card__titleWithActions__actions
                   }
                 >
-                  <Link to={`/adminDashboard/type/edit/${el?._id}`}>
+                  <Link to={`${adminDashboardLink}${typeLink}${editLink}/${el?._id}`}>
                     <RiEditCircleLine
                       size={22}
                       className={

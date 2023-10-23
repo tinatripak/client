@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import classes from "./PortfolioOneShoot.module.scss";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { getPhotoshootByName } from "../../api";
+import { getPhotoshootByName } from '../../services/PhotoshootService'
+
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
@@ -16,6 +17,10 @@ const PortfolioOneShoot = () => {
   const [isLoadedPhotoshoots, setIsLoadedPhotoshoots] = useState(false);
 
   useEffect(() => {
+    fetchPhotoshootData();
+  }, []);
+
+  const fetchPhotoshootData = () => {
     getPhotoshootByName(name)
       .then((data) => {
         setPhotoshoot(data?.data?.arrayOfPhotos);
@@ -24,15 +29,19 @@ const PortfolioOneShoot = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
 
-  useEffect(() => {
+  const addImagesToGallery = () => {
     setImages(
       photoshoot.map((url, index) => ({
         id: index,
         original: url,
       }))
     );
+  }
+
+  useEffect(() => {
+    addImagesToGallery();
   }, [photoshoot]);
 
   return (

@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import { createTypeOfPhotography } from "../../../../api";
+import { createTypeOfPhotography } from '../../../../services/PhototypeService'
+import { adminDashboardLink, typesLink } from "../../../../constants";
 
 const CreateTypeOfPhotography = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const CreateTypeOfPhotography = () => {
         console.error(error);
       });
     
-    navigate("/adminDashboard/types");
+    navigate(`${adminDashboardLink}${typesLink}`);
   };
 
   function handleOnUpload(error, result, widget) {
@@ -45,7 +46,7 @@ const CreateTypeOfPhotography = () => {
   return (
     <div className={classes.createType}>
       <div className={classes.createType__backButtonWithTitle}>
-        <Link to={"/adminDashboard/types"}>
+        <Link to={`${adminDashboardLink}${typesLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

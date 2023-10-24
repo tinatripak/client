@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateAnAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
@@ -15,7 +15,7 @@ const CreateAnAdmin = () => {
   const [error, updateError] = useState();
 
   const addAdmin = () => {
-    createAdmin(username, email, password, photo)
+    createAdmin(username, email, password, photo);
     navigate(`${adminDashboardLink}${adminsLink}`);
   };
 
@@ -30,6 +30,18 @@ const CreateAnAdmin = () => {
     setPhoto(result?.info?.url);
   }
 
+  const handleUsernameChange = useCallback((e) => {
+    setUsername(e.target.value);
+  }, []);
+
+  const handleEmailChange = useCallback((e) => {
+    setEmail(e.target.value);
+  }, []);
+
+  const handlePasswordChange = useCallback((e) => {
+    setPassword(e.target.value);
+  }, []);
+
   return (
     <div className={classes.createAdmin}>
       <div className={classes.createAdmin__backButtonWithTitle}>
@@ -43,28 +55,46 @@ const CreateAnAdmin = () => {
         <div className={classes.createAdmin__username}>
           <label htmlFor="title">Full name</label>
           <br />
-          <input type="text" name="username" placeholder="Enter your full name" value={username} onChange={e=>setUsername(e.target.value)}/>
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter your full name"
+            value={username}
+            onChange={handleUsernameChange}
+          />
         </div>
 
         <div className={classes.createAdmin__email}>
           <label htmlFor="title">Email</label>
           <br />
-          <input type="email" name="email" placeholder="Enter your email" value={email} onChange={e=>setEmail(e.target.value)}/>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={handleEmailChange}
+          />
         </div>
 
         <div className={classes.createAdmin__password}>
           <label htmlFor="title">Password</label>
           <br />
-          <input type="password" name="password" placeholder="Enter your password" value={password} onChange={e=>setPassword(e.target.value)}/>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
         </div>
 
         <div className={classes.createAdmin__photo}>
           <br />
-          <h4>The photo of new admin</h4>
+          <h4>The photo of the new admin</h4>
           {error && <p>{error}</p>}
           {photo && (
             <>
-              <img src={photo} />
+              <img src={photo} alt="Admin Photo" />
             </>
           )}
           <div>

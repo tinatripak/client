@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import { createTypeOfPhotography } from '../../../../services/PhototypeService'
+import { createTypeOfPhotography } from '../../../../services/PhototypeService';
 import { adminDashboardLink, typesLink } from "../../../../constants";
 
 const CreateTypeOfPhotography = () => {
@@ -15,10 +15,21 @@ const CreateTypeOfPhotography = () => {
   const [error, updateError] = useState();
 
   const createType = () => {
-    createTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text)
-    
+    createTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text);
     navigate(`${adminDashboardLink}${typesLink}`);
   };
+
+  const handleTypeChange = useCallback((e) => {
+    setTypeOfPhotography(e.target.value);
+  }, []);
+
+  const handleDurationChange = useCallback((e) => {
+    setShootingDuration(e.target.value);
+  }, []);
+
+  const handleTextChange = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -44,19 +55,37 @@ const CreateTypeOfPhotography = () => {
         <div className={classes.createType__typeOfPhotography}>
           <label htmlFor="type">Type of photography</label>
           <br />
-          <input type="text" name="type" placeholder="Enter the type" value={typeOfPhotography} onChange={e=>setTypeOfPhotography(e.target.value)}/>
+          <input
+            type="text"
+            name="type"
+            placeholder="Enter the type"
+            value={typeOfPhotography}
+            onChange={handleTypeChange} 
+          />
         </div>
 
         <div className={classes.createType__shootingDuration}>
           <label htmlFor="type">Duration of shooting</label>
           <br />
-          <input type="text" name="duration" placeholder="Enter the duration" value={shootingDuration} onChange={e=>setShootingDuration(e.target.value)}/>
+          <input
+            type="text"
+            name="duration"
+            placeholder="Enter the duration"
+            value={shootingDuration}
+            onChange={handleDurationChange} 
+          />
         </div>
 
         <div className={classes.createType__text}>
           <label htmlFor="title">Text</label>
           <br />
-          <textarea type="text" name="text" placeholder="Enter the text" value={text} onChange={e=>setText(e.target.value)}/>
+          <textarea
+            type="text"
+            name="text"
+            placeholder="Enter the text"
+            value={text}
+            onChange={handleTextChange} 
+          />
         </div>
 
         <div className={classes.createType__mainPhoto}>

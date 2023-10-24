@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getTypeOfPhotographyById, updateTypeOfPhotographyById, } from '../../../../services/PhototypeService'
+import {
+  getTypeOfPhotographyById,
+  updateTypeOfPhotographyById,
+} from '../../../../services/PhototypeService';
 import { adminDashboardLink, typesLink } from "../../../../constants";
-
 
 const EditTypeOfPhotography = () => {
   const { id } = useParams();
@@ -16,8 +18,8 @@ const EditTypeOfPhotography = () => {
   const [newText, setNewText] = useState("");
   const [oldText, setOldText] = useState("");
 
-  const [newShootingDuration , setNewShootingDuration ] = useState("");
-  const [oldShootingDuration , setOldShootingDuration ] = useState("");
+  const [newShootingDuration, setNewShootingDuration] = useState("");
+  const [oldShootingDuration, setOldShootingDuration] = useState("");
 
   const [newTypeOfPhotography, setNewTypeOfPhotography] = useState("");
   const [oldTypeOfPhotography, setOldTypeOfPhotography] = useState("");
@@ -33,22 +35,38 @@ const EditTypeOfPhotography = () => {
     const updatedText = newText !== "" ? newText : oldText;
     const updatedTypeOfPhotography =
       newTypeOfPhotography !== "" ? newTypeOfPhotography : oldTypeOfPhotography;
-    const updatedShootingDuration = newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
+    const updatedShootingDuration =
+      newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
 
     updateTypeOfPhotographyById(
-      id, updatedTypeOfPhotography, updatedShootingDuration, updatedPhoto, updatedText
-    )
+      id,
+      updatedTypeOfPhotography,
+      updatedShootingDuration,
+      updatedPhoto,
+      updatedText
+    );
   };
 
   const getOldType = () => {
-    getTypeOfPhotographyById(id)
-      .then((data) => {
-        setOldText(data?.data?.text);
-        setOldShootingDuration(data?.data?.shootingDuration);
-        setOldPhoto(data?.data?.mainPhoto);
-        setOldTypeOfPhotography(data?.data?.typeOfPhotography);
-      })
+    getTypeOfPhotographyById(id).then((data) => {
+      setOldText(data?.data?.text);
+      setOldShootingDuration(data?.data?.shootingDuration);
+      setOldPhoto(data?.data?.mainPhoto);
+      setOldTypeOfPhotography(data?.data?.typeOfPhotography);
+    });
   };
+
+  const handleTypeOfPhotographyChange = useCallback((e) => {
+    setNewTypeOfPhotography(e.target.value);
+  }, []);
+
+  const handleShootingDurationChange = useCallback((e) => {
+    setNewShootingDuration(e.target.value);
+  }, []);
+
+  const handleTextChange = useCallback((e) => {
+    setNewText(e.target.value);
+  }, []);
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -79,7 +97,7 @@ const EditTypeOfPhotography = () => {
             name="type"
             placeholder="Enter the type"
             defaultValue={oldTypeOfPhotography}
-            onChange={(e) => setNewTypeOfPhotography(e.target.value)}
+            onChange={handleTypeOfPhotographyChange} 
           />
         </div>
 
@@ -91,7 +109,7 @@ const EditTypeOfPhotography = () => {
             name="duration"
             placeholder="Enter the duration"
             defaultValue={oldShootingDuration}
-            onChange={(e) => setNewShootingDuration(e.target.value)}
+            onChange={handleShootingDurationChange} 
           />
         </div>
 
@@ -103,7 +121,7 @@ const EditTypeOfPhotography = () => {
             name="text"
             placeholder="Enter the text"
             defaultValue={oldText}
-            onChange={(e) => setNewText(e.target.value)}
+            onChange={handleTextChange} 
           />
         </div>
         <div className={classes.editType__photo}>

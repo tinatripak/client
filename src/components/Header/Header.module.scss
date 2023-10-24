@@ -95,9 +95,6 @@
           color:black;
           text-decoration: none;
         }
-        // &:first-child{
-        //   display: flex;
-        // }
       }
       @include breakpoint(sm) {
         display: none;

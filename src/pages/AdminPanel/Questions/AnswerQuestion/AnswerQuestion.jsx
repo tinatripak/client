@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { answerToQuestion, getQuestionById } from '../../../../services/QuestionService'
-
 import { useParams } from "react-router-dom";
 import classes from "./AnswerQuestion.module.scss";
 
@@ -20,8 +19,12 @@ const AnswerQuestion = () => {
       })
   };
 
+  const handleAnswerChange = useCallback((e) => {
+    setAnswer(e.target.value);
+  }, []);
+
   const handleSubmit = () => {
-    answerToQuestion(question?._id, question?.email, question?.question, answer)
+    answerToQuestion(question?._id, question?.email, question?.question, answer);
   };
 
   return (
@@ -52,7 +55,7 @@ const AnswerQuestion = () => {
           <br />
           <textarea
             defaultValue={answer}
-            onChange={(e) => setAnswer(e.target.value)}
+            onChange={handleAnswerChange}
             className={classes.answer__textarea}
           />
           <button type="submit" className={classes.answer__button}>SEND</button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./UpdatePhotography.module.scss";
@@ -10,26 +10,20 @@ import { adminDashboardLink, darkColor, photographyLink } from "../../../../cons
 
 const UpdatePhotography = () => {
   const { id } = useParams();
-
   const [newMainPhoto, setNewMainPhoto] = useState("");
   const [oldMainPhoto, setOldMainPhoto] = useState("");
-
   const [newName, setNewName] = useState("");
   const [oldName, setOldName] = useState("");
-
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
-
   const [newPhotoTypeId, setNewPhotoTypeId] = useState("");
   const [oldPhotoTypeId, setOldPhotoTypeId] = useState("");
-
   const [newArrayOfPhotos, setNewArrayOfPhotos] = useState([]);
-
   const [error1, updateError1] = useState();
   const [error2, updateError2] = useState();
 
   useEffect(() => {
     getAllPhotoTypesName();
-  }, [allPhotoTypesName]);
+  }, []);
 
   const getAllPhotoTypesName = () => {
     getAllTypesOfPhotography()
@@ -40,7 +34,7 @@ const UpdatePhotography = () => {
             name: item.typeOfPhotography,
           }))
         );
-      })
+      });
   };
 
   useEffect(() => {
@@ -73,7 +67,7 @@ const UpdatePhotography = () => {
       })
   };
 
-  function handleOnUpload(error, result, widget) {
+  const handleMainPhotoUpload = useCallback((error, result, widget) => {
     if (error) {
       updateError1(error);
       widget.close({
@@ -82,9 +76,9 @@ const UpdatePhotography = () => {
       return;
     }
     setNewMainPhoto(result?.info?.url);
-  }
+  }, []);
 
-  function handleOnUploadArrayOfPhoto(error, result, widget) {
+  const handleArrayOfPhotosUpload = useCallback((error, result, widget) => {
     if (error) {
       updateError2(error);
       widget.close({
@@ -93,21 +87,20 @@ const UpdatePhotography = () => {
       return;
     }
     addPhoto(result?.info?.url);
-  }
+  }, []);
 
-  const addPhoto = (newPhoto) => {
+  const addPhoto = useCallback((newPhoto) => {
     const updatedArray = [...newArrayOfPhotos];
     updatedArray.push(newPhoto);
-
     setNewArrayOfPhotos(updatedArray);
-  };
+  }, [newArrayOfPhotos]);
 
-  const deletePhoto = (photoToDelete) => {
+  const deletePhoto = useCallback((photoToDelete) => {
     const updatedArray = newArrayOfPhotos.filter(
       (photo) => photo !== photoToDelete
     );
     setNewArrayOfPhotos(updatedArray);
-  };
+  }, [newArrayOfPhotos]);
 
   return (
     <div className={classes.updatePhotography}>
@@ -163,17 +156,17 @@ const UpdatePhotography = () => {
           {error1 && <p>{error1}</p>}
           {oldMainPhoto !== "" && !newMainPhoto && (
             <>
-              <img src={oldMainPhoto} />
+              <img src={oldMainPhoto} alt="Main Photo" />
             </>
           )}
           {newMainPhoto && (
             <>
-              <img src={newMainPhoto} />
+              <img src={newMainPhoto} alt="Main Photo" />
             </>
           )}
           <div>
             {
-              <UploadWidget onUpload={handleOnUpload}>
+              <UploadWidget onUpload={handleMainPhotoUpload}>
                 {({ open }) => {
                   function handleOnClickMain(e) {
                     e.preventDefault();
@@ -225,7 +218,7 @@ const UpdatePhotography = () => {
           )}
 
           <div>
-            <UploadWidget onUpload={handleOnUploadArrayOfPhoto}>
+            <UploadWidget onUpload={handleArrayOfPhotosUpload}>
               {({ open }) => {
                 function handleOnClickArray(e) {
                   e.preventDefault();

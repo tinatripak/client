@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import { createPhotoshoot } from '../../../../services/PhotoshootService'
 import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
-
 import { RxCross2 } from "react-icons/rx";
 import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
-
 
 const CreatePhotography = () => {
   const navigate = useNavigate();
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
   const [photoTypeId, setPhotoTypeId] = useState("");
-
   const [mainPhoto, setMainPhoto] = useState("");
   const [arrayOfPhotos, setArrayOfPhotos] = useState([]);
   const [name, setName] = useState("");
@@ -23,7 +20,7 @@ const CreatePhotography = () => {
 
   useEffect(() => {
     getAllPhotoTypesName();
-  }, [allPhotoTypesName]);
+  }, []);
 
   const getAllPhotoTypesName = () => {
     getAllTypesOfPhotography()
@@ -34,17 +31,15 @@ const CreatePhotography = () => {
             name: item.typeOfPhotography,
           }))
         );
-      })
+      });
   };
 
   const createOnePhotoshoot = () => {
-    console.log(name, photoTypeId, mainPhoto, arrayOfPhotos);
     createPhotoshoot(name, photoTypeId, mainPhoto, arrayOfPhotos)
-
     navigate(`${adminDashboardLink}${photographyLink}`);
   };
 
-  function handleOnUploadForMainPhoto(error, result, widget) {
+  const handleMainPhotoUpload = useCallback((error, result, widget) => {
     if (error) {
       updateError1(error);
       widget.close({
@@ -53,9 +48,9 @@ const CreatePhotography = () => {
       return;
     }
     setMainPhoto(result?.info?.url);
-  }
+  }, []);
 
-  function handleOnUploadForAllPhotos(error, result, widget) {
+  const handleAllPhotosUpload = useCallback((error, result, widget) => {
     if (error) {
       updateError2(error);
       widget.close({
@@ -64,21 +59,21 @@ const CreatePhotography = () => {
       return;
     }
     addPhoto(result?.info?.url);
-  }
+  }, []);
 
-  const addPhoto = (newPhoto) => {
+  const addPhoto = useCallback((newPhoto) => {
     const updatedArray = [...arrayOfPhotos];
     updatedArray.push(newPhoto);
-
     setArrayOfPhotos(updatedArray);
-  };
+  }, [arrayOfPhotos]);
 
-  const deletePhoto = (photoToDelete) => {
+  const deletePhoto = useCallback((photoToDelete) => {
     const updatedArray = arrayOfPhotos.filter(
       (photo) => photo !== photoToDelete
     );
     setArrayOfPhotos(updatedArray);
-  };
+  }, [arrayOfPhotos]);
+
   return (
     <div className={classes.createPhotography}>
       <div className={classes.createPhotography__backButtonWithTitle}>
@@ -104,7 +99,6 @@ const CreatePhotography = () => {
         <div className={classes.createPhotography__photoType}>
           <label htmlFor="title">Type of photoshoot</label>
           <br />
-
           <select
             value={photoTypeId}
             onChange={(e) => setPhotoTypeId(e.target.value)}
@@ -127,16 +121,14 @@ const CreatePhotography = () => {
           {error1 && <p>{error1}</p>}
           {mainPhoto && (
             <>
-              <img src={mainPhoto} />
+              <img src={mainPhoto} alt="Main Photo" />
             </>
           )}
           <div>
             {
-              <UploadWidget onUpload={handleOnUploadForMainPhoto}>
+              <UploadWidget onUpload={handleMainPhotoUpload}>
                 {({ open }) => {
                   function handleOnClickMain(e) {
-                    console.log("here one");
-
                     e.preventDefault();
                     open();
                   }
@@ -186,10 +178,9 @@ const CreatePhotography = () => {
           )}
 
           <div>
-            <UploadWidget onUpload={handleOnUploadForAllPhotos}>
+            <UploadWidget onUpload={handleAllPhotosUpload}>
               {({ open }) => {
                 function handleOnClickArray(e) {
-                  console.log("here two");
                   e.preventDefault();
                   open();
                 }

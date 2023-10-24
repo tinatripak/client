@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Login.module.scss";
@@ -10,7 +10,6 @@ import { useCookies } from "react-cookie";
 import { loginUser } from '../../services/LoginService'
 import { adminDashboardLink, cameraImage, generalLink } from "../../constants";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
@@ -20,25 +19,25 @@ const Login = () => {
   });
   const { email, password } = inputValue;
 
-  const handleOnChange = (e) => {
+  const handleOnChange = useCallback((e) => {
     const { name, value } = e.target;
     setInputValue({
       ...inputValue,
       [name]: value,
     });
-  };
+  }, [inputValue]);
 
-  const handleError = (err) =>
+  const handleError = useCallback((err) =>
     toast.error(err, {
       position: "bottom-left",
-    });
+    }), []);
 
-  const handleSuccess = (msg) =>
+  const handleSuccess = useCallback((msg) =>
     toast.success(msg, {
       position: "bottom-left",
-    });
+    }), []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     try {
       const { data } = await loginUser(inputValue);
@@ -52,16 +51,16 @@ const Login = () => {
         handleError(message);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     setInputValue({
       ...inputValue,
       email: "",
       password: "",
     });
-  };
+  }, [inputValue, navigate, handleSuccess, handleError]);
 
-  const removeUndefinedCookies = () => {
+  const removeUndefinedCookies = useCallback(() => {
     for (const cookieName in cookies) {
       if (
         cookies.hasOwnProperty(cookieName) &&
@@ -70,10 +69,11 @@ const Login = () => {
         removeCookie(cookieName);
       }
     }
-  };
+  }, [cookies, removeCookie]);
+
   useEffect(() => {
     removeUndefinedCookies();
-  }, []);
+  }, [removeUndefinedCookies]);
 
   return (
     <div className={classes.login}>

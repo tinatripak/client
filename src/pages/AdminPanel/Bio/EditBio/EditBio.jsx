@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditBio.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getPhotographerById, updatePhotographerById } from '../../../../services/BioService'
+import { getPhotographerById, updatePhotographerById } from '../../../../services/BioService';
 import { adminDashboardLink, bioLink } from "../../../../constants";
 
 const EditBio = () => {
@@ -29,18 +29,25 @@ const EditBio = () => {
     const updatedBio = newBio !== "" ? newBio : oldBio;
     const updatedPhoneNumber = newPhoneNumber !== "" ? newPhoneNumber : oldPhoneNumber;
 
-    updatePhotographerById(id, updatedBio, updatedPhoneNumber, updatedPhoto)
+    updatePhotographerById(id, updatedBio, updatedPhoneNumber, updatedPhoto);
   };
 
   const getOldBio = () => {
     getPhotographerById(id)
       .then((data) => {
-        console.log(data)
         setOldBio(data?.data?.bio);
         setOldPhoto(data?.data?.photo);
         setOldPhoneNumber(data?.data?.phoneNumber);
-      })
+      });
   };
+
+  const handleNewBioChange = useCallback((e) => {
+    setNewBio(e.target.value);
+  }, []);
+
+  const handleNewPhoneNumberChange = useCallback((e) => {
+    setNewPhoneNumber(e.target.value);
+  }, []);
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -66,13 +73,13 @@ const EditBio = () => {
         <div className={classes.editInfo__bio}>
           <label htmlFor="title">Bio</label>
           <br />
-          <textarea name="bio" defaultValue={oldBio} onChange={e=>setNewBio(e.target.value)}/>
+          <textarea name="bio" defaultValue={oldBio} onChange={handleNewBioChange} />
         </div>
 
         <div className={classes.editInfo__phoneNumber}>
           <label htmlFor="title">Phone number</label>
           <br />
-          <input type="tel" name="phone" defaultValue={oldPhoneNumber} onChange={e=>setNewPhoneNumber(e.target.value)}/>
+          <input type="tel" name="phone" defaultValue={oldPhoneNumber} onChange={handleNewPhoneNumberChange} />
         </div>
 
         <div className={classes.editInfo__photo}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./Booking.module.scss";
@@ -84,23 +84,26 @@ const Booking = () => {
     getBookings();
   }, [allBookings]);
 
-  const isDateDisabled = ({ date }) => {
-    const today = new Date();
-    const weddingBookings = allBookings.find(
-      (x) => x.photoTypeId === WEDDING_PHOTOTYPEID
-    );
+  const isDateDisabled = useCallback(
+    ({ date }) => {
+      const today = new Date();
+      const weddingBookings = allBookings.find(
+        (x) => x.photoTypeId === WEDDING_PHOTOTYPEID
+      );
 
-    if (weddingBookings instanceof Array) {
-      return weddingBookings.some((booking) => {
-        const weddingDateObject = new Date(booking.date);
+      if (weddingBookings instanceof Array) {
+        return weddingBookings.some((booking) => {
+          const weddingDateObject = new Date(booking.date);
+          return equalData(weddingDateObject, date);
+        });
+      } else if (weddingBookings) {
+        const weddingDateObject = new Date(weddingBookings.date);
         return equalData(weddingDateObject, date);
-      });
-    } else if (weddingBookings) {
-      const weddingDateObject = new Date(weddingBookings.date);
-      return equalData(weddingDateObject, date);
-    }
-    return date < today;
-  };
+      }
+      return date < today;
+    },
+    [allBookings, WEDDING_PHOTOTYPEID]
+  );
 
   const equalData = (weddingDate, date) => {
     return (
@@ -110,36 +113,39 @@ const Booking = () => {
     );
   };
 
-  const isDateDisabledForWedding = ({ date }) => {
-    const today = new Date();
-    if (photoTypeId) {
-      if (allBookings instanceof Array) {
-        return allBookings.some((booking) => {
-          const bookingDateObject = new Date(booking.date);
+  const isDateDisabledForWedding = useCallback(
+    ({ date }) => {
+      const today = new Date();
+      if (photoTypeId) {
+        if (allBookings instanceof Array) {
+          return allBookings.some((booking) => {
+            const bookingDateObject = new Date(booking.date);
+            return (
+              bookingDateObject.getDate() === date.getDate() &&
+              bookingDateObject.getMonth() === date.getMonth() &&
+              bookingDateObject.getFullYear() === date.getFullYear()
+            );
+          });
+        } else if (allBookings) {
+          const bookingDateObject = new Date(allBookings.date);
           return (
             bookingDateObject.getDate() === date.getDate() &&
             bookingDateObject.getMonth() === date.getMonth() &&
             bookingDateObject.getFullYear() === date.getFullYear()
           );
-        });
-      } else if (allBookings) {
-        const bookingDateObject = new Date(allBookings.date);
-        return (
-          bookingDateObject.getDate() === date.getDate() &&
-          bookingDateObject.getMonth() === date.getMonth() &&
-          bookingDateObject.getFullYear() === date.getFullYear()
-        );
+        }
+        return date < today;
       }
-      return date < today;
-    }
-  };
+    },
+    [allBookings, photoTypeId]
+  );
 
-  const getBookings = () => {
+  const getBookings = useCallback(() => {
     getAllBookings().then((data) => {
       setAllBookings(data?.data);
       setIsBookingsLoaded(true);
     });
-  };
+  }, []);
 
   while (currentTime <= endTime) {
     const formattedTime = currentTime.toLocaleTimeString([], {
@@ -150,9 +156,9 @@ const Booking = () => {
     currentTime.setMinutes(currentTime.getMinutes() + 30);
   }
 
-  const handleTimeChange = (event) => {
+  const handleTimeChange = useCallback((event) => {
     setSelectedTime(event.target.value);
-  };
+  }, []);
 
   const formatDate = (date) => {
     if (date instanceof Date) {
@@ -165,7 +171,7 @@ const Booking = () => {
     return "";
   };
 
-  const handleDateChange = (value) => {
+  const handleDateChange = useCallback((value) => {
     setDate(value);
     setIsDateSelected(true);
 
@@ -173,7 +179,7 @@ const Booking = () => {
       return formatDate(new Date(booking.date)) == formatDate(value);
     });
     setAllBookingsByDate(bookingsForSelectedDate);
-  };
+  }, [allBookings, formatDate]);
 
   useEffect(() => {
     getTimeOptions();
@@ -241,7 +247,8 @@ const Booking = () => {
 
     return formattedEndDate;
   };
-  const handleSubmit = () => {
+
+  const handleSubmit = useCallback(() => {
     const endTimePhotoshoot = addDurationToTime(
       selectedTime,
       photoshootDuration
@@ -255,7 +262,7 @@ const Booking = () => {
       selectedTime,
       endTimePhotoshoot
     );
-  };
+  }, [name, email, message, photoTypeId, date, selectedTime, photoshootDuration]);
 
   return (
     <div>

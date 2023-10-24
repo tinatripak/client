@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import classes from "./EditAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getAdminById, updateAdminById } from '../../../../services/AdminService'
-
+import { getAdminById, updateAdminById } from '../../../../services/AdminService';
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import { adminDashboardLink, adminsLink } from "../../../../constants";
 
@@ -24,7 +23,6 @@ const EditAdmin = () => {
 
   const [error, updateError] = useState();
 
-
   useEffect(() => {
     getOldAdmin();
   }, []);
@@ -35,8 +33,7 @@ const EditAdmin = () => {
     const updatedPassword = newPassword !== "" ? newPassword : oldPassword;
     const updatedPhoto = photo !== "" ? photo : oldPhoto;
 
-
-    updateAdminById(id, updatedUsername, updatedEmail, updatedPassword, updatedPhoto)
+    updateAdminById(id, updatedUsername, updatedEmail, updatedPassword, updatedPhoto);
   };
 
   const getOldAdmin = () => {
@@ -46,8 +43,20 @@ const EditAdmin = () => {
         setOldUsername(data?.data?.username);
         setOldPassword(data?.data?.password);
         setOldPhoto(data?.data?.photo);
-      })
+      });
   };
+
+  const handleNewUsernameChange = useCallback((e) => {
+    setNewUsername(e.target.value);
+  }, []);
+
+  const handleNewEmailChange = useCallback((e) => {
+    setNewEmail(e.target.value);
+  }, []);
+
+  const handleNewPasswordChange = useCallback((e) => {
+    setNewPassword(e.target.value);
+  }, []);
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -73,33 +82,51 @@ const EditAdmin = () => {
         <div className={classes.editAdmin__username}>
           <label htmlFor="title">Full name</label>
           <br />
-          <input type="text" name="username" placeholder="Enter your full name" defaultValue={oldUsername} onChange={e=>setNewUsername(e.target.value)}/>
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter your full name"
+            defaultValue={oldUsername}
+            onChange={handleNewUsernameChange}
+          />
         </div>
 
         <div className={classes.editAdmin__email}>
           <label htmlFor="title">Email</label>
           <br />
-          <input type="email" name="email" placeholder="Enter your email" defaultValue={oldEmail} onChange={e=>setNewEmail(e.target.value)}/>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            defaultValue={oldEmail}
+            onChange={handleNewEmailChange}
+          />
         </div>
 
         <div className={classes.editAdmin__password}>
           <label htmlFor="title">Password</label>
           <br />
-          <input type="password" name="password" placeholder="Enter your password" defaultValue={oldPassword} onChange={e=>setNewPassword(e.target.value)}/>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            defaultValue={oldPassword}
+            onChange={handleNewPasswordChange}
+          />
         </div>
 
         <div className={classes.editAdmin__photo}>
           <br />
           <h4>The photo of the admin</h4>
           {error && <p>{error}</p>}
-          {oldPhoto !=='' && !photo && (
+          {oldPhoto !== '' && !photo && (
             <>
-              <img src={oldPhoto} />
+              <img src={oldPhoto} alt="Old Admin Photo" />
             </>
           )}
           {photo && (
             <>
-              <img src={photo} />
+              <img src={photo} alt="New Admin Photo" />
             </>
           )}
           <div>

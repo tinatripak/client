@@ -10,28 +10,17 @@ const CreateTypeOfPhotography = () => {
   const navigate = useNavigate();
   const [typeOfPhotography, setTypeOfPhotography] = useState("");
   const [mainPhoto, setMainPhoto] = useState("");
-
   const [shootingDuration, setShootingDuration] = useState("");
-
   const [text, setText] = useState("");
   const [error, updateError] = useState();
 
   const createType = () => {
-    console.log(typeOfPhotography, shootingDuration, mainPhoto, text)
     createTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
     
     navigate(`${adminDashboardLink}${typesLink}`);
   };
 
   function handleOnUpload(error, result, widget) {
-    console.log("handleOnUpload function is called");
-
     if (error) {
       updateError(error);
       widget.close({
@@ -39,7 +28,6 @@ const CreateTypeOfPhotography = () => {
       });
       return;
     }
-    console.log(result?.info?.url)
     setMainPhoto(result?.info?.url);
   }
 

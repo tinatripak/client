@@ -20,9 +20,10 @@ const Home = () => {
         setArrayOfPhotos(data?.data);
         setIsLoaded(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+  };
+
+  const backgroundImageStyle = {
+    backgroundImage: `url('${arrayOfPhotos[0]?.photo}')`
   };
 
   return (
@@ -34,7 +35,7 @@ const Home = () => {
           <div className={classes.home__main}>
             <div
               className={classes.home__main__image}
-              style={{ backgroundImage: `url('${arrayOfPhotos[0]?.photo}')` }}
+              style={ backgroundImageStyle }
             >
               <p>Photography Is My Life</p>
             </div>

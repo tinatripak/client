@@ -20,9 +20,6 @@ const About = () => {
           setIsLoadedBio(true);
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const fetchTypesOfPhotography = () => {
@@ -31,9 +28,6 @@ const About = () => {
         setTypesOfPhotography(data?.data);
         setIsLoadedTypes(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   useEffect(() => {

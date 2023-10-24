@@ -16,13 +16,6 @@ const CreateAnAdmin = () => {
 
   const addAdmin = () => {
     createAdmin(username, email, password, photo)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    
     navigate(`${adminDashboardLink}${adminsLink}`);
   };
 

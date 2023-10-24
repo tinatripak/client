@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { verifyBooking } from '../../services/BookingService';
-
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import classes from "./VerifyBooking.module.scss";
@@ -22,9 +21,6 @@ const VerifyBooking = () => {
         setData(data?.data);
         setIsLoadedData(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   return (

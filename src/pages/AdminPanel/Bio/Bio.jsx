@@ -2,7 +2,6 @@ import {RiEditCircleLine} from 'react-icons/ri';
 import React, { useEffect, useState } from 'react'
 import classes from "./Bio.module.scss";
 import { getPhotographers } from '../../../services/BioService'
-
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import { adminDashboardLink, bioLink, editLink } from '../../../constants';
@@ -20,9 +19,6 @@ const Bio = () => {
         .then((data) => {
           setBioInfo(data?.data[0]);
         })
-        .catch((error) => {
-            console.error(error);
-        });
     }
 
   return (

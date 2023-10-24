@@ -14,7 +14,6 @@ import { adminDashboardLink, cameraImage, generalLink } from "../../constants";
 const Login = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
-
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",

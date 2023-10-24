@@ -4,14 +4,12 @@ import classes from "./PortfolioOneShoot.module.scss";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { getPhotoshootByName } from '../../services/PhotoshootService'
-
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const PortfolioOneShoot = () => {
   const { name } = useParams();
-
   const [photoshoot, setPhotoshoot] = useState([]);
   const [images, setImages] = useState([]);
   const [isLoadedPhotoshoots, setIsLoadedPhotoshoots] = useState(false);
@@ -26,9 +24,6 @@ const PortfolioOneShoot = () => {
         setPhotoshoot(data?.data?.arrayOfPhotos);
         setIsLoadedPhotoshoots(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const addImagesToGallery = () => {

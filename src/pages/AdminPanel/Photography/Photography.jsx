@@ -7,8 +7,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
 import { deletePhotoshootById, getPhotoshoots } from '../../../services/PhotoshootService'
 import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
-
-
 import NotFound from "../../../components/NotFound/NotFound";
 import { adminDashboardLink, createLink, darkColor, editLink, photographyLink } from "../../../constants";
 
@@ -28,9 +26,6 @@ const Photography = () => {
       .then((data) => {
         setArrayOfPhotographs(data?.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getAllTypes = () => {
@@ -38,9 +33,6 @@ const Photography = () => {
       .then((data) => {
         setArrayOfTypes(data?.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const handleDeletePhotoshoot = (id) => {
@@ -50,9 +42,6 @@ const Photography = () => {
           prevList.filter((x) => x._id !== id)
         );
       })
-      .catch((error) => {
-        console.error("Error deleting photoshoot:", error);
-      });
   };
 
   const handleCreate = () => {

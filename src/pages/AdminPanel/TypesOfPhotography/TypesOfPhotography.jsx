@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { RiEditCircleLine } from "react-icons/ri";
-
 import { deleteTypeOfPhotographyById,
   getAllTypesOfPhotography } from '../../../services/PhototypeService'
-
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -25,9 +23,6 @@ const TypesOfPhotography = () => {
       .then((data) => {
         setArrayOfTypes(data?.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const handleDeleteTypeOfPhotography = (id) => {
@@ -35,9 +30,6 @@ const TypesOfPhotography = () => {
       .then(() => {
         setArrayOfTypes((prevList) => prevList.filter((x) => x._id !== id));
       })
-      .catch((error) => {
-        console.error("Error deleting admin:", error);
-      });
   };
 
   const handleCreate = () => {

@@ -12,7 +12,6 @@ import { portfolioLink } from "../../constants";
 const Portfolio = () => {
   const [photoshoots, setPhotoshoots] = useState([]);
   const [types, setTypes] = useState([]);
-  
   const [isLoadedPhotoshoots, setIsLoadedPhotoshoots] = useState(false);
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
@@ -27,9 +26,6 @@ const Portfolio = () => {
         setPhotoshoots(data?.data);
         setIsLoadedPhotoshoots(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const fetchTypesData = () => {
@@ -38,9 +34,6 @@ const Portfolio = () => {
         setTypes(data?.data);
         setIsLoadedTypes(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getTypeNameById = (id) => {

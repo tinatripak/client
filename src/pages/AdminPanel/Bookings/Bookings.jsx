@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getAllBookings } from '../../../services/BookingService'
 import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
-
 import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { BsCheckLg } from "react-icons/bs";
 import NotFound from "../../../components/NotFound/NotFound";
+import BasicCalendar from "../../../components/BasicCalendar/BasicCalendar";
 
 const Booking = () => {
   const [bookingList, setBookingList] = useState([]);
@@ -20,9 +20,6 @@ const Booking = () => {
       .then((res) => {
         setBookingList(res.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   const fetchTypesOfPhotographyData = () => {
@@ -30,9 +27,6 @@ const Booking = () => {
       .then((res) => {
         setArrayOfTypes(res.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   useEffect(() => {
@@ -116,14 +110,6 @@ const Booking = () => {
   };
 
   const handleDecline = (booking) => {
-    // deletebooking(booking._id)
-    //   .then(() => {
-    //     setbookingList((prevList) => prevList.filter((x) => x.id !== booking._id));
-    //     alert(`booking ${booking.username} was deleted`)
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error deleting booking:', error);
-    //   });
     console.log("decline");
   };
 
@@ -185,6 +171,7 @@ const Booking = () => {
           </table>
         </div>
       )}
+      <BasicCalendar/>
     </div>
   );
 };

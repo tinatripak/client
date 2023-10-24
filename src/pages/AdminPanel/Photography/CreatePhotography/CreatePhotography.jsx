@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-
 import { createPhotoshoot } from '../../../../services/PhotoshootService'
 import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
 
@@ -36,20 +35,11 @@ const CreatePhotography = () => {
           }))
         );
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const createOnePhotoshoot = () => {
     console.log(name, photoTypeId, mainPhoto, arrayOfPhotos);
     createPhotoshoot(name, photoTypeId, mainPhoto, arrayOfPhotos)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
 
     navigate(`${adminDashboardLink}${photographyLink}`);
   };

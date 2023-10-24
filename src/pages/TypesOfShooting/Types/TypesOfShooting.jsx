@@ -3,7 +3,6 @@ import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import classes from "./TypesOfShooting.module.scss";
 import { getAllTypesOfPhotography } from '../../../services/PhototypeService';
-
 import { Link } from "react-router-dom";
 import ConditionalRender from "../../../components/ConditionalRender/ConditionalRender";
 import { typeLink } from "../../../constants";
@@ -22,9 +21,6 @@ const TypesOfShooting = () => {
         setTypesOfPhotography(data?.data);
         setIsLoadedTypes(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   return (

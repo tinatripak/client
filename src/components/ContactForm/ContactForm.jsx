@@ -8,13 +8,7 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
-    createQuestion(name, email, message)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    createQuestion(name, email, message);
       
     setMessage('');
     setName('');

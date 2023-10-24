@@ -34,7 +34,7 @@ export const telegramURL = "https://t.me/kseniatripak";
 export const viberURL = "viber://chat?number=+380953518578";
 
 
-export const notFoundImage = "http://res.cloudinary.com/dcxuxc5uw/image/upload/v1696457741/ue0nzgv7y4j7mlcw0qml.png";
+export const notFoundImage = "https://res.cloudinary.com/dcxuxc5uw/image/upload/v1698094691/document-file-not-found-search-no-result-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector-PhotoRoom-PhotoRoom_qiw0cg.png";
 export const bookingBgImage = "https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg";
 export const cameraImage = "https://www.onlygfx.com/wp-content/uploads/2018/08/5-old-photo-camera-drawing-4.png";
 

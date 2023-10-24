@@ -28,15 +28,8 @@ const EditBio = () => {
     const updatedPhoto = newPhoto !== "" ? newPhoto : oldPhoto;
     const updatedBio = newBio !== "" ? newBio : oldBio;
     const updatedPhoneNumber = newPhoneNumber !== "" ? newPhoneNumber : oldPhoneNumber;
-    console.log(id, updatedBio, updatedPhoneNumber, updatedPhoto)
 
     updatePhotographerById(id, updatedBio, updatedPhoneNumber, updatedPhoto)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getOldBio = () => {
@@ -47,9 +40,6 @@ const EditBio = () => {
         setOldPhoto(data?.data?.photo);
         setOldPhoneNumber(data?.data?.phoneNumber);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   function handleOnUpload(error, result, widget) {

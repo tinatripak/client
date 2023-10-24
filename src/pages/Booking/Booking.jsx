@@ -5,17 +5,15 @@ import classes from "./Booking.module.scss";
 import { LiaTelegram } from "react-icons/lia";
 import { FaViber } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
-
-import { createBooking,
-  getAllBookings } from '../../services/BookingService'
-import { getPhotographers } from '../../services/BioService'
-import { getAllTypesOfPhotography, getTypeOfPhotographyById } from '../../services/PhototypeService'
-
-import "react-calendar/dist/Calendar.css";
-import Calendar from "react-calendar";
-import "./CalendarForBooking.css";
-import Spinner from "../../components/Spinner/Spinner";
-import {bookingBgImage, telegramURL, viberURL} from '../../constants.js'
+import { createBooking, getAllBookings } from "../../services/BookingService";
+import { getPhotographers } from "../../services/BioService";
+import {
+  getAllTypesOfPhotography,
+  getTypeOfPhotographyById,
+} from "../../services/PhototypeService";
+import { telegramURL, viberURL } from "../../constants.js";
+import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
+import CalendarForBooking from "./CalendarForBooking";
 
 const Booking = () => {
   const [bio, setBio] = useState([]);
@@ -27,46 +25,31 @@ const Booking = () => {
   const [allBookings, setAllBookings] = useState([]);
   const [allBookingsByDate, setAllBookingsByDate] = useState([]);
   const [photoTypeId, setPhotoTypeId] = useState("");
-  const [backgroundImageLoading, setBackgroundImageLoading] = useState(true);
 
-  //const [isLoaded, setIsLoaded] = useState(false)
+  const [isBioLoaded, setIsBioLoaded] = useState(false);
+  const [isPhotoTypesLoaded, setIsPhotoTypesLoaded] = useState(false);
+  const [isBookingsLoaded, setIsBookingsLoaded] = useState(false);
 
   const [photoshootDuration, setPhotoshootDuration] = useState();
   const [selectedTime, setSelectedTime] = useState("");
   const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
   const [date, setDate] = useState(null);
-  
 
-  let timeOptions = [];
-  let currentTime = new Date("2000-01-01T08:30:00");
+  const timeOptions = [];
+  const currentTime = new Date("2000-01-01T08:30:00");
   const endTime = new Date("2000-01-01T20:00:00");
 
   const { WEDDING_PHOTOTYPEID } = process.env;
 
-
   useEffect(() => {
-    const backgroundImage = new Image();
-    backgroundImage.src = bookingBgImage
-    backgroundImage.onload = () => {
-      setBackgroundImageLoading(false);
-    };
-    backgroundImage.onerror = () => {
-      setBackgroundImageLoading(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchPhotographersData()
+    fetchPhotographersData();
   }, [bio]);
 
   const fetchPhotographersData = () => {
-    getPhotographers()
-      .then((data) => {
-        setBio(data?.data[0]);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getPhotographers().then((data) => {
+      setBio(data?.data[0]);
+      setIsBioLoaded(true);
+    });
   };
 
   useEffect(() => {
@@ -74,18 +57,15 @@ const Booking = () => {
   }, [allPhotoTypesName]);
 
   const getAllPhotoTypesName = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setAllPhotoTypesName(() =>
-          data?.data?.map((item) => ({
-            id: item._id,
-            name: item.typeOfPhotography,
-          }))
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getAllTypesOfPhotography().then((data) => {
+      setAllPhotoTypesName(() =>
+        data?.data?.map((item) => ({
+          id: item._id,
+          name: item.typeOfPhotography,
+        }))
+      );
+      setIsPhotoTypesLoaded(true);
+    });
   };
 
   useEffect(() => {
@@ -94,14 +74,9 @@ const Booking = () => {
 
   const fetchTypeOfPhotographyData = () => {
     if (photoTypeId) {
-      getTypeOfPhotographyById(photoTypeId)
-        .then((data) => {
-          console.log(data?.data);
-          setPhotoshootDuration(data?.data?.shootingDuration);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      getTypeOfPhotographyById(photoTypeId).then((data) => {
+        setPhotoshootDuration(data?.data?.shootingDuration);
+      });
     }
   };
 
@@ -118,12 +93,11 @@ const Booking = () => {
     if (weddingBookings instanceof Array) {
       return weddingBookings.some((booking) => {
         const weddingDateObject = new Date(booking.date);
-        return equalData(weddingDateObject, date)
+        return equalData(weddingDateObject, date);
       });
     } else if (weddingBookings) {
       const weddingDateObject = new Date(weddingBookings.date);
-      return equalData(weddingDateObject, date)
-
+      return equalData(weddingDateObject, date);
     }
     return date < today;
   };
@@ -133,8 +107,8 @@ const Booking = () => {
       weddingDate.getDate() === date.getDate() &&
       weddingDate.getMonth() === date.getMonth() &&
       weddingDate.getFullYear() === date.getFullYear()
-    )
-  }
+    );
+  };
 
   const isDateDisabledForWedding = ({ date }) => {
     const today = new Date();
@@ -153,7 +127,7 @@ const Booking = () => {
         return (
           bookingDateObject.getDate() === date.getDate() &&
           bookingDateObject.getMonth() === date.getMonth() &&
-          bookingDateObject.getFullYear() === date.getFullYear() 
+          bookingDateObject.getFullYear() === date.getFullYear()
         );
       }
       return date < today;
@@ -161,13 +135,10 @@ const Booking = () => {
   };
 
   const getBookings = () => {
-    getAllBookings()
-      .then((data) => {
-        setAllBookings(data?.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    getAllBookings().then((data) => {
+      setAllBookings(data?.data);
+      setIsBookingsLoaded(true);
+    });
   };
 
   while (currentTime <= endTime) {
@@ -245,28 +216,30 @@ const Booking = () => {
 
   const addDurationToTime = (start, duration) => {
     const [startHour, startPeriod] = start.split(" ");
-  const [startHourNumeric, startMinutes] = startHour.split(":");
-  let hours = parseInt(startHourNumeric, 10);
+    const [startHourNumeric, startMinutes] = startHour.split(":");
+    let hours = parseInt(startHourNumeric, 10);
 
-  if (startPeriod === "PM" && hours < 12) {
-    hours += 12;
-  }
+    if (startPeriod === "PM" && hours < 12) {
+      hours += 12;
+    }
 
-  const startDateObj = new Date();
-  startDateObj.setHours(hours, parseInt(startMinutes, 10), 0, 0);
+    const startDateObj = new Date();
+    startDateObj.setHours(hours, parseInt(startMinutes, 10), 0, 0);
 
-  const durationHours = parseInt(duration, 10);
+    const durationHours = parseInt(duration, 10);
 
-  const endDate = new Date(startDateObj);
-  endDate.setHours(startDateObj.getHours() + durationHours);
+    const endDate = new Date(startDateObj);
+    endDate.setHours(startDateObj.getHours() + durationHours);
 
-  const endHour = endDate.getHours() % 12 || 12;
+    const endHour = endDate.getHours() % 12 || 12;
 
-  const endMinutes = endDate.getMinutes();
-  const period = endDate.getHours() < 12 ? "AM" : "PM";
-  const formattedEndDate = `${endHour}:${endMinutes.toString().padStart(2, "0")} ${period}`;
+    const endMinutes = endDate.getMinutes();
+    const period = endDate.getHours() < 12 ? "AM" : "PM";
+    const formattedEndDate = `${endHour}:${endMinutes
+      .toString()
+      .padStart(2, "0")} ${period}`;
 
-  return formattedEndDate;
+    return formattedEndDate;
   };
   const handleSubmit = () => {
     const endTimePhotoshoot = addDurationToTime(
@@ -281,203 +254,199 @@ const Booking = () => {
       formatDate(date),
       selectedTime,
       endTimePhotoshoot
-    )
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    );
   };
 
   return (
-    <>
-      <div style={{ display: backgroundImageLoading ? "block" : "none" }}>
-        <Spinner />
-      </div>
-      <div style={{ display: backgroundImageLoading ? "none" : "block" }}>
-        <div className={classes.booking}>
-          <div
-            className={classes.booking__image}
-          >
-            <Header />
-          </div>
-          <div className={classes.booking__content}>
-            <p>Ksenia Tripak</p>
-            <p>
-              If you want to contact with me {bio?.phoneNumber} or you can find
-              me in the Telegram/Viber/WhatsApp:
-            </p>
-            <ul>
-              <li>
-                <a href={viberURL}>
-                  <FaViber className={classes.booking__content__icons__viber} />{" "}
-                </a>
-              </li>
-              <li>
-                <a href={telegramURL}>
-                  <LiaTelegram
-                    className={classes.booking__content__icons__telegram}
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <BsWhatsapp
-                    className={classes.booking__content__icons__whatsapp}
-                  />
-                </a>
-              </li>
-            </ul>
-            <p>Also you can fill out the form bellow:</p>
-          </div>
-
-          <div className={classes.booking__contactForm}>
-            <form onSubmit={handleSubmit}>
-              <div className={classes.booking__contactForm__commonBlock}>
-                <div
-                  className={
-                    classes.booking__contactForm__commonBlock__formGroup__input
-                  }
-                >
-                  <label htmlFor="name">Name:</label>
-                  <input
-                    type="text"
-                    defaultValue={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div
-                  className={
-                    classes.booking__contactForm__commonBlock__formGroup__input
-                  }
-                >
-                  <label htmlFor="email">Email:</label>
-                  <input
-                    type="email"
-                    defaultValue={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+    <div>
+      <ConditionalRender
+        conditions={[isBioLoaded, isPhotoTypesLoaded, isBookingsLoaded]}
+        content={
+          <div>
+            <div className={classes.booking}>
+              <div className={classes.booking__image}>
+                <Header />
               </div>
-              <div
-                className={
-                  classes.booking__contactForm__commonBlock__formGroup__type
-                }
-              >
-                <label htmlFor="title">Type of photo shoot</label>
-                <br />
-
-                <select
-                  value={photoTypeId}
-                  onChange={(e) => setPhotoTypeId(e.target.value)}
-                >
-                  <option
-                    value=""
-                    disabled
-                    className={
-                      classes.createPhotography__photoType__defaultOption
-                    }
-                  >
-                    Choose a name
-                  </option>
-                  {allPhotoTypesName.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select>
+              <div className={classes.booking__content}>
+                <p>Ksenia Tripak</p>
+                <p>
+                  If you want to contact with me {bio?.phoneNumber} or you can
+                  find me in the Telegram/Viber/WhatsApp:
+                </p>
+                <ul>
+                  <li>
+                    <a href={viberURL}>
+                      <FaViber
+                        className={classes.booking__content__icons__viber}
+                      />{" "}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={telegramURL}>
+                      <LiaTelegram
+                        className={classes.booking__content__icons__telegram}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="">
+                      <BsWhatsapp
+                        className={classes.booking__content__icons__whatsapp}
+                      />
+                    </a>
+                  </li>
+                </ul>
+                <p>Also you can fill out the form bellow:</p>
               </div>
-              {photoTypeId ? (
-                <div className={classes.booking__contactForm__calendarBlock}>
-                  <p>Please, choose the date and time of the photoshoot</p>
+
+              <div className={classes.booking__contactForm}>
+                <form onSubmit={handleSubmit}>
+                  <div className={classes.booking__contactForm__commonBlock}>
+                    <div
+                      className={
+                        classes.booking__contactForm__commonBlock__formGroup__input
+                      }
+                    >
+                      <label htmlFor="name">Name:</label>
+                      <input
+                        type="text"
+                        defaultValue={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
+                    <div
+                      className={
+                        classes.booking__contactForm__commonBlock__formGroup__input
+                      }
+                    >
+                      <label htmlFor="email">Email:</label>
+                      <input
+                        type="email"
+                        defaultValue={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                  </div>
                   <div
                     className={
-                      classes.booking__contactForm__calendarBlock__calendarWithSelect
+                      classes.booking__contactForm__commonBlock__formGroup__type
                     }
                   >
-                    <div>
-                      {photoTypeId !== WEDDING_PHOTOTYPEID ? (
-                        <Calendar
-                          onChange={handleDateChange}
-                          value={date}
-                          locale="en-En"
-                          minDate={new Date()}
-                          tileDisabled={isDateDisabled}
-                        />
-                      ) : (
-                        <Calendar
-                          onChange={handleDateChange}
-                          value={date}
-                          locale="en-En"
-                          minDate={new Date()}
-                          tileDisabled={isDateDisabledForWedding}
-                        />
-                      )}
-                      {date !== null && (
-                        <span>
-                          You chose {formatDate(date)}{" "}
-                          {selectedTime !== null && <span>{selectedTime}</span>}
-                        </span>
-                      )}
-                    </div>
+                    <label htmlFor="title">Type of photo shoot</label>
+                    <br />
 
-                    {isDateSelected && photoTypeId && (
-                      <select
-                        value={selectedTime}
-                        onChange={handleTimeChange}
+                    <select
+                      value={photoTypeId}
+                      onChange={(e) => setPhotoTypeId(e.target.value)}
+                    >
+                      <option
+                        value=""
+                        disabled
                         className={
-                          classes.booking__contactForm__calendarBlock__calendarWithSelect__select
+                          classes.createPhotography__photoType__defaultOption
                         }
                       >
-                        <option
-                          value=""
-                          disabled
-                          className={
-                            classes.booking__contactForm__calendarBlock__calendarWithSelect__select_default
-                          }
-                        >
-                          Choose time
+                        Choose a name
+                      </option>
+                      {allPhotoTypesName.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.name}
                         </option>
-                        {filteredTimeOptions.map((time, index) => (
-                          <option key={index} value={time}>
-                            {time}
-                          </option>
-                        ))}
-                      </select>
-                    )}
+                      ))}
+                    </select>
                   </div>
-                </div>
-              ) : (
-                <div
-                  className={
-                    classes.booking__contactForm__withoutPhotoshootType
-                  }
-                >
-                  Please, choose the type of photo shoot and you will have an
-                  opportunity to choose the date and time !
-                </div>
-              )}
-              <div className={classes.booking__contactForm__textarea}>
-                <label htmlFor="message">Additional message:</label>
-                <br />
-                <textarea
-                  defaultValue={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
+                  {photoTypeId ? (
+                    <div
+                      className={classes.booking__contactForm__calendarBlock}
+                    >
+                      <p>Please, choose the date and time of the photoshoot</p>
+                      <div
+                        className={
+                          classes.booking__contactForm__calendarBlock__calendarWithSelect
+                        }
+                      >
+                        <div>
+                          {photoTypeId !== WEDDING_PHOTOTYPEID ? (
+                            <CalendarForBooking
+                              handleDateChange={handleDateChange}
+                              date={date}
+                              isDateDisabled={isDateDisabled}
+                            />
+                          ) : (
+                            <CalendarForBooking
+                              handleDateChange={handleDateChange}
+                              date={date}
+                              isDateDisabled={isDateDisabledForWedding}
+                            />
+                          )}
+                          {date !== null && (
+                            <span>
+                              You chose {formatDate(date)}{" "}
+                              {selectedTime !== null && (
+                                <span>{selectedTime}</span>
+                              )}
+                            </span>
+                          )}
+                        </div>
+
+                        {isDateSelected && photoTypeId && (
+                          <select
+                            value={selectedTime}
+                            onChange={handleTimeChange}
+                            className={
+                              classes.booking__contactForm__calendarBlock__calendarWithSelect__select
+                            }
+                          >
+                            <option
+                              value=""
+                              disabled
+                              className={
+                                classes.booking__contactForm__calendarBlock__calendarWithSelect__select_default
+                              }
+                            >
+                              Choose time
+                            </option>
+                            {filteredTimeOptions.map((time, index) => (
+                              <option key={index} value={time}>
+                                {time}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className={
+                        classes.booking__contactForm__withoutPhotoshootType
+                      }
+                    >
+                      Please, choose the type of photo shoot and you will have
+                      an opportunity to choose the date and time !
+                    </div>
+                  )}
+                  <div className={classes.booking__contactForm__textarea}>
+                    <label htmlFor="message">Additional message:</label>
+                    <br />
+                    <textarea
+                      defaultValue={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                    />
+                  </div>
+                  <button
+                    className={classes.booking__contactForm__button}
+                    type="submit"
+                  >
+                    Send
+                  </button>
+                </form>
               </div>
-              <button
-                className={classes.booking__contactForm__button}
-                type="submit"
-              >
-                Send
-              </button>
-            </form>
+              <Footer />
+            </div>
           </div>
-          <Footer />
-        </div>
-      </div>
-    </>
+        }
+      />
+    </div>
   );
 };
 

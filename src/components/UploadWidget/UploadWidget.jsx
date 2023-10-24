@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+
+let cloudinary;
+let widget;
 
 export const  UploadWidget = ({ children, onUpload }) =>  {
-  const cloudinary = useRef(null);
-  const widget = useRef(null); 
   const { CLOUD_NAME, UPLOAD_PRESET } = process.env;
 
 

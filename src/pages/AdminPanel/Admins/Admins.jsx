@@ -20,11 +20,7 @@ const Admins = () => {
     getAllAdmins()
       .then((response) => {
         setAdminList(response.data); 
-        console.log(response.data)
       })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   const columns = React.useMemo(
@@ -110,9 +106,6 @@ const Admins = () => {
         setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
         alert(`Admin ${admin.username} was deleted`)
       })
-      .catch((error) => {
-        console.error('Error deleting admin:', error);
-      });
   };
   const handleCreate = () => {
     navigate(`${adminDashboardLink}${adminLink}${createLink}`);

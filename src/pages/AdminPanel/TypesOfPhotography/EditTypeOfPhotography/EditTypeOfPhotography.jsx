@@ -34,31 +34,20 @@ const EditTypeOfPhotography = () => {
     const updatedTypeOfPhotography =
       newTypeOfPhotography !== "" ? newTypeOfPhotography : oldTypeOfPhotography;
     const updatedShootingDuration = newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
-    console.log(id, updatedText, updatedTypeOfPhotography, updatedPhoto);
 
     updateTypeOfPhotographyById(
       id, updatedTypeOfPhotography, updatedShootingDuration, updatedPhoto, updatedText
     )
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getOldType = () => {
     getTypeOfPhotographyById(id)
       .then((data) => {
-        console.log(data)
         setOldText(data?.data?.text);
         setOldShootingDuration(data?.data?.shootingDuration);
         setOldPhoto(data?.data?.mainPhoto);
         setOldTypeOfPhotography(data?.data?.typeOfPhotography);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   function handleOnUpload(error, result, widget) {

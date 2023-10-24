@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getHomePhotoById, updateHomePhotoById } from '../../../../services/HomeService'
-
 import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
 import classes from "./EditHome.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { adminDashboardLink, emptyLink } from "../../../../constants";
+import { adminDashboardLink, homeLink } from "../../../../constants";
 
 const EditHome = () => {
   const { id } = useParams();
@@ -25,12 +24,6 @@ const EditHome = () => {
     const updatedPhoto = newPhoto !== "" ? newPhoto : oldPhoto;
 
     updateHomePhotoById(id, updatedPhoto)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getOldPhotoAndText = () => {
@@ -39,9 +32,6 @@ const EditHome = () => {
         setOldPhoto(data?.data?.photo);
         setTitleOfPhoto(data?.data?.titleOfPhoto);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   function handleOnUpload(error, result, widget) {
@@ -58,7 +48,7 @@ const EditHome = () => {
   return (
     <div className={classes.edit_home}>
       <div className={classes.edit_home__backButtonWithTitle}>
-        <Link to={`${adminDashboardLink}${emptyLink}`}>
+        <Link to={`${adminDashboardLink}${homeLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>

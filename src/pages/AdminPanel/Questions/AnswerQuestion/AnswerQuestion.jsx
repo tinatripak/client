@@ -18,19 +18,10 @@ const AnswerQuestion = () => {
       .then((data) => {
         setQuestion(data?.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const handleSubmit = () => {
     answerToQuestion(question?._id, question?.email, question?.question, answer)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   return (

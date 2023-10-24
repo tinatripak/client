@@ -37,12 +37,6 @@ const EditAdmin = () => {
 
 
     updateAdminById(id, updatedUsername, updatedEmail, updatedPassword, updatedPhoto)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getOldAdmin = () => {
@@ -53,13 +47,9 @@ const EditAdmin = () => {
         setOldPassword(data?.data?.password);
         setOldPhoto(data?.data?.photo);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   function handleOnUpload(error, result, widget) {
-    console.log(result)
     if (error) {
       updateError(error);
       widget.close({
@@ -68,7 +58,6 @@ const EditAdmin = () => {
       return;
     }
     setPhoto(result?.info?.url || result);
-    console.log(result?.info?.url)
   }
 
   return (

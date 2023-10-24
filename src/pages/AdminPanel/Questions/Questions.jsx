@@ -3,7 +3,6 @@ import { useTable } from "react-table";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import classes from "./Questions.module.scss";
 import { getAllQuestions } from '../../../services/QuestionService'
-
 import NotFound from "../../../components/NotFound/NotFound";
 import { Link } from "react-router-dom";
 import { adminDashboardLink, answerLink, questionLink } from "../../../constants";
@@ -20,9 +19,6 @@ const Questions = () => {
       .then((data) => {
         setListOfQuestions(data?.data);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const columns = React.useMemo(

@@ -22,9 +22,6 @@ const TypeOfShooting = () => {
         setTypeOfPhotography(data?.data);
         setIsLoadedType(true);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   return (

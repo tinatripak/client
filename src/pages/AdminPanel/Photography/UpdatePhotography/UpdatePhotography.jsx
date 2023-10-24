@@ -5,8 +5,6 @@ import classes from "./UpdatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import { getPhotoshootById, updatePhotoshootById } from '../../../../services/PhotoshootService'
 import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
-
-
 import { RxCross2 } from "react-icons/rx";
 import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
 
@@ -43,9 +41,6 @@ const UpdatePhotography = () => {
           }))
         );
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   useEffect(() => {
@@ -66,12 +61,6 @@ const UpdatePhotography = () => {
       updatedMainPhoto,
       updatedArrayOfPhotos
     )
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getOldPhotoshoot = () => {
@@ -82,9 +71,6 @@ const UpdatePhotography = () => {
         setOldMainPhoto(data?.data?.mainPhoto);
         setNewArrayOfPhotos(data?.data?.arrayOfPhotos);
       })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   function handleOnUpload(error, result, widget) {

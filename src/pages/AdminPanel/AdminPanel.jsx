@@ -3,7 +3,7 @@ import { BsMoonStarsFill } from "react-icons/bs";
 import { LiaToggleOffSolid, LiaToggleOnSolid } from "react-icons/lia";
 import { FiSun } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, NavLink, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Home, EditHome } from "./Home";
 import { Bookings, CreateBooking, EditBooking } from "./Bookings";
@@ -232,13 +232,15 @@ const AdminPanel = () => {
             />
 
             <Route path={`${adminsLink}`} element={<Admins />} />
+
             <Route
               path={`${adminLink}${createLink}`}
-              element={<CreateAnAdmin />}
+              element={<ProtectedRoute adminRole = {admin?.role}><CreateAnAdmin /></ProtectedRoute>}
             />
+
             <Route
               path={`${adminLink}${editLink}/:id`}
-              element={<EditAdmin />}
+              element={<ProtectedRoute adminRole = {admin?.role}><EditAdmin /></ProtectedRoute>}
             />
 
             <Route path={`${questionsLink}`} element={<Questions />} />
@@ -254,3 +256,15 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
+
+const ProtectedRoute = ({
+  admin,
+  redirecthPath = `${adminDashboardLink}${adminsLink}`,
+  children
+}) => {
+  if(admin?.role !== 'chief admin'){
+    return <Navigate to={redirecthPath} replace/>
+  }
+  return children
+}

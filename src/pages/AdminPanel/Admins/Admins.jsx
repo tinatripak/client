@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { deleteAdminById, getAllAdmins } from "../../../services/AdminService";
+import { deleteAdminById, getAdminById, getAllAdmins } from "../../../services/AdminService";
 import { useTable } from "react-table";
 import classes from "./Admins.module.scss";
 import { IoAddCircle } from "react-icons/io5";
@@ -13,10 +13,16 @@ import {
   darkColor,
   editLink,
 } from "../../../constants";
+import { useCookies } from "react-cookie";
+import jwtDecode from "jwt-decode";
 
 const Admins = () => {
   const [adminList, setAdminList] = useState([]);
   const navigate = useNavigate();
+
+  const [cookies] = useCookies([]);
+  const [currentAdmin, setCurrentAdmin] = useState([]);
+  const decoded = cookies?.token !== 'undefined' ? jwtDecode(cookies.token) : null;
 
   useEffect(() => {
     fetchAdminsData();
@@ -28,9 +34,25 @@ const Admins = () => {
     });
   };
 
+  const getAdmin = useCallback(() => {
+    getAdminById(decoded?.id).then((data) => {
+      setCurrentAdmin(data?.data);
+    });
+  }, [decoded?.id]);
+
+  useEffect(() => {
+    if (cookies?.token !== 'undefined') {
+      getAdmin();
+    }
+  }, [getAdmin]);
+
   const handleEdit = useCallback(
     (admin) => {
+      if (currentAdmin === 'chief admin'){
       navigate(`${adminDashboardLink}${adminLink}${editLink}/${admin._id}`);
+    } else{
+      alert("You dont have any permissions for it")
+    }
     },
     [navigate]
   );
@@ -100,18 +122,27 @@ const Admins = () => {
     useTable({ columns, data });
 
   const handleDelete = (admin) => {
-    deleteAdminById(admin._id).then(() => {
-      setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
-      alert(`Admin ${admin.username} was deleted`);
-    });
+    if (currentAdmin === 'chief admin'){
+      deleteAdminById(admin._id).then(() => {
+        setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
+        alert(`Admin ${admin.username} was deleted`);
+      });
+    } else{
+      alert("You dont have any permissions for it")
+    }
   };
   const handleCreate = () => {
+    if (currentAdmin === 'chief admin'){
     navigate(`${adminDashboardLink}${adminLink}${createLink}`);
+  } else{
+    alert("You dont have any permissions for it")
+  }
   };
 
   return (
     <div className={classes.admin}>
       <div className={classes.admin__add}>
+        {}
         <p>Add an admin</p>
         <IoAddCircle
           className={classes.admin__icon}

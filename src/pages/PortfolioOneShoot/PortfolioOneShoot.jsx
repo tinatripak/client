@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import classes from "./PortfolioOneShoot.module.scss";
-import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
-import { getPhotoshootByName } from '../../services/PhotoshootService'
+import { Header, Footer, ConditionalRender } from "../../components";
+import { getPhotoshootByName } from "../../services/PhotoshootService";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const PortfolioOneShoot = () => {
   const { name } = useParams();
@@ -19,11 +17,10 @@ const PortfolioOneShoot = () => {
   }, []);
 
   const fetchPhotoshootData = () => {
-    getPhotoshootByName(name)
-      .then((data) => {
-        setPhotoshoot(data?.data?.arrayOfPhotos);
-        setIsLoadedPhotoshoots(true);
-      })
+    getPhotoshootByName(name).then((data) => {
+      setPhotoshoot(data?.data?.arrayOfPhotos);
+      setIsLoadedPhotoshoots(true);
+    });
   };
 
   const addImagesToGallery = () => {
@@ -33,7 +30,7 @@ const PortfolioOneShoot = () => {
         original: url,
       }))
     );
-  }
+  };
 
   useEffect(() => {
     addImagesToGallery();

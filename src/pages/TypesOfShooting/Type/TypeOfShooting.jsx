@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../../components/Header/Header";
-import Footer from "../../../components/Footer/Footer";
+import { Header, Footer, ConditionalRender } from "../../../components";
 import classes from "./TypeOfShooting.module.scss";
-import { getTypeOfPhotographyByTypeName } from '../../../services/PhototypeService';
-
-import ConditionalRender from "../../../components/ConditionalRender/ConditionalRender";
+import { getTypeOfPhotographyByTypeName } from "../../../services/PhototypeService";
 
 const TypeOfShooting = () => {
   const { name } = useParams();
@@ -17,11 +14,10 @@ const TypeOfShooting = () => {
   }, []);
 
   const fetchTypeOfPhotographyData = () => {
-    getTypeOfPhotographyByTypeName(name)
-      .then((data) => {
-        setTypeOfPhotography(data?.data);
-        setIsLoadedType(true);
-      })
+    getTypeOfPhotographyByTypeName(name).then((data) => {
+      setTypeOfPhotography(data?.data);
+      setIsLoadedType(true);
+    });
   };
 
   return (
@@ -46,6 +42,7 @@ const TypeOfShooting = () => {
               <img
                 src={typeOfPhotography?.mainPhoto}
                 className={classes.type__grid__photo}
+                alt="Type"
               />
             </div>
           </div>

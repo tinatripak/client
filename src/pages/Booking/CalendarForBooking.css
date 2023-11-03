@@ -10,6 +10,7 @@
     font-family: "Cardo", serif;
     line-height: 1.125em;
 }
+
 .react-calendar__navigation button {
     color: #7b519d;
     min-width: 44px;
@@ -17,10 +18,12 @@
     font-size: 26px;
     font-family: "Gwendolyn";
 }
+
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8f8;
 }
+
 .react-calendar__navigation button[disabled] {
     background-color: #f8f2ff;
 }
@@ -28,39 +31,47 @@
 .react-calendar__navigation button[disabled]:first-child {
     border-top-left-radius: 8px;
 }
+
 abbr[title] {
     text-decoration: none;
 }
+
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
     background: #cfcfcf;
     color: #010101;
 }
+
 .react-calendar__tile--now {
     background: #c5a5df !important;
     font-weight: bold;
     color: #ffffff;
 }
+
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
     background: #6f48eb33;
     font-weight: bold;
     color: #7b519d;
 }
+
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
     background: #7b519d;
 }
+
 .react-calendar__tile--active {
     background: #7b519d;
     font-weight: bold;
     color: white;
 }
+
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
     background: #7b519d;
     color: white;
 }
+
 .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #f8f8f8;
 }
@@ -68,6 +79,7 @@ abbr[title] {
 .react-calendar__month-view__days button {
     font-family: "Cardo", serif;
 }
-.react-calendar__tile:disabled{
+
+.react-calendar__tile:disabled {
     background-color: #f8f8f8;
 }

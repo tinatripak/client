@@ -2,23 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useTable } from "react-table";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import classes from "./Questions.module.scss";
-import { getAllQuestions } from '../../../services/QuestionService'
-import NotFound from "../../../components/NotFound/NotFound";
+import { getAllQuestions } from "../../../services/QuestionService";
+import { NotFound } from "../../../components";
 import { Link } from "react-router-dom";
-import { adminDashboardLink, answerLink, questionLink } from "../../../constants";
+import {
+  adminDashboardLink,
+  answerLink,
+  questionLink,
+} from "../../../constants";
 
 const Questions = () => {
   const [listOfQuestions, setListOfQuestions] = useState([]);
 
   useEffect(() => {
-    fetchQuestionsData()
+    fetchQuestionsData();
   }, [listOfQuestions]);
 
   const fetchQuestionsData = () => {
-    getAllQuestions()
-      .then((data) => {
-        setListOfQuestions(data?.data);
-      })
+    getAllQuestions().then((data) => {
+      setListOfQuestions(data?.data);
+    });
   };
 
   const columns = React.useMemo(
@@ -42,11 +45,11 @@ const Questions = () => {
         Header: "ANSWER",
         accessor: "answer",
         Cell: ({ row }) => (
-          <div
-            className={classes.question__answer_button}
-          >
-            <Link to={`${adminDashboardLink}${questionLink}${answerLink}/${row.original._id}`}>
-              <RiQuestionAnswerFill size={30}/>
+          <div className={classes.question__answer_button}>
+            <Link
+              to={`${adminDashboardLink}${questionLink}${answerLink}/${row.original._id}`}
+            >
+              <RiQuestionAnswerFill size={30} />
             </Link>
           </div>
         ),

@@ -1,17 +1,17 @@
 @import "../../../../variables.scss";
 
-.edit_home{
-    &__backButtonWithTitle{
+.edit_home {
+    &__backButtonWithTitle {
         display: flex;
-        align-items: center; 
+        align-items: center;
         justify-content: space-between;
         width: 55%;
-        h3{
+        h3 {
             text-align: center;
         }
     }
-    &__title{
-        p{
+    &__title {
+        p {
             margin-top: 5px;
             padding: 5px 5px;
             border-radius: 10px;
@@ -20,17 +20,17 @@
             border: 2px solid rgb(65, 65, 65);
         }
     }
-    &__photo{
-        h4{
+    &__photo {
+        h4 {
             margin-top: 0px;
         }
-        img{
+        img {
             width: 350px;
             height: 350px;
             object-fit: cover;
             border-radius: 30px;
         }
-        &__upload{
+        &__upload {
             font-family: $Gotu;
             padding: 5px 15px;
             font-size: 16px;
@@ -39,7 +39,7 @@
             background-color: rgb(255, 255, 255);
         }
     }
-    &__button{
+    &__button {
         margin-top: 20px;
         font-family: $Gotu;
         padding: 6px 30px;

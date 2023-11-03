@@ -1,54 +1,52 @@
-.photography{
-
+.photography {
     padding-top: 30px;
     padding-left: 50px;
     padding-right: 20px;
 
-    &__add{
+    &__add {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 30px;
         margin-bottom: 8px;
-        p{
+        p {
             font-size: 18px;
         }
     }
-    
-    &__cards{
+
+    &__cards {
         display: flex;
         flex-wrap: wrap;
         gap: 70px;
         justify-content: center;
 
-        &__card{
+        &__card {
             border: 1px solid rgb(194, 194, 194);
             border-radius: 10px;
             width: min-content;
-            background-color: #EBEBEB;
+            background-color: #ebebeb;
 
-            &__nameWithActions{
+            &__nameWithActions {
                 display: flex;
                 justify-content: space-between;
                 padding-left: 20px;
                 padding-right: 20px;
 
                 align-items: center;
-                &__name{
+                &__name {
                     margin: 2px 2px 5px 2px;
                 }
-                &__actions{
+                &__actions {
                     display: flex;
-                    gap:10px;
-                    &__icon{
+                    gap: 10px;
+                    &__icon {
                         cursor: pointer;
                     }
                 }
-
             }
-            &__type{
+            &__type {
                 font-size: 14px;
-                color:#595959;
+                color: #595959;
                 text-align: left;
                 margin-top: 0px;
                 padding-left: 20px;
@@ -56,19 +54,19 @@
             }
         }
     }
-    &__photo{
+    &__photo {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;
         margin-bottom: 20px;
-        background-color: #EBEBEB;
-        p{
+        background-color: #ebebeb;
+        p {
             margin: 2px 2px 5px 2px;
             text-align: center;
         }
-        position:relative;
+        position: relative;
     }
-    img{
+    img {
         width: 250px;
         height: 250px;
         object-fit: cover;

@@ -1,35 +1,37 @@
-import axios from "axios";
+import { handleApiRequest } from "../utils/apiRequest";
 import { baseURL } from "../constants";
 
 export const userVerification = async () => {
-  try {
-    const res = await axios.post(`${baseURL}`, {}, { withCredentials: true });
-    return res;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'post',
+    url: `${baseURL}`,
+    data: {},
+    withCredentials: true,
+  };
+
+  return handleApiRequest(requestConfig);
 };
-export const loginUser = async (inputValue) => {
-  try {
-    const res = await axios.post(
-      `${baseURL}login`,
-      {
-        ...inputValue,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-    return res;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+
+export const loginUser = async (inputValue, cookies) => {
+  const requestConfig = {
+    method: 'post',
+    url: `${baseURL}login`,
+    data: {
+      ...inputValue,
+    },
+    withCredentials: true,
+    cookies
+  };
+
+  return handleApiRequest(requestConfig);
+};
+
+export const logoutUser = async (cookies) => {
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}logout`,
+    cookies
+  };
+
+  return handleApiRequest(requestConfig);
 };

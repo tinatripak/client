@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { Header, Footer, ConditionalRender } from "../../components";
 import classes from "./About.module.scss";
-import {getPhotographers} from '../../services/BioService'
-import {getAllTypesOfPhotography} from '../../services/PhototypeService'
-import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
+import { getPhotographers } from "../../services/BioService";
+import { getAllTypesOfPhotography } from "../../services/PhototypeService";
 
 const About = () => {
   const [bio, setBio] = useState([]);
@@ -13,21 +11,19 @@ const About = () => {
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
   const fetchBioData = () => {
-    getPhotographers()
-      .then((data) => {
-        if (data?.data.length === 1) {
-          setBio(data?.data[0]);
-          setIsLoadedBio(true);
-        }
-      })
+    getPhotographers().then((data) => {
+      if (data?.data.length === 1) {
+        setBio(data?.data[0]);
+        setIsLoadedBio(true);
+      }
+    });
   };
 
   const fetchTypesOfPhotography = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setTypesOfPhotography(data?.data);
-        setIsLoadedTypes(true);
-      })
+    getAllTypesOfPhotography().then((data) => {
+      setTypesOfPhotography(data?.data);
+      setIsLoadedTypes(true);
+    });
   };
 
   useEffect(() => {

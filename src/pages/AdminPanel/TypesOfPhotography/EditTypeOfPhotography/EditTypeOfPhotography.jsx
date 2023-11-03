@@ -1,28 +1,30 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { UploadWidget } from "../../../../components";
 import classes from "./EditTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import {
   getTypeOfPhotographyById,
   updateTypeOfPhotographyById,
-} from '../../../../services/PhototypeService';
+} from "../../../../services/PhototypeService";
 import { adminDashboardLink, typesLink } from "../../../../constants";
 
 const EditTypeOfPhotography = () => {
   const { id } = useParams();
 
-  const [newPhoto, setNewPhoto] = useState("");
-  const [oldPhoto, setOldPhoto] = useState("");
+  const [oldValues, setOldValues] = useState({
+    typeOfPhotography: "",
+    shootingDuration: "",
+    text: "",
+    photo: "",
+  });
 
-  const [newText, setNewText] = useState("");
-  const [oldText, setOldText] = useState("");
-
-  const [newShootingDuration, setNewShootingDuration] = useState("");
-  const [oldShootingDuration, setOldShootingDuration] = useState("");
-
-  const [newTypeOfPhotography, setNewTypeOfPhotography] = useState("");
-  const [oldTypeOfPhotography, setOldTypeOfPhotography] = useState("");
+  const [newValues, setNewValues] = useState({
+    typeOfPhotography: "",
+    shootingDuration: "",
+    text: "",
+    photo: "",
+  });
 
   const [error, updateError] = useState();
 
@@ -31,41 +33,40 @@ const EditTypeOfPhotography = () => {
   }, []);
 
   const updateType = () => {
-    const updatedPhoto = newPhoto !== "" ? newPhoto : oldPhoto;
-    const updatedText = newText !== "" ? newText : oldText;
-    const updatedTypeOfPhotography =
-      newTypeOfPhotography !== "" ? newTypeOfPhotography : oldTypeOfPhotography;
-    const updatedShootingDuration =
-      newShootingDuration !== "" ? newShootingDuration : oldShootingDuration;
+    const updatedType = { ...newValues };
+    for (const key in updatedType) {
+      if (updatedType[key] === "") {
+        updatedType[key] = oldValues[key];
+      }
+    }
 
     updateTypeOfPhotographyById(
       id,
-      updatedTypeOfPhotography,
-      updatedShootingDuration,
-      updatedPhoto,
-      updatedText
+      updatedType.typeOfPhotography,
+      updatedType.shootingDuration,
+      updatedType.photo,
+      updatedType.text
     );
   };
 
   const getOldType = () => {
     getTypeOfPhotographyById(id).then((data) => {
-      setOldText(data?.data?.text);
-      setOldShootingDuration(data?.data?.shootingDuration);
-      setOldPhoto(data?.data?.mainPhoto);
-      setOldTypeOfPhotography(data?.data?.typeOfPhotography);
+      const oldData = data?.data || {};
+      setOldValues({
+        typeOfPhotography: oldData.typeOfPhotography,
+        shootingDuration: oldData.shootingDuration,
+        text: oldData.text,
+        photo: oldData.mainPhoto,
+      });
     });
   };
 
-  const handleTypeOfPhotographyChange = useCallback((e) => {
-    setNewTypeOfPhotography(e.target.value);
-  }, []);
-
-  const handleShootingDurationChange = useCallback((e) => {
-    setNewShootingDuration(e.target.value);
-  }, []);
-
-  const handleTextChange = useCallback((e) => {
-    setNewText(e.target.value);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setNewValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   }, []);
 
   function handleOnUpload(error, result, widget) {
@@ -76,7 +77,10 @@ const EditTypeOfPhotography = () => {
       });
       return;
     }
-    setNewPhoto(result?.info?.url);
+    setNewValues((prevValues) => ({
+      ...prevValues,
+      photo: result?.info?.url || result,
+    }));
   }
 
   return (
@@ -90,52 +94,51 @@ const EditTypeOfPhotography = () => {
       </div>
       <form onSubmit={updateType}>
         <div className={classes.editType__typeOfPhotography}>
-          <label htmlFor="type">Type of photography</label>
+          <label htmlFor="typeOfPhotography">Type of photography</label>
           <br />
           <input
             type="text"
-            name="type"
+            name="typeOfPhotography"
             placeholder="Enter the type"
-            defaultValue={oldTypeOfPhotography}
-            onChange={handleTypeOfPhotographyChange} 
+            defaultValue={oldValues.typeOfPhotography}
+            onChange={handleInputChange}
           />
         </div>
 
         <div className={classes.editType__typeOfPhotography}>
-          <label htmlFor="type">Duration of shooting</label>
+          <label htmlFor="shootingDuration">Duration of shooting</label>
           <br />
           <input
             type="text"
-            name="duration"
+            name="shootingDuration"
             placeholder="Enter the duration"
-            defaultValue={oldShootingDuration}
-            onChange={handleShootingDurationChange} 
+            defaultValue={oldValues.shootingDuration}
+            onChange={handleInputChange}
           />
         </div>
 
         <div className={classes.editType__text}>
-          <label htmlFor="title">Text</label>
+          <label htmlFor="text">Text</label>
           <br />
           <textarea
-            type="text"
             name="text"
             placeholder="Enter the text"
-            defaultValue={oldText}
-            onChange={handleTextChange} 
+            defaultValue={oldValues.text}
+            onChange={handleInputChange}
           />
         </div>
         <div className={classes.editType__photo}>
           <br />
           <h4>The photo of updated type of photography</h4>
           {error && <p>{error}</p>}
-          {oldPhoto && !newPhoto && (
+          {oldValues.photo && !newValues.photo && (
             <>
-              <img src={oldPhoto} />
+              <img src={oldValues.photo} alt="Old" />
             </>
           )}
-          {newPhoto && (
+          {newValues.photo && (
             <>
-              <img src={newPhoto} />
+              <img src={newValues.photo} alt="New" />
             </>
           )}
           <div>

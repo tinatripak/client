@@ -2,60 +2,64 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import classes from "./EditAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getAdminById, updateAdminById } from '../../../../services/AdminService';
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import {
+  getAdminById,
+  updateAdminById,
+} from "../../../../services/AdminService";
+import { UploadWidget } from "../../../../components";
 import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const EditAdmin = () => {
   const { id } = useParams();
 
-  const [newUsername, setNewUsername] = useState("");
-  const [oldUsername, setOldUsername] = useState("");
+  const [oldValues, setOldValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    photo: "",
+  });
 
-  const [newEmail, setNewEmail] = useState("");
-  const [oldEmail, setOldEmail] = useState("");
-
-  const [newPassword, setNewPassword] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
-
-  const [photo, setPhoto] = useState("");
-  const [oldPhoto, setOldPhoto] = useState("");
+  const [newValues, setNewValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    photo: "",
+  });
 
   const [error, updateError] = useState();
 
+  const updateAdmin = () => {
+    const updatedValues = {
+      username: newValues.username || oldValues.username,
+      email: newValues.email || oldValues.email,
+      password: newValues.password || oldValues.password,
+      photo: newValues.photo || oldValues.photo,
+    };
+
+    updateAdminById(id, updatedValues.username, updatedValues.email, updatedValues.password, updatedValues.photo);
+  };
+
+  const getOldAdmin = useCallback(() => {
+    getAdminById(id).then((data) => {
+      setOldValues({
+        username: data?.data?.username || "",
+        email: data?.data?.email || "",
+        password: data?.data?.password || "",
+        photo: data?.data?.photo || "",
+      });
+    });
+  }, [id]);
+
   useEffect(() => {
     getOldAdmin();
-  }, []);
+  }, [getOldAdmin]);
 
-  const updateAdmin = () => {
-    const updatedUsername = newUsername !== "" ? newUsername : oldUsername;
-    const updatedEmail = newEmail !== "" ? newEmail : oldEmail;
-    const updatedPassword = newPassword !== "" ? newPassword : oldPassword;
-    const updatedPhoto = photo !== "" ? photo : oldPhoto;
-
-    updateAdminById(id, updatedUsername, updatedEmail, updatedPassword, updatedPhoto);
-  };
-
-  const getOldAdmin = () => {
-    getAdminById(id)
-      .then((data) => {
-        setOldEmail(data?.data?.email);
-        setOldUsername(data?.data?.username);
-        setOldPassword(data?.data?.password);
-        setOldPhoto(data?.data?.photo);
-      });
-  };
-
-  const handleNewUsernameChange = useCallback((e) => {
-    setNewUsername(e.target.value);
-  }, []);
-
-  const handleNewEmailChange = useCallback((e) => {
-    setNewEmail(e.target.value);
-  }, []);
-
-  const handleNewPasswordChange = useCallback((e) => {
-    setNewPassword(e.target.value);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setNewValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   }, []);
 
   function handleOnUpload(error, result, widget) {
@@ -66,8 +70,14 @@ const EditAdmin = () => {
       });
       return;
     }
-    setPhoto(result?.info?.url || result);
+    setNewValues((prevValues) => ({
+      ...prevValues,
+      photo: result?.info?.url || result,
+    }));
   }
+
+  const { username, email, password, photo } = newValues;
+  const { username: oldUsername, email: oldEmail, password: oldPassword, photo: oldPhoto } = oldValues;
 
   return (
     <div className={classes.editAdmin}>
@@ -87,10 +97,10 @@ const EditAdmin = () => {
             name="username"
             placeholder="Enter your full name"
             defaultValue={oldUsername}
-            onChange={handleNewUsernameChange}
+            onChange={handleInputChange}
           />
         </div>
-
+  
         <div className={classes.editAdmin__email}>
           <label htmlFor="title">Email</label>
           <br />
@@ -99,10 +109,10 @@ const EditAdmin = () => {
             name="email"
             placeholder="Enter your email"
             defaultValue={oldEmail}
-            onChange={handleNewEmailChange}
+            onChange={handleInputChange}
           />
         </div>
-
+  
         <div className={classes.editAdmin__password}>
           <label htmlFor="title">Password</label>
           <br />
@@ -111,22 +121,22 @@ const EditAdmin = () => {
             name="password"
             placeholder="Enter your password"
             defaultValue={oldPassword}
-            onChange={handleNewPasswordChange}
+            onChange={handleInputChange}
           />
         </div>
-
+  
         <div className={classes.editAdmin__photo}>
           <br />
           <h4>The photo of the admin</h4>
           {error && <p>{error}</p>}
-          {oldPhoto !== '' && !photo && (
+          {oldPhoto !== "" && !photo && (
             <>
-              <img src={oldPhoto} alt="Old Admin Photo" />
+              <img src={oldPhoto} alt="Old Admin" />
             </>
           )}
           {photo && (
             <>
-              <img src={photo} alt="New Admin Photo" />
+              <img src={photo} alt="New Admin" />
             </>
           )}
           <div>
@@ -148,8 +158,8 @@ const EditAdmin = () => {
             </UploadWidget>
           </div>
         </div>
-
-        <button className={classes.editAdmin__button}>Save</button>
+  
+        <button type="submit" className={classes.editAdmin__button}>Save</button>
       </form>
     </div>
   );

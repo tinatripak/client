@@ -1,27 +1,27 @@
-.bio{
+.bio {
     padding-top: 30px;
     padding-left: 50px;
     padding-right: 20px;
 
-    &__photo{
+    &__photo {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;
-        background-color: #EBEBEB;
+        background-color: #ebebeb;
         margin-bottom: 15px;
-        &__edit{
+        &__edit {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             font-size: 18px;
-            &__icon{
-                :hover{
+            &__icon {
+                :hover {
                     cursor: pointer;
                 }
             }
         }
-        img{
+        img {
             width: 250px;
             height: 250px;
             object-fit: cover;
@@ -29,9 +29,9 @@
             border-top-left-radius: 8px;
         }
     }
-    &__article{
+    &__article {
         padding-bottom: 15px;
-        &__edit{
+        &__edit {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,16 +39,16 @@
             gap: 20px;
             font-size: 18px;
             text-decoration: underline;
-            &__icon{
-                :hover{
+            &__icon {
+                :hover {
                     cursor: pointer;
                 }
             }
         }
     }
-    &__phoneNumber{
+    &__phoneNumber {
         padding-bottom: 15px;
-        &__edit{
+        &__edit {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,8 +56,8 @@
             width: max-content;
             font-size: 18px;
             text-decoration: underline;
-            &__icon{
-                :hover{
+            &__icon {
+                :hover {
                     cursor: pointer;
                 }
             }

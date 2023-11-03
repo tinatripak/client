@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { BsMoonStarsFill } from "react-icons/bs";
-import { BsBell } from "react-icons/bs";
 import { LiaToggleOffSolid, LiaToggleOnSolid } from "react-icons/lia";
 import { FiSun } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import classes from "./AdminPanel.module.scss";
-import Home from "./Home/Home";
-import Admins from "./Admins/Admins";
-import Bookings from "./Bookings/Bookings";
-import Bio from "./Bio/Bio";
-import Photography from "./Photography/Photography";
-import TypesOfPhotography from "./TypesOfPhotography/TypesOfPhotography";
-import General from "./General/General";
-import EditHome from "./Home/EditHome/EditHome";
-import EditBio from "./Bio/EditBio/EditBio";
-import { CreateAnAdmin, EditAdmin } from "./Admins";
-import jwtDecode from "jwt-decode";
+import { Home, EditHome } from "./Home";
+import { Bookings, CreateBooking, EditBooking } from "./Bookings";
+import { Bio, EditBio } from "./Bio";
+import {
+  Photography,
+  UpdatePhotography,
+  CreatePhotography,
+} from "./Photography";
+import {
+  TypesOfPhotography,
+  CreateTypeOfPhotography,
+  EditTypeOfPhotography,
+} from "./TypesOfPhotography";
+import { General } from "./General";
+import { Admins, CreateAnAdmin, EditAdmin } from "./Admins";
+import { Questions, AnswerQuestion } from "./Questions";
 import { getAdminById } from "../../services/AdminService";
-import CreateTypeOfPhotography from "./TypesOfPhotography/CreateTypeOfPhotography/CreateTypeOfPhotography";
-import EditTypeOfPhotography from "./TypesOfPhotography/EditTypeOfPhotography/EditTypeOfPhotography";
-import CreateBooking from "./Bookings/CreateBooking/CreateBooking";
-import EditBooking from "./Bookings/EditBooking/EditBooking";
-import UpdatePhotography from "./Photography/UpdatePhotography/UpdatePhotography";
-import CreatePhotography from "./Photography/CreatePhotography/CreatePhotography";
-import Questions from "./Questions/Questions";
-import AnswerQuestion from "./Questions/AnswerQuestion/AnswerQuestion";
+import jwtDecode from "jwt-decode";
 import {
   adminDashboardLink,
   adminLink,
@@ -45,58 +41,43 @@ import {
   typeLink,
   typesLink,
 } from "../../constants";
+import classes from "./AdminPanel.module.scss";
+import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
-const  textDecorationStyles  = ({ isActive }) => {
+const textDecorationStyles = ({ isActive }) => {
   return {
     textDecoration: isActive ? "underline" : "",
   };
 };
 
 const AdminPanel = () => {
-  const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
+  const [cookies] = useCookies([]);
   const [admin, setAdmin] = useState([]);
-  const [isArrowDown, setIsArrowDown] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSwitchOff, setIsSwitchOff] = useState(true);
+  const decoded = cookies?.token !== 'undefined' ? jwtDecode(cookies.token) : null;
+  const navigate = useNavigate();
 
-  const decoded = jwtDecode(cookies.token);
-
-  const toggleArrow = () => {
-    setIsArrowDown(!isArrowDown);
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const Logout = () => {
-    removeCookie("token");
-    navigate("/login");
-  };
+  useEffect(() => {
+    if (!decoded) {
+      navigate("/login");
+    }
+  }, [decoded, navigate]);
 
   const toggleSwitch = () => {
     setIsSwitchOff(!isSwitchOff);
   };
 
-  const removeUndefinedCookies = () => {
-    for (const cookieName in cookies) {
-      if (
-        cookies.hasOwnProperty(cookieName) &&
-        cookies[cookieName] === undefined
-      ) {
-        removeCookie(cookieName);
-      }
-    }
-  };
-
-  const getAdmin = () => {
-    getAdminById(decoded.id).then((data) => {
+  const getAdmin = useCallback(() => {
+    getAdminById(decoded?.id).then((data) => {
       setAdmin(data?.data);
     });
-  };
+  }, [decoded?.id]);
 
   useEffect(() => {
-    removeUndefinedCookies();
-    getAdmin();
-  }, []);
+    if (cookies?.token !== 'undefined') {
+      getAdmin();
+    }
+  }, [getAdmin]);
 
   return (
     <div className={classes.panel}>
@@ -112,7 +93,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${homeLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 Home
               </NavLink>
@@ -121,7 +102,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${bioLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 About photographer
               </NavLink>
@@ -130,7 +111,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${photographyLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 All photography
               </NavLink>
@@ -138,7 +119,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${typesLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 Types of photoshoots
               </NavLink>
@@ -146,7 +127,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${bookingsLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 Bookings
               </NavLink>
@@ -154,7 +135,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${adminsLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 Admins
               </NavLink>
@@ -162,7 +143,7 @@ const AdminPanel = () => {
             <div className={classes.panel__menu__navLinks__link}>
               <NavLink
                 to={`${adminDashboardLink}${questionsLink}`}
-                style={ textDecorationStyles }
+                style={textDecorationStyles}
               >
                 Questions
               </NavLink>
@@ -201,34 +182,11 @@ const AdminPanel = () => {
       </div>
       <div className={classes.panel__main}>
         <div className={classes.panel__main__settings}>
-          <BsBell className={classes.panel__main__settings__icon} size={20} />
           <div className={classes.panel__main__settings__user}>
-            <img src={admin?.photo} alt="User photo" />
+            <img src={admin?.photo} alt="User" />
             <p>{admin?.username}</p>
-            <div className={classes.panel__main__settings__user__menu}>
-              {isArrowDown ? (
-                <IoIosArrowDown onClick={toggleArrow} />
-              ) : (
-                <div
-                  className={
-                    classes.panel__main__settings__user__menu__dropdown
-                  }
-                >
-                  <span>
-                    <IoIosArrowUp onClick={toggleArrow} />
-                  </span>
-
-                  {isMenuOpen && (
-                    <div
-                      className={
-                        classes.panel__main__settings__user__menu__dropdown__logout
-                      }
-                    >
-                      <p onClick={Logout}>Logout</p>
-                    </div>
-                  )}
-                </div>
-              )}
+            <div>
+              <DropdownMenu/>
             </div>
           </div>
         </div>

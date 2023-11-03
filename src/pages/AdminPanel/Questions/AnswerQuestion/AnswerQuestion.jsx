@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { answerToQuestion, getQuestionById } from '../../../../services/QuestionService'
+import {
+  answerToQuestion,
+  getQuestionById,
+} from "../../../../services/QuestionService";
 import { useParams } from "react-router-dom";
 import classes from "./AnswerQuestion.module.scss";
 
@@ -9,14 +12,13 @@ const AnswerQuestion = () => {
   const [answer, setAnswer] = useState("");
 
   useEffect(() => {
-    fetchQuestionData()
+    fetchQuestionData();
   }, [question]);
 
   const fetchQuestionData = () => {
-    getQuestionById(id)
-      .then((data) => {
-        setQuestion(data?.data);
-      })
+    getQuestionById(id).then((data) => {
+      setQuestion(data?.data);
+    });
   };
 
   const handleAnswerChange = useCallback((e) => {
@@ -24,7 +26,12 @@ const AnswerQuestion = () => {
   }, []);
 
   const handleSubmit = () => {
-    answerToQuestion(question?._id, question?.email, question?.question, answer);
+    answerToQuestion(
+      question?._id,
+      question?.email,
+      question?.question,
+      answer
+    );
   };
 
   return (
@@ -58,7 +65,9 @@ const AnswerQuestion = () => {
             onChange={handleAnswerChange}
             className={classes.answer__textarea}
           />
-          <button type="submit" className={classes.answer__button}>SEND</button>
+          <button type="submit" className={classes.answer__button}>
+            SEND
+          </button>
         </form>
       </div>
     </div>

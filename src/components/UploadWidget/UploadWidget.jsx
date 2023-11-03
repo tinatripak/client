@@ -3,38 +3,37 @@ import { useEffect } from 'react';
 let cloudinary;
 let widget;
 
-export const  UploadWidget = ({ children, onUpload }) =>  {
-  const { CLOUD_NAME, UPLOAD_PRESET } = process.env;
-
+export function UploadWidget ({ children, onUpload }) {
+  // const { CLOUD_NAME, UPLOAD_PRESET } = process.env;
 
   useEffect(() => {
-    if ( !cloudinary ) {
+  // console.log(CLOUD_NAME)
+    if (!cloudinary) {
       cloudinary = window.cloudinary;
     }
     function onIdle() {
-      if ( !widget ) {
+      if (!widget) {
         widget = createWidget();
       }
     }
     'requestIdleCallback' in window ? requestIdleCallback(onIdle) : setTimeout(onIdle, 1);
   }, []);
-
-  const createWidget = () => {
+  function createWidget() {
     const options = {
-      cloudName: CLOUD_NAME,
-      uploadPreset: UPLOAD_PRESET,
-    }
+      cloudName: 'dcxuxc5uw',
+      uploadPreset: 'wd6fnebc',
+    };
 
     return cloudinary?.createUploadWidget(options,
       function (error, result) {
-        if ( error || result.event === 'success' ) {
+        if (error || result.event === 'success') {
           onUpload(error, result, widget);
         }
       }
     );
   }
 
-  const open = () => {
+  function open() {
     widget = createWidget();
     widget && widget.open();
   }

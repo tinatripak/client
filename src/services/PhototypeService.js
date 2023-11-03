@@ -1,73 +1,53 @@
-import axios from "axios";
+import { handleApiRequest } from "../utils/apiRequest";
 import { baseURL } from "../constants";
 
 export const getAllTypesOfPhotography = async () => {
-  try {
-    const res = await axios.get(
-      `${baseURL}typeOfPhotography/getAllTypesOfPhotography`
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}typeOfPhotography/getAllTypesOfPhotography`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const getTypeOfPhotographyById = async (id) => {
-  try {
-    const res = await axios.get(
-      `${baseURL}typeOfPhotography/getTypeOfPhotographyById/${id}`
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}typeOfPhotography/getTypeOfPhotographyById/${id}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const getTypeOfPhotographyByTypeName = async (name) => {
-  try {
-    const res = await axios.get(
-      `${baseURL}typeOfPhotography/getTypeOfPhotographyByTypeName/${name}`
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}typeOfPhotography/getTypeOfPhotographyByTypeName/${name}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const createTypeOfPhotography = async (
   typeOfPhotography,
   shootingDuration,
   mainPhoto,
   text
 ) => {
-  try {
-    const res = await axios.post(
-      `${baseURL}typeOfPhotography/createTypeOfPhotography`,
-      {
-        typeOfPhotography: typeOfPhotography,
-        shootingDuration: shootingDuration,
-        mainPhoto: mainPhoto,
-        text: text,
-      }
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'post',
+    url: `${baseURL}typeOfPhotography/createTypeOfPhotography`,
+    data: {
+      typeOfPhotography,
+      shootingDuration,
+      mainPhoto,
+      text,
+    },
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const updateTypeOfPhotographyById = async (
   id,
   typeOfPhotography,
@@ -75,36 +55,25 @@ export const updateTypeOfPhotographyById = async (
   mainPhoto,
   text
 ) => {
-  try {
-    const res = await axios.put(
-      `${baseURL}typeOfPhotography/updateTypeOfPhotographyById/${id}`,
-      {
-        typeOfPhotography: typeOfPhotography,
-        shootingDuration: shootingDuration,
-        mainPhoto: mainPhoto,
-        text: text,
-      }
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'put',
+    url: `${baseURL}typeOfPhotography/updateTypeOfPhotographyById/${id}`,
+    data: {
+      typeOfPhotography,
+      shootingDuration,
+      mainPhoto,
+      text,
+    },
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const deleteTypeOfPhotographyById = async (id) => {
-  try {
-    const res = await axios.delete(
-      `${baseURL}typeOfPhotography/deleteTypeOfPhotographyById/${id}`
-    );
-    return res;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'delete',
+    url: `${baseURL}typeOfPhotography/deleteTypeOfPhotographyById/${id}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };

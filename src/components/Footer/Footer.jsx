@@ -5,6 +5,7 @@ import classes from "./Footer.module.scss";
 import FontAwesome from 'react-fontawesome'
 import {aboutLink, bookingLink, instagramURL, portfolioLink, typesLink} from '../../constants.js'
 
+
 const Footer = () => {
   return (
     <div className={classes.footer}>

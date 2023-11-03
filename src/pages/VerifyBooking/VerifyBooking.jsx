@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { verifyBooking } from '../../services/BookingService';
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { verifyBooking } from "../../services/BookingService";
+import { Header, Footer, ConditionalRender } from "../../components";
 import classes from "./VerifyBooking.module.scss";
-import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 
 const VerifyBooking = () => {
   const { uniqueString } = useParams();
@@ -16,11 +14,10 @@ const VerifyBooking = () => {
   }, []);
 
   const fetchVerifiedBookingData = () => {
-    verifyBooking(uniqueString)
-      .then((data) => {
-        setData(data?.data);
-        setIsLoadedData(true);
-      })
+    verifyBooking(uniqueString).then((data) => {
+      setData(data?.data);
+      setIsLoadedData(true);
+    });
   };
 
   return (

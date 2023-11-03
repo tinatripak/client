@@ -1,44 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { getAllBookings } from '../../../services/BookingService'
-import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
+import { getAllBookings } from "../../../services/BookingService";
+import { getAllTypesOfPhotography } from "../../../services/PhototypeService";
 import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { BsCheckLg } from "react-icons/bs";
-import NotFound from "../../../components/NotFound/NotFound";
-import BasicCalendar from "../../../components/BasicCalendar/BasicCalendar";
+import { BasicCalendar, NotFound } from "../../../components";
 
 const Booking = () => {
   const [bookingList, setBookingList] = useState([]);
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
   useEffect(() => {
-    fetchBookingsData()
+    fetchBookingsData();
   }, [bookingList]);
 
   const fetchBookingsData = () => {
-    getAllBookings()
-      .then((res) => {
-        setBookingList(res.data);
-      })
-  }
+    getAllBookings().then((res) => {
+      setBookingList(res.data);
+    });
+  };
 
   const fetchTypesOfPhotographyData = () => {
-    getAllTypesOfPhotography()
-      .then((res) => {
-        setArrayOfTypes(res.data);
-      })
-  }
+    getAllTypesOfPhotography().then((res) => {
+      setArrayOfTypes(res.data);
+    });
+  };
 
   useEffect(() => {
     fetchTypesOfPhotographyData();
   }, [arrayOfTypes]);
 
-  const findPhotoNameById = (photoTypeId) => {
-    if (arrayOfTypes) {
-      const type = arrayOfTypes.find((type) => type?._id === photoTypeId);
-      return type?.typeOfPhotography;
-    }
-  };
+  // const findPhotoNameById = (photoTypeId) => {
+  //   if (arrayOfTypes) {
+  //     const type = arrayOfTypes.find((type) => type?._id === photoTypeId);
+  //     return type?.typeOfPhotography;
+  //   }
+  // };
 
   const columns = React.useMemo(
     () => [
@@ -171,7 +168,7 @@ const Booking = () => {
           </table>
         </div>
       )}
-      <BasicCalendar/>
+      <BasicCalendar />
     </div>
   );
 };

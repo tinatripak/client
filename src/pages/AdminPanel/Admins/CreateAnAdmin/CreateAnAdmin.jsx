@@ -2,20 +2,23 @@ import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateAnAdmin.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { createAdmin } from '../../../../services/AdminService'
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { createAdmin } from "../../../../services/AdminService";
+import { UploadWidget } from "../../../../components";
 import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const CreateAnAdmin = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [photo, setPhoto] = useState("");
+  
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    photo: "",
+  });
   const [error, updateError] = useState();
 
   const addAdmin = () => {
-    createAdmin(username, email, password, photo);
+    createAdmin(formData.username, formData.email, formData.password, formData.photo);
     navigate(`${adminDashboardLink}${adminsLink}`);
   };
 
@@ -27,20 +30,13 @@ const CreateAnAdmin = () => {
       });
       return;
     }
-    setPhoto(result?.info?.url);
+    setFormData({ ...formData, photo: result?.info?.url });
   }
 
-  const handleUsernameChange = useCallback((e) => {
-    setUsername(e.target.value);
-  }, []);
-
-  const handleEmailChange = useCallback((e) => {
-    setEmail(e.target.value);
-  }, []);
-
-  const handlePasswordChange = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }, [formData]);
 
   return (
     <div className={classes.createAdmin}>
@@ -59,8 +55,8 @@ const CreateAnAdmin = () => {
             type="text"
             name="username"
             placeholder="Enter your full name"
-            value={username}
-            onChange={handleUsernameChange}
+            value={formData.username}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -71,8 +67,8 @@ const CreateAnAdmin = () => {
             type="email"
             name="email"
             placeholder="Enter your email"
-            value={email}
-            onChange={handleEmailChange}
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -83,8 +79,8 @@ const CreateAnAdmin = () => {
             type="password"
             name="password"
             placeholder="Enter your password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={formData.password}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -92,9 +88,9 @@ const CreateAnAdmin = () => {
           <br />
           <h4>The photo of the new admin</h4>
           {error && <p>{error}</p>}
-          {photo && (
+          {formData.photo && (
             <>
-              <img src={photo} alt="Admin Photo" />
+              <img src={formData.photo} alt="Admin" />
             </>
           )}
           <div>

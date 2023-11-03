@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getHomePhotoById, updateHomePhotoById } from '../../../../services/HomeService'
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { getHomePhotoById, updateHomePhotoById } from "../../../../services/HomeService";
+import { UploadWidget } from "../../../../components";
 import classes from "./EditHome.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import { adminDashboardLink, homeLink } from "../../../../constants";
@@ -9,30 +9,29 @@ import { adminDashboardLink, homeLink } from "../../../../constants";
 const EditHome = () => {
   const { id } = useParams();
 
-  const [newPhoto, setNewPhoto] = useState("");
-
-  const [oldPhoto, setOldPhoto] = useState("");
-  const [titleOfPhoto, setTitleOfPhoto] = useState("");
+  const [formValues, setFormValues] = useState({
+    photo: "",
+    titleOfPhoto: "",
+  });
 
   const [error, updateError] = useState();
 
+  const updatePhotoAndText = () => {
+    updateHomePhotoById(id, formValues.photo);
+  };
+
+  const getOldPhotoAndText = useCallback(() => {
+    getHomePhotoById(id).then((data) => {
+      setFormValues({
+        photo: data?.data?.photo,
+        titleOfPhoto: data?.data?.titleOfPhoto,
+      });
+    });
+  }, [id]);
+
   useEffect(() => {
     getOldPhotoAndText();
-  }, []);
-
-  const updatePhotoAndText = () => {
-    const updatedPhoto = newPhoto !== "" ? newPhoto : oldPhoto;
-
-    updateHomePhotoById(id, updatedPhoto)
-  };
-
-  const getOldPhotoAndText = () => {
-    getHomePhotoById(id)
-      .then((data) => {
-        setOldPhoto(data?.data?.photo);
-        setTitleOfPhoto(data?.data?.titleOfPhoto);
-      })
-  };
+  }, [getOldPhotoAndText]);
 
   function handleOnUpload(error, result, widget) {
     if (error) {
@@ -42,7 +41,10 @@ const EditHome = () => {
       });
       return;
     }
-    setNewPhoto(result?.info?.secure_url);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      photo: result?.info?.secure_url || prevValues.photo,
+    }));
   }
 
   return (
@@ -58,20 +60,15 @@ const EditHome = () => {
         <div className={classes.edit_home__title}>
           <label htmlFor="title">Title of the photo</label>
           <br />
-          <p>{titleOfPhoto}</p>
+          <p>{formValues.titleOfPhoto}</p>
         </div>
         <div className={classes.edit_home__photo}>
           <br />
           <h4>The photo</h4>
           {error && <p>{error}</p>}
-          {oldPhoto && !newPhoto && (
+          {formValues.photo && (
             <>
-              <img src={oldPhoto} />
-            </>
-          )}
-          {newPhoto && (
-            <>
-              <img src={newPhoto} />
+              <img src={formValues.photo} alt="New" />
             </>
           )}
           <div>

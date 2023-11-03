@@ -1,70 +1,95 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { UploadWidget } from "../../../../components";
 import classes from "./UpdatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
-import { getPhotoshootById, updatePhotoshootById } from '../../../../services/PhotoshootService'
-import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
+import {
+  getPhotoshootById,
+  updatePhotoshootById,
+} from "../../../../services/PhotoshootService";
+import { getAllTypesOfPhotography } from "../../../../services/PhototypeService";
 import { RxCross2 } from "react-icons/rx";
-import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
+import {
+  adminDashboardLink,
+  darkColor,
+  photographyLink,
+} from "../../../../constants";
 
 const UpdatePhotography = () => {
   const { id } = useParams();
-  const [newMainPhoto, setNewMainPhoto] = useState("");
-  const [oldMainPhoto, setOldMainPhoto] = useState("");
-  const [newName, setNewName] = useState("");
-  const [oldName, setOldName] = useState("");
-  const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
-  const [newPhotoTypeId, setNewPhotoTypeId] = useState("");
-  const [oldPhotoTypeId, setOldPhotoTypeId] = useState("");
-  const [newArrayOfPhotos, setNewArrayOfPhotos] = useState([]);
+
+  const [newValues, setNewValues] = useState({
+    mainPhoto: "",
+    name: "",
+    photoTypeId: "",
+    arrayOfPhotos: [],
+  });
+
+  const [oldValues, setOldValues] = useState({
+    mainPhoto: "",
+    name: "",
+    photoTypeId: "",
+    arrayOfPhotos: [],
+  });
+
   const [error1, updateError1] = useState();
   const [error2, updateError2] = useState();
+  const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
 
   useEffect(() => {
     getAllPhotoTypesName();
   }, []);
 
   const getAllPhotoTypesName = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setAllPhotoTypesName(() =>
-          data?.data?.map((item) => ({
-            id: item._id,
-            name: item.typeOfPhotography,
-          }))
-        );
-      });
+    getAllTypesOfPhotography().then((data) => {
+      setAllPhotoTypesName(() =>
+        data?.data?.map((item) => ({
+          id: item._id,
+          name: item.typeOfPhotography,
+        }))
+      );
+    });
   };
 
   useEffect(() => {
     getOldPhotoshoot();
   }, []);
 
+  useEffect(() => {
+    setNewValues({arrayOfPhotos: oldValues.arrayOfPhotos})
+  }, [oldValues])
+
   const updateType = () => {
-    const updatedMainPhoto = newMainPhoto !== "" ? newMainPhoto : oldMainPhoto;
-    const updatedName = newName !== "" ? newName : oldName;
-    const updatedPhotoTypeId =
-      newPhotoTypeId !== "" ? newPhotoTypeId : oldPhotoTypeId;
-    const updatedArrayOfPhotos = newArrayOfPhotos;
+    const {
+      mainPhoto,
+      name,
+      photoTypeId,
+      arrayOfPhotos,
+    } = newValues;
+
+    const updatedMainPhoto = mainPhoto || oldValues.mainPhoto;
+    const updatedName = name || oldValues.name;
+    const updatedPhotoTypeId = photoTypeId || oldValues.photoTypeId;
+    const updatedArrayOfPhotos = arrayOfPhotos;
 
     updatePhotoshootById(
-      id,
+      id, 
       updatedName,
       updatedPhotoTypeId,
       updatedMainPhoto,
       updatedArrayOfPhotos
-    )
+    );
   };
 
   const getOldPhotoshoot = () => {
-    getPhotoshootById(id)
-      .then((data) => {
-        setOldName(data?.data?.name);
-        setOldPhotoTypeId(data?.data?.photoTypeId);
-        setOldMainPhoto(data?.data?.mainPhoto);
-        setNewArrayOfPhotos(data?.data?.arrayOfPhotos);
-      })
+    getPhotoshootById(id).then((data) => {
+      setOldValues({
+        mainPhoto: data?.data?.mainPhoto,
+        name: data?.data?.name,
+        photoTypeId: data?.data?.photoTypeId,
+        arrayOfPhotos: data?.data?.arrayOfPhotos,
+      });
+    });
   };
 
   const handleMainPhotoUpload = useCallback((error, result, widget) => {
@@ -75,7 +100,10 @@ const UpdatePhotography = () => {
       });
       return;
     }
-    setNewMainPhoto(result?.info?.url);
+    setNewValues((prevValues) => ({
+      ...prevValues,
+      mainPhoto: result?.info?.url,
+    }));
   }, []);
 
   const handleArrayOfPhotosUpload = useCallback((error, result, widget) => {
@@ -89,18 +117,27 @@ const UpdatePhotography = () => {
     addPhoto(result?.info?.url);
   }, []);
 
-  const addPhoto = useCallback((newPhoto) => {
-    const updatedArray = [...newArrayOfPhotos];
-    updatedArray.push(newPhoto);
-    setNewArrayOfPhotos(updatedArray);
-  }, [newArrayOfPhotos]);
+  const addPhoto = useCallback(
+    (newPhoto) => {
+      setNewValues((prevValues) => ({
+        ...prevValues,
+        arrayOfPhotos: [...prevValues.arrayOfPhotos, newPhoto],
+      }));
+    },
+    [newValues]
+  );
 
-  const deletePhoto = useCallback((photoToDelete) => {
-    const updatedArray = newArrayOfPhotos.filter(
-      (photo) => photo !== photoToDelete
-    );
-    setNewArrayOfPhotos(updatedArray);
-  }, [newArrayOfPhotos]);
+  const deletePhoto = useCallback(
+    (photoToDelete) => {
+      setNewValues((prevValues) => ({
+        ...prevValues,
+        arrayOfPhotos: prevValues.arrayOfPhotos.filter(
+          (photo) => photo !== photoToDelete
+        ),
+      }));
+    },
+    [newValues]
+  );
 
   return (
     <div className={classes.updatePhotography}>
@@ -109,7 +146,7 @@ const UpdatePhotography = () => {
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
         </Link>
-        <h3>Update a photography '{oldName}'</h3>
+        <h3>Update a photography '{oldValues.name}'</h3>
       </div>
       <form onSubmit={updateType}>
         <div className={classes.updatePhotography__name}>
@@ -119,8 +156,13 @@ const UpdatePhotography = () => {
             type="text"
             name="name"
             placeholder="Enter the name"
-            defaultValue={oldName}
-            onChange={(e) => setNewName(e.target.value)}
+            defaultValue={oldValues.name}
+            onChange={(e) =>
+              setNewValues((prevValues) => ({
+                ...prevValues,
+                name: e.target.value,
+              }))
+            }
           />
         </div>
 
@@ -129,19 +171,25 @@ const UpdatePhotography = () => {
           <br />
 
           <select
-            value={newPhotoTypeId}
-            onChange={(e) => setNewPhotoTypeId(e.target.value)}
+            value={newValues.photoTypeId}
+            onChange={(e) =>
+              setNewValues((prevValues) => ({
+                ...prevValues,
+                photoTypeId: e.target.value,
+              }))
+            }
           >
-            <option value={oldPhotoTypeId}>
+            <option value={oldValues.photoTypeId}>
               {
-                allPhotoTypesName.find((type) => type.id === oldPhotoTypeId)
-                  ?.name
+                allPhotoTypesName.find(
+                  (type) => type.id === oldValues.photoTypeId
+                )?.name
               }
             </option>
 
             {allPhotoTypesName.map(
               (type) =>
-                type.id !== oldPhotoTypeId && (
+                type.id !== oldValues.photoTypeId && (
                   <option key={type.id} value={type.id}>
                     {type.name}
                   </option>
@@ -154,14 +202,14 @@ const UpdatePhotography = () => {
           <br />
           <h4>The main photo of photography</h4>
           {error1 && <p>{error1}</p>}
-          {oldMainPhoto !== "" && !newMainPhoto && (
+          {oldValues.mainPhoto !== "" && !newValues.mainPhoto && (
             <>
-              <img src={oldMainPhoto} alt="Main Photo" />
+              <img src={oldValues.mainPhoto} alt="Main" />
             </>
           )}
-          {newMainPhoto && (
+          {newValues.mainPhoto && (
             <>
-              <img src={newMainPhoto} alt="Main Photo" />
+              <img src={newValues.mainPhoto} alt="Main" />
             </>
           )}
           <div>
@@ -190,11 +238,11 @@ const UpdatePhotography = () => {
           <br />
           <h4>All photos from the photo shoot</h4>
           {error2 && <p>{error2}</p>}
-          {newArrayOfPhotos.length > 0 && (
+          {newValues.arrayOfPhotos.length > 0 && (
             <div className={classes.updatePhotography__allPhotos__show}>
-              {newArrayOfPhotos.map((photo, index) => (
+              {newValues.arrayOfPhotos.map((photo, index) => (
                 <div
-                  key={index}
+                  key={index} 
                   className={classes.updatePhotography__allPhotos__show__block}
                 >
                   <div
@@ -210,7 +258,7 @@ const UpdatePhotography = () => {
                     <br />
                   </div>
                   <div>
-                    <img src={photo} alt={`Photo ${index}`} />
+                    <img src={photo} alt={`Gallery item-${index}`} />
                   </div>
                 </div>
               ))}

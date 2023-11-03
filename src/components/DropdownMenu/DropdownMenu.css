@@ -1,0 +1,38 @@
+.menu-trigger.active {
+      transform: rotate(180deg);
+}
+
+.menu-trigger.inactive {
+      transform: rotate(0);
+}
+
+.dropdown-menu {
+      position: absolute;
+      top: 70px;
+      right: 10px;
+      background-color: #fff7f7;
+      padding: 10px 20px;
+      width: 100px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 5px 5px #ceccc7;
+}
+
+.dropdown-menu ul {
+      list-style-type: none;
+      padding: 0;
+}
+
+.dropdown-menu.active {
+      opacity: 1;
+      visibility: visible;
+}
+
+.dropdown-menu.inactive {
+      opacity: 0;
+      visibility: hidden;
+}
+
+.dropdown-menu ul li:hover a {
+      font-weight: 900;
+      cursor: pointer;
+}

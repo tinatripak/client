@@ -1,66 +1,53 @@
-import axios from "axios";
+import { handleApiRequest } from "../utils/apiRequest";
 import { baseURL } from "../constants";
 
 export const getPhotoshoots = async () => {
-  try {
-    const res = await axios.get(`${baseURL}photoshoot/getPhotoshoots`);
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}photoshoot/getPhotoshoots`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const getPhotoshootById = async (id) => {
-  try {
-    const res = await axios.get(`${baseURL}photoshoot/getPhotoshootById/${id}`);
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}photoshoot/getPhotoshootById/${id}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const getPhotoshootByName = async (name) => {
-  try {
-    const res = await axios.get(
-      `${baseURL}photoshoot/getPhotoshootByName/${name}`
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}photoshoot/getPhotoshootByName/${name}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const createPhotoshoot = async (
   name,
   photoTypeId,
   mainPhoto,
   arrayOfPhotos
 ) => {
-  try {
-    const res = await axios.post(`${baseURL}photoshoot/createPhotoshoot`, {
-      name: name,
-      photoTypeId: photoTypeId,
-      mainPhoto: mainPhoto,
-      arrayOfPhotos: arrayOfPhotos,
-    });
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'post',
+    url: `${baseURL}photoshoot/createPhotoshoot`,
+    data: {
+      name,
+      photoTypeId,
+      mainPhoto,
+      arrayOfPhotos,
+    },
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const updatePhotoshootById = async (
   id,
   name,
@@ -68,36 +55,25 @@ export const updatePhotoshootById = async (
   mainPhoto,
   arrayOfPhotos
 ) => {
-  try {
-    const res = await axios.put(
-      `${baseURL}photoshoot/updatePhotoshootById/${id}`,
-      {
-        name: name,
-        photoTypeId: photoTypeId,
-        mainPhoto: mainPhoto,
-        arrayOfPhotos: arrayOfPhotos,
-      }
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'put',
+    url: `${baseURL}photoshoot/updatePhotoshootById/${id}`,
+    data: {
+      name,
+      photoTypeId,
+      mainPhoto,
+      arrayOfPhotos,
+    },
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const deletePhotoshootById = async (id) => {
-  try {
-    const res = await axios.delete(
-      `${baseURL}photoshoot/deletePhotoshootById/${id}`
-    );
-    return res;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'delete',
+    url: `${baseURL}photoshoot/deletePhotoshootById/${id}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };

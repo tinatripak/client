@@ -6,6 +6,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import FontAwesome from "react-fontawesome";
 import { emptyLink, loginLink, aboutLink, portfolioLink, typesLink, bookingLink, contactUsLink, instagramURL, pinterestURL } from "../../constants";
 
+
 const Header = () => {
   const location = useLocation();
   const textColor = location.pathname === bookingLink ? "white" : "black"

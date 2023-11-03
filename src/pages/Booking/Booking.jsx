@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { Header, Footer, ConditionalRender } from "../../components";
 import classes from "./Booking.module.scss";
 import { LiaTelegram } from "react-icons/lia";
 import { FaViber } from "react-icons/fa";
@@ -12,7 +11,6 @@ import {
   getTypeOfPhotographyById,
 } from "../../services/PhototypeService";
 import { telegramURL, viberURL } from "../../constants.js";
-import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 import CalendarForBooking from "./CalendarForBooking";
 
 const Booking = () => {
@@ -171,15 +169,18 @@ const Booking = () => {
     return "";
   };
 
-  const handleDateChange = useCallback((value) => {
-    setDate(value);
-    setIsDateSelected(true);
+  const handleDateChange = useCallback(
+    (value) => {
+      setDate(value);
+      setIsDateSelected(true);
 
-    const bookingsForSelectedDate = allBookings.filter((booking) => {
-      return formatDate(new Date(booking.date)) == formatDate(value);
-    });
-    setAllBookingsByDate(bookingsForSelectedDate);
-  }, [allBookings, formatDate]);
+      const bookingsForSelectedDate = allBookings.filter((booking) => {
+        return formatDate(new Date(booking.date)) === formatDate(value);
+      });
+      setAllBookingsByDate(bookingsForSelectedDate);
+    },
+    [allBookings, formatDate]
+  );
 
   useEffect(() => {
     getTimeOptions();
@@ -262,7 +263,15 @@ const Booking = () => {
       selectedTime,
       endTimePhotoshoot
     );
-  }, [name, email, message, photoTypeId, date, selectedTime, photoshootDuration]);
+  }, [
+    name,
+    email,
+    message,
+    photoTypeId,
+    date,
+    selectedTime,
+    photoshootDuration,
+  ]);
 
   return (
     <div>
@@ -372,7 +381,7 @@ const Booking = () => {
                           classes.booking__contactForm__calendarBlock__calendarWithSelect
                         }
                       >
-                        <div>
+                        <div>{console.log(WEDDING_PHOTOTYPEID)}
                           {photoTypeId !== WEDDING_PHOTOTYPEID ? (
                             <CalendarForBooking
                               handleDateChange={handleDateChange}

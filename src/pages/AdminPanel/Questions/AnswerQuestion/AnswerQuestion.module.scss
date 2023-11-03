@@ -1,8 +1,8 @@
 @import "../../../../variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap");
 
-.answer{
-      &__textarea{
+.answer {
+      &__textarea {
             border-radius: 10px;
             width: 640px;
             height: 20vh;
@@ -10,10 +10,10 @@
             padding: 10px 10px;
             font-size: 16px;
             @include breakpoint(xs) {
-                width: 80vw;
+                  width: 80vw;
             }
       }
-      &__button{
+      &__button {
             margin-top: 4vh;
             border: none;
             background-color: rgb(0, 0, 0);

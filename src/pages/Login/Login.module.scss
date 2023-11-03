@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
-.login{
-    &__block{
+.login {
+    &__block {
         margin-top: 70px;
         margin-bottom: 170px;
         margin-left: auto;
@@ -11,79 +11,79 @@
         padding: 30px 50px;
         border-radius: 30px;
         grid-template-columns: repeat(2, 1fr);
-        background-color: #F7F7F7;
-        &__img{
-            img{
+        background-color: #f7f7f7;
+        &__img {
+            img {
                 width: 20vw;
                 margin-top: 5vh;
                 margin-bottom: 5vh;
             }
         }
-        &__text{
+        &__text {
             font-family: $Gotu;
-            &__welcome{
+            &__welcome {
                 font-size: 36px;
             }
-            &__problems{
+            &__problems {
                 font-size: 18px;
             }
-            &__form{
+            &__form {
                 display: block;
-                &__email{
+                &__email {
                     display: flex;
                     align-items: center;
-                    gap:15px;
+                    gap: 15px;
                     background-color: white;
-                    border: 1px solid #EBEBEB;
+                    border: 1px solid #ebebeb;
                     padding: 5px 10px;
 
-                    input{
+                    input {
                         border: 0;
                         border-bottom: 1px solid black;
                         width: 300px;
                         font-family: $Gotu;
                     }
-                    label{
+                    label {
                         font-size: 12px;
                     }
                 }
-                &__password{
+                &__password {
                     display: flex;
                     align-items: center;
-                    gap:15px;
+                    gap: 15px;
                     background-color: white;
-                    border: 1px solid #EBEBEB;
+                    border: 1px solid #ebebeb;
                     padding: 5px 10px;
 
-                    input{
+                    input {
                         border: 0;
                         border-bottom: 1px solid black;
                         width: 300px;
                     }
-                    label{
+                    label {
                         font-size: 12px;
                     }
                 }
-                &__button{
+                &__button {
                     width: min-content;
                     margin-left: auto;
                     margin-right: auto;
                     margin-top: 30px;
                     margin-bottom: 30px;
 
-                    &__login{
+                    &__login {
                         font-family: $Gotu;
                         font-size: 20px;
                         border: 0px;
                         padding: 10px 40px;
                         border-radius: 30px;
-                        background-color: #E5C7F4;
+                        background-color: #e5c7f4;
                     }
                 }
             }
         }
     }
 }
-.icon{
+.icon {
     min-width: 70px;
 }

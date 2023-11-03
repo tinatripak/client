@@ -1,6 +1,6 @@
 @import "../../variables.scss";
 
-.portfolio{
+.portfolio {
     margin-top: 5vh;
     margin-bottom: 5vh;
     margin-left: auto;
@@ -8,30 +8,30 @@
     width: 85%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap:20px;
-    a{
+    gap: 20px;
+    a {
         color: black;
         text-decoration: none;
     }
 
-    &__element{
+    &__element {
         width: 17vw;
         font-family: $Gotu;
         background-color: rgba(217, 217, 217, 0.51);
         padding: 5px 5px;
-        &__div{
+        &__div {
             padding: 10px 10px;
-            &__img{
+            &__img {
                 object-fit: cover;
                 height: 35vh;
                 width: 100%;
             }
-            &__name{
+            &__name {
                 font-size: 18px;
                 margin-bottom: 0px;
                 margin-top: 0px;
             }
-            &__text{
+            &__text {
                 font-size: 15px;
                 color: #595959;
                 margin-bottom: 0px;

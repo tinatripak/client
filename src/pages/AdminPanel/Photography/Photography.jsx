@@ -5,10 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./Photography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
-import { deletePhotoshootById, getPhotoshoots } from '../../../services/PhotoshootService'
-import { getAllTypesOfPhotography } from '../../../services/PhototypeService'
-import NotFound from "../../../components/NotFound/NotFound";
-import { adminDashboardLink, createLink, darkColor, editLink, photographyLink } from "../../../constants";
+import {
+  deletePhotoshootById,
+  getPhotoshoots,
+} from "../../../services/PhotoshootService";
+import { getAllTypesOfPhotography } from "../../../services/PhototypeService";
+import { NotFound } from "../../../components";
+import {
+  adminDashboardLink,
+  createLink,
+  darkColor,
+  editLink,
+  photographyLink,
+} from "../../../constants";
 
 const Photography = () => {
   const [arrayOfPhotographs, setArrayOfPhotographs] = useState([]);
@@ -22,26 +31,21 @@ const Photography = () => {
   }, []);
 
   const getAllPhotography = () => {
-    getPhotoshoots()
-      .then((data) => {
-        setArrayOfPhotographs(data?.data);
-      })
+    getPhotoshoots().then((data) => {
+      setArrayOfPhotographs(data?.data);
+    });
   };
 
   const getAllTypes = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setArrayOfTypes(data?.data);
-      })
+    getAllTypesOfPhotography().then((data) => {
+      setArrayOfTypes(data?.data);
+    });
   };
 
   const handleDeletePhotoshoot = (id) => {
-    deletePhotoshootById(id)
-      .then(() => {
-        setArrayOfPhotographs((prevList) =>
-          prevList.filter((x) => x._id !== id)
-        );
-      })
+    deletePhotoshootById(id).then(() => {
+      setArrayOfPhotographs((prevList) => prevList.filter((x) => x._id !== id));
+    });
   };
 
   const handleCreate = () => {
@@ -91,7 +95,9 @@ const Photography = () => {
                     classes.photography__cards__card__nameithActionss__actions
                   }
                 >
-                  <Link to={`${adminDashboardLink}${photographyLink}${editLink}/${el?._id}`}>
+                  <Link
+                    to={`${adminDashboardLink}${photographyLink}${editLink}/${el?._id}`}
+                  >
                     <RiEditCircleLine
                       size={22}
                       className={
@@ -114,7 +120,7 @@ const Photography = () => {
             </div>
           ))
         ) : (
-          <NotFound/>
+          <NotFound />
         )}
       </div>
     </div>

@@ -3,6 +3,7 @@ import classes from "./NotFound.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import {notFoundImage} from "../../constants.js"
 
+
 const NotFound = () => {
   return (
     <div className={classes.notFound}>

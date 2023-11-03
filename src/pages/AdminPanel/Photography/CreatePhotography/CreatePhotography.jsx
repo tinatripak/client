@@ -1,85 +1,89 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import { createPhotoshoot } from '../../../../services/PhotoshootService'
-import { getAllTypesOfPhotography } from '../../../../services/PhototypeService'
+import { UploadWidget } from "../../../../components";
+import { createPhotoshoot } from "../../../../services/PhotoshootService";
+import { getAllTypesOfPhotography } from "../../../../services/PhototypeService";
 import { RxCross2 } from "react-icons/rx";
-import { adminDashboardLink, darkColor, photographyLink } from "../../../../constants";
+import {
+  adminDashboardLink,
+  darkColor,
+  photographyLink,
+} from "../../../../constants";
 
 const CreatePhotography = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    photoTypeId: "",
+    mainPhoto: "",
+    arrayOfPhotos: [],
+  });
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
-  const [photoTypeId, setPhotoTypeId] = useState("");
-  const [mainPhoto, setMainPhoto] = useState("");
-  const [arrayOfPhotos, setArrayOfPhotos] = useState([]);
-  const [name, setName] = useState("");
-  const [error1, updateError1] = useState();
-  const [error2, updateError2] = useState();
+  const [errors, setErrors] = useState({ mainPhoto: "", arrayOfPhotos: "" });
 
   useEffect(() => {
     getAllPhotoTypesName();
   }, []);
 
   const getAllPhotoTypesName = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setAllPhotoTypesName(() =>
-          data?.data?.map((item) => ({
-            id: item._id,
-            name: item.typeOfPhotography,
-          }))
-        );
-      });
+    getAllTypesOfPhotography().then((data) => {
+      setAllPhotoTypesName(() =>
+        data?.data?.map((item) => ({
+          id: item._id,
+          name: item.typeOfPhotography,
+        }))
+      );
+    });
   };
 
   const createOnePhotoshoot = () => {
-    createPhotoshoot(name, photoTypeId, mainPhoto, arrayOfPhotos)
+    createPhotoshoot(formData);
     navigate(`${adminDashboardLink}${photographyLink}`);
   };
 
   const handleMainPhotoUpload = useCallback((error, result, widget) => {
     if (error) {
-      updateError1(error);
-      widget.close({
-        quiet: true,
-      });
-      return;
+      setErrors({ ...errors, mainPhoto: error });
+      widget.close({ quiet: true });
+    } else {
+      setErrors({ ...errors, mainPhoto: "" });
+      setFormData({ ...formData, mainPhoto: result?.info?.url });
     }
-    setMainPhoto(result?.info?.url);
-  }, []);
+  }, [formData, errors]);
 
   const handleAllPhotosUpload = useCallback((error, result, widget) => {
     if (error) {
-      updateError2(error);
-      widget.close({
-        quiet: true,
-      });
-      return;
+      setErrors({ ...errors, arrayOfPhotos: error });
+      widget.close({ quiet: true });
+    } else {
+      setErrors({ ...errors, arrayOfPhotos: "" });
+      addPhoto(result?.info?.url);
     }
-    addPhoto(result?.info?.url);
-  }, []);
+  }, [formData, errors]);
 
-  const addPhoto = useCallback((newPhoto) => {
-    const updatedArray = [...arrayOfPhotos];
-    updatedArray.push(newPhoto);
-    setArrayOfPhotos(updatedArray);
-  }, [arrayOfPhotos]);
+  const addPhoto = (newPhoto) => {
+    setFormData({
+      ...formData,
+      arrayOfPhotos: [...formData.arrayOfPhotos, newPhoto],
+    });
+  };
 
-  const deletePhoto = useCallback((photoToDelete) => {
-    const updatedArray = arrayOfPhotos.filter(
-      (photo) => photo !== photoToDelete
-    );
-    setArrayOfPhotos(updatedArray);
-  }, [arrayOfPhotos]);
+  const deletePhoto = (photoToDelete) => {
+    setFormData({
+      ...formData,
+      arrayOfPhotos: formData.arrayOfPhotos.filter(
+        (photo) => photo !== photoToDelete
+      ),
+    });
+  };
 
   return (
     <div className={classes.createPhotography}>
       <div className={classes.createPhotography__backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${photographyLink}`}>
-          {" "}
-          <IoChevronBackCircleSharp size={30} />{" "}
+          <IoChevronBackCircleSharp size={30} />
         </Link>
         <h3>Create a photography</h3>
       </div>
@@ -91,8 +95,10 @@ const CreatePhotography = () => {
             type="text"
             name="name"
             placeholder="Enter the name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
           />
         </div>
 
@@ -100,11 +106,16 @@ const CreatePhotography = () => {
           <label htmlFor="title">Type of photoshoot</label>
           <br />
           <select
-            value={photoTypeId}
-            onChange={(e) => setPhotoTypeId(e.target.value)}
+            value={formData.photoTypeId}
+            onChange={(e) =>
+              setFormData({ ...formData, photoTypeId: e.target.value })
+            }
           >
-            <option value="" disabled
-            className={classes.createPhotography__photoType__defaultOption}>
+            <option
+              value=""
+              disabled
+              className={classes.createPhotography__photoType__defaultOption}
+            >
               Choose a name
             </option>
             {allPhotoTypesName.map((type) => (
@@ -118,10 +129,10 @@ const CreatePhotography = () => {
         <div className={classes.createPhotography__mainPhoto}>
           <br />
           <h4>The main photo of photography</h4>
-          {error1 && <p>{error1}</p>}
-          {mainPhoto && (
+          {errors.mainPhoto && <p>{errors.mainPhoto}</p>}
+          {formData.mainPhoto && (
             <>
-              <img src={mainPhoto} alt="Main Photo" />
+              <img src={formData.mainPhoto} alt="Main" />
             </>
           )}
           <div>
@@ -149,10 +160,10 @@ const CreatePhotography = () => {
         <div className={classes.createPhotography__allPhotos}>
           <br />
           <h4>All photos from the photo shoot</h4>
-          {error2 && <p>{error2}</p>}
-          {arrayOfPhotos.length > 0 && (
+          {errors.arrayOfPhotos && <p>{errors.arrayOfPhotos}</p>}
+          {formData.arrayOfPhotos.length > 0 && (
             <div className={classes.createPhotography__allPhotos__show}>
-              {arrayOfPhotos.map((photo, index) => (
+              {formData.arrayOfPhotos.map((photo, index) => (
                 <div
                   key={index}
                   className={classes.createPhotography__allPhotos__show__block}
@@ -170,7 +181,7 @@ const CreatePhotography = () => {
                     <br />
                   </div>
                   <div>
-                    <img src={photo} alt={`Photo ${index}`} />
+                    <img src={photo} alt={`gallery item-${index}`} />
                   </div>
                 </div>
               ))}

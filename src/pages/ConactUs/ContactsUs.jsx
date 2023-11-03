@@ -1,8 +1,6 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { Header, Footer, ContactForm } from "../../components";
 import classes from "./ContactUs.module.scss";
-import ContactForm from "../../components/ContactForm/ContactForm";
 import { instagramURL } from "../../constants";
 
 const ContactsUs = () => {

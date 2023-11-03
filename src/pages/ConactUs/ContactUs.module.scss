@@ -1,32 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&display=swap");
 @import "../../variables.scss";
 
-.contacts{
+.contacts {
       font-family: $Gotu;
       margin-top: 10vh;
       margin-bottom: 7vh;
       display: grid;
-      grid-template-columns: repeat(2,auto);
+      grid-template-columns: repeat(2, auto);
       padding-right: 10vw;
       padding-left: 10vw;
       gap: 5vw;
-      &__info{
-            &__talk{
-                  h1{
-                        font-family: 'Young Serif', serif;
+      &__info {
+            &__talk {
+                  h1 {
+                        font-family: "Young Serif", serif;
                   }
                   margin-bottom: 5vh;
             }
-            &__email, &__out{
-                  h4{
-                        font-family: 'Young Serif', serif;
+            &__email,
+            &__out {
+                  h4 {
+                        font-family: "Young Serif", serif;
                   }
             }
-            &__email{
+            &__email {
                   margin-bottom: 5vh;
             }
-            &__out{
-                  a{
+            &__out {
+                  a {
                         color: rgb(0, 0, 0);
                   }
             }

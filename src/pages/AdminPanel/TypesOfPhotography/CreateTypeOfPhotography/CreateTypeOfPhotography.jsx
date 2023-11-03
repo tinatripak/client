@@ -2,33 +2,37 @@ import React, { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./CreateTypeOfPhotography.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
-import { createTypeOfPhotography } from '../../../../services/PhototypeService';
+import { UploadWidget } from "../../../../components";
+import { createTypeOfPhotography } from "../../../../services/PhototypeService";
 import { adminDashboardLink, typesLink } from "../../../../constants";
 
 const CreateTypeOfPhotography = () => {
   const navigate = useNavigate();
-  const [typeOfPhotography, setTypeOfPhotography] = useState("");
-  const [mainPhoto, setMainPhoto] = useState("");
-  const [shootingDuration, setShootingDuration] = useState("");
-  const [text, setText] = useState("");
+  const [formData, setFormData] = useState({
+    typeOfPhotography: "",
+    mainPhoto: "",
+    shootingDuration: "",
+    text: "",
+  });
+
   const [error, updateError] = useState();
 
   const createType = () => {
-    createTypeOfPhotography(typeOfPhotography, shootingDuration, mainPhoto, text);
+    createTypeOfPhotography(
+      formData.typeOfPhotography,
+      formData.shootingDuration,
+      formData.mainPhoto,
+      formData.text
+    );
     navigate(`${adminDashboardLink}${typesLink}`);
   };
 
-  const handleTypeChange = useCallback((e) => {
-    setTypeOfPhotography(e.target.value);
-  }, []);
-
-  const handleDurationChange = useCallback((e) => {
-    setShootingDuration(e.target.value);
-  }, []);
-
-  const handleTextChange = useCallback((e) => {
-    setText(e.target.value);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   }, []);
 
   function handleOnUpload(error, result, widget) {
@@ -39,7 +43,10 @@ const CreateTypeOfPhotography = () => {
       });
       return;
     }
-    setMainPhoto(result?.info?.url);
+    setFormData((prevData) => ({
+      ...prevData,
+      mainPhoto: result?.info?.url,
+    }));
   }
 
   return (
@@ -57,34 +64,33 @@ const CreateTypeOfPhotography = () => {
           <br />
           <input
             type="text"
-            name="type"
+            name="typeOfPhotography"
             placeholder="Enter the type"
-            value={typeOfPhotography}
-            onChange={handleTypeChange} 
+            value={formData.typeOfPhotography}
+            onChange={handleInputChange}
           />
         </div>
 
         <div className={classes.createType__shootingDuration}>
-          <label htmlFor="type">Duration of shooting</label>
+          <label htmlFor="duration">Duration of shooting</label>
           <br />
           <input
             type="text"
-            name="duration"
+            name="shootingDuration"
             placeholder="Enter the duration"
-            value={shootingDuration}
-            onChange={handleDurationChange} 
+            value={formData.shootingDuration}
+            onChange={handleInputChange}
           />
         </div>
 
         <div className={classes.createType__text}>
-          <label htmlFor="title">Text</label>
+          <label htmlFor="text">Text</label>
           <br />
           <textarea
-            type="text"
             name="text"
             placeholder="Enter the text"
-            value={text}
-            onChange={handleTextChange} 
+            value={formData.text}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -92,9 +98,9 @@ const CreateTypeOfPhotography = () => {
           <br />
           <h4>The photo of new type of photography</h4>
           {error && <p>{error}</p>}
-          {mainPhoto && (
+          {formData.mainPhoto && (
             <>
-              <img src={mainPhoto} />
+              <img src={formData.mainPhoto} alt="Main" />
             </>
           )}
           <div>

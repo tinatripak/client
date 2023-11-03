@@ -3,32 +3,32 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ToastContainer } from "react-toastify";
 import AdminPanel from "../AdminPanel/AdminPanel";
-import {userVerification} from '../../services/LoginService'
+import { userVerification } from "../../services/LoginService";
 import { loginLink } from "../../constants";
 
 const AdminAccount = () => {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
-  
+  const [cookies, remove] = useCookies([]);
+
   const verifyCookie = async () => {
-    if (!cookies.token) {
+    if (cookies?.token === 'undefined') {
       navigate(loginLink);
-    }
-    const { data } = await userVerification();
-    const { status } = data;
-    if(!status) {
-      removeCookie("token");
-      navigate(loginLink)
+    } else{
+      const { data } = await userVerification();
+      if (!data) {
+        remove("token");
+        navigate(loginLink);
+      }
     }
   };
-  
+
   useEffect(() => {
     verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, navigate, remove]);
 
   return (
     <div>
-      <AdminPanel/>
+      <AdminPanel />
       <ToastContainer />
     </div>
   );

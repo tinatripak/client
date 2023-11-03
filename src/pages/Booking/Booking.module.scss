@@ -1,5 +1,5 @@
 @import "../../variables.scss";
-@import url('https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cardo&family=Comfortaa:wght@300&family=Great+Vibes&family=Gwendolyn&family=Kalam:wght@300&family=Satisfy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cardo&family=Comfortaa:wght@300&family=Great+Vibes&family=Gwendolyn&family=Kalam:wght@300&family=Satisfy&display=swap");
 
 .booking {
     &__content {
@@ -37,7 +37,7 @@
             }
         }
     }
-    
+
     &__image {
         height: 85vh;
         background-image: url("https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg");
@@ -54,28 +54,28 @@
 
         &__calendarBlock {
             display: block;
-            p{
+            p {
                 text-decoration: underline;
             }
-            &__calendarWithSelect{
+            &__calendarWithSelect {
                 display: flex;
-                gap:60px;
+                gap: 60px;
                 margin-bottom: 60px;
                 &__calendar {
                     border-radius: 3px;
                     margin-bottom: 50px;
-                    font-family: 'Cardo', serif;
+                    font-family: "Cardo", serif;
                     font-size: 20px;
-    
+
                     button {
-                        font-family: 'Gwendolyn', cursive;
+                        font-family: "Gwendolyn", cursive;
                         font-size: 22px;
                     }
                     div {
                         border-radius: 20px;
                     }
                 }
-                &__select{
+                &__select {
                     height: 50px;
                     width: 200px;
                     font-size: 18px;
@@ -84,12 +84,10 @@
                     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
                     font-family: "Cardo", serif;
 
-
-                    option{
+                    option {
                         background-color: white;
                     }
                 }
-
             }
         }
         &__commonBlock {
@@ -115,7 +113,7 @@
                         padding-left: 3vw;
                     }
                 }
-                &__type{
+                &__type {
                     margin-top: 30px;
                     select {
                         margin-top: 5px;
@@ -142,8 +140,8 @@
                 }
             }
         }
-        
-        &__withoutPhotoshootType{
+
+        &__withoutPhotoshootType {
             padding-top: 30px;
             color: #b80000;
         }

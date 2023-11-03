@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { RiEditCircleLine } from "react-icons/ri";
-import { deleteTypeOfPhotographyById,
-  getAllTypesOfPhotography } from '../../../services/PhototypeService'
+import {
+  deleteTypeOfPhotographyById,
+  getAllTypesOfPhotography,
+} from "../../../services/PhototypeService";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
-import NotFound from "../../../components/NotFound/NotFound";
-import { adminDashboardLink, createLink, darkColor, editLink, typeLink } from "../../../constants";
+import { NotFound } from "../../../components";
+import {
+  adminDashboardLink,
+  createLink,
+  darkColor,
+  editLink,
+  typeLink,
+} from "../../../constants";
 
 const TypesOfPhotography = () => {
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
@@ -19,17 +27,15 @@ const TypesOfPhotography = () => {
   }, []);
 
   const getTypesOfPhotography = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setArrayOfTypes(data?.data);
-      })
+    getAllTypesOfPhotography().then((data) => {
+      setArrayOfTypes(data?.data);
+    });
   };
 
   const handleDeleteTypeOfPhotography = (id) => {
-    deleteTypeOfPhotographyById(id)
-      .then(() => {
-        setArrayOfTypes((prevList) => prevList.filter((x) => x._id !== id));
-      })
+    deleteTypeOfPhotographyById(id).then(() => {
+      setArrayOfTypes((prevList) => prevList.filter((x) => x._id !== id));
+    });
   };
 
   const handleCreate = () => {
@@ -63,7 +69,9 @@ const TypesOfPhotography = () => {
                     classes.types__cards__card__titleWithActions__actions
                   }
                 >
-                  <Link to={`${adminDashboardLink}${typeLink}${editLink}/${el?._id}`}>
+                  <Link
+                    to={`${adminDashboardLink}${typeLink}${editLink}/${el?._id}`}
+                  >
                     <RiEditCircleLine
                       size={22}
                       className={
@@ -83,7 +91,7 @@ const TypesOfPhotography = () => {
             </div>
           ))
         ) : (
-          <NotFound/>
+          <NotFound />
         )}
       </div>
     </div>

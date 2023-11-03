@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
-.shoot{
-    &__h1{
+.shoot {
+    &__h1 {
         font-size: 20px;
         font-family: $Gotu;
         margin-top: 20px;
@@ -9,10 +9,10 @@
         text-align: center;
     }
 
-    &__images{
+    &__images {
         width: 60%;
         margin: 0 auto;
-        img{
+        img {
             width: 1000px;
         }
         margin-bottom: 100px;

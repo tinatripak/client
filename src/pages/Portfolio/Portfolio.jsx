@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import { Header, Footer, ConditionalRender } from "../../components";
 import classes from "./Portfolio.module.scss";
-import { getAllTypesOfPhotography } from '../../services/PhototypeService'
-import { getPhotoshoots } from '../../services/PhotoshootService'
-
+import { getAllTypesOfPhotography } from "../../services/PhototypeService";
+import { getPhotoshoots } from "../../services/PhotoshootService";
 import { Link } from "react-router-dom";
-import ConditionalRender from "../../components/ConditionalRender/ConditionalRender";
 import { portfolioLink } from "../../constants";
 
 const Portfolio = () => {
@@ -16,24 +13,22 @@ const Portfolio = () => {
   const [isLoadedTypes, setIsLoadedTypes] = useState(false);
 
   useEffect(() => {
-    fetchPhotoshootsoData()
+    fetchPhotoshootsoData();
     fetchTypesData();
   }, []);
 
   const fetchPhotoshootsoData = () => {
-    getPhotoshoots()
-      .then((data) => {
-        setPhotoshoots(data?.data);
-        setIsLoadedPhotoshoots(true);
-      })
+    getPhotoshoots().then((data) => {
+      setPhotoshoots(data?.data);
+      setIsLoadedPhotoshoots(true);
+    });
   };
 
   const fetchTypesData = () => {
-    getAllTypesOfPhotography()
-      .then((data) => {
-        setTypes(data?.data);
-        setIsLoadedTypes(true);
-      })
+    getAllTypesOfPhotography().then((data) => {
+      setTypes(data?.data);
+      setIsLoadedTypes(true);
+    });
   };
 
   const getTypeNameById = (id) => {
@@ -56,7 +51,7 @@ const Portfolio = () => {
                       <img
                         src={el?.mainPhoto}
                         className={classes.portfolio__element__div__img}
-                        alt="photo"
+                        alt="portfolio"
                       />
                       <p className={classes.portfolio__element__div__name}>
                         {el?.name}

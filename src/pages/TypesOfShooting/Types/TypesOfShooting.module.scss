@@ -1,6 +1,6 @@
 @import "../../../variables.scss";
 
-.types{
+.types {
     margin-top: 13px;
     margin-bottom: 45px;
     margin-left: auto;
@@ -10,22 +10,22 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 120px;
-    a{
+    a {
         text-decoration: none;
-        color:black;
+        color: black;
     }
-    &__element{
+    &__element {
         width: 17vw;
         font-family: $Gotu;
-        article{
+        article {
             position: relative;
         }
-        &__img{
+        &__img {
             object-fit: cover;
             width: 290px;
             height: 290px;
         }
-        &__h1{
+        &__h1 {
             font-size: 18px;
             font-weight: 100;
             text-align: center;

@@ -1,52 +1,50 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import UploadWidget from "../../../../components/UploadWidget/UploadWidget";
+import { UploadWidget } from "../../../../components";
 import classes from "./EditBio.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
-import { getPhotographerById, updatePhotographerById } from '../../../../services/BioService';
+import {
+  getPhotographerById,
+  updatePhotographerById,
+} from "../../../../services/BioService";
 import { adminDashboardLink, bioLink } from "../../../../constants";
 
 const EditBio = () => {
   const { id } = useParams();
 
-  const [newPhoto, setNewPhoto] = useState("");
-  const [oldPhoto, setOldPhoto] = useState("");
-
-  const [newBio, setNewBio] = useState("");
-  const [oldBio, setOldBio] = useState("");
-
-  const [newPhoneNumber, setNewPhoneNumber] = useState("");
-  const [oldPhoneNumber, setOldPhoneNumber] = useState("");
+  const [formValues, setFormValues] = useState({
+    photo: "",
+    bio: "",
+    phoneNumber: "",
+  });
 
   const [error, updateError] = useState();
 
+  const updateBio = () => {
+    updatePhotographerById(id, formValues.bio, formValues.phoneNumber, formValues.photo);
+  };
+
+  const getOldBio = useCallback(() => {
+    getPhotographerById(id).then((data) => {
+      const oldValues = {
+        bio: data?.data?.bio,
+        photo: data?.data?.photo,
+        phoneNumber: data?.data?.phoneNumber,
+      };
+      setFormValues((prevValues) => ({ ...prevValues, ...oldValues }));
+    });
+  }, [id]);
+
   useEffect(() => {
     getOldBio();
-  }, []);
+  }, [getOldBio]);
 
-  const updateBio = () => {
-    const updatedPhoto = newPhoto !== "" ? newPhoto : oldPhoto;
-    const updatedBio = newBio !== "" ? newBio : oldBio;
-    const updatedPhoneNumber = newPhoneNumber !== "" ? newPhoneNumber : oldPhoneNumber;
-
-    updatePhotographerById(id, updatedBio, updatedPhoneNumber, updatedPhoto);
-  };
-
-  const getOldBio = () => {
-    getPhotographerById(id)
-      .then((data) => {
-        setOldBio(data?.data?.bio);
-        setOldPhoto(data?.data?.photo);
-        setOldPhoneNumber(data?.data?.phoneNumber);
-      });
-  };
-
-  const handleNewBioChange = useCallback((e) => {
-    setNewBio(e.target.value);
-  }, []);
-
-  const handleNewPhoneNumberChange = useCallback((e) => {
-    setNewPhoneNumber(e.target.value);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   }, []);
 
   function handleOnUpload(error, result, widget) {
@@ -57,7 +55,10 @@ const EditBio = () => {
       });
       return;
     }
-    setNewPhoto(result?.info?.secure_url);
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      photo: result?.info?.secure_url,
+    }));
   }
 
   return (
@@ -71,30 +72,32 @@ const EditBio = () => {
       </div>
       <form onSubmit={updateBio}>
         <div className={classes.editInfo__bio}>
-          <label htmlFor="title">Bio</label>
+          <label htmlFor="bio">Bio</label>
           <br />
-          <textarea name="bio" defaultValue={oldBio} onChange={handleNewBioChange} />
+          <textarea
+            name="bio"
+            value={formValues.bio}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className={classes.editInfo__phoneNumber}>
-          <label htmlFor="title">Phone number</label>
+          <label htmlFor="phoneNumber">Phone number</label>
           <br />
-          <input type="tel" name="phone" defaultValue={oldPhoneNumber} onChange={handleNewPhoneNumberChange} />
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={formValues.phoneNumber}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className={classes.editInfo__photo}>
           <br />
           <h4>The photo of Ksenia Tripak</h4>
           {error && <p>{error}</p>}
-          {oldPhoto && !newPhoto && (
-            <>
-              <img src={oldPhoto} />
-            </>
-          )}
-          {newPhoto && (
-            <>
-              <img src={newPhoto} />
-            </>
+          {formValues.photo && (
+            <img src={formValues.photo} alt="Photo" />
           )}
           <div>
             <UploadWidget onUpload={handleOnUpload}>

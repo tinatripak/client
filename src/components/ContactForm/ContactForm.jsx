@@ -3,27 +3,27 @@ import classes from "./ConactForm.module.scss";
 import { createQuestion } from '../../services/QuestionService';
 
 const ContactForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleNameChange = useCallback((e) => {
-    setName(e.target.value);
-  }, []);
-
-  const handleEmailChange = useCallback((e) => {
-    setEmail(e.target.value);
-  }, []);
-
-  const handleMessageChange = useCallback((e) => {
-    setMessage(e.target.value);
-  }, []);
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  }, [formData]);
 
   const handleSubmit = () => {
-    createQuestion(name, email, message);
-    setMessage('');
-    setName('');
-    setEmail('');
+    createQuestion(formData.name, formData.email, formData.message);
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
@@ -34,8 +34,9 @@ const ContactForm = () => {
           <br />
           <input
             type="text"
-            value={name}
-            onChange={handleNameChange}
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -44,8 +45,9 @@ const ContactForm = () => {
           <br />
           <input
             type="email"
-            value={email}
-            onChange={handleEmailChange}
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -53,8 +55,9 @@ const ContactForm = () => {
           <label htmlFor="message">Type your message here:</label>
           <br />
           <textarea
-            value={message}
-            onChange={handleMessageChange}
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
           />
         </div>
 

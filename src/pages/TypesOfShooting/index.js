@@ -1,2 +1,2 @@
-export {default as TypesOfShooting} from './TypesOfShooting'
-export {default as TypeOfShooting} from './TypeOfShooting'
+export { default as TypeOfShooting } from './Type/TypeOfShooting'
+export { default as TypesOfShooting } from './Types/TypesOfShooting'

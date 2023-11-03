@@ -1,48 +1,34 @@
-import axios from "axios";
+import { handleApiRequest } from "../utils/apiRequest";
 import { baseURL } from "../constants";
 
 export const getPhotographers = async () => {
-  try {
-    const res = await axios.get(`${baseURL}photographer/getPhotographers`);
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}photographer/getPhotographers`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const getPhotographerById = async (id) => {
-  try {
-    const res = await axios.get(
-      `${baseURL}photographer/getPhotographerById/${id}`
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'get',
+    url: `${baseURL}photographer/getPhotographerById/${id}`,
+  };
+
+  return handleApiRequest(requestConfig);
 };
+
 export const updatePhotographerById = async (id, bio, phoneNumber, photo) => {
-  try {
-    const res = await axios.put(
-      `${baseURL}photographer/updatePhotographerById/${id}`,
-      {
-        bio: bio,
-        phoneNumber: phoneNumber,
-        photo: photo,
-      }
-    );
-    return res.data;
-  } catch (err) {
-    if (err.response.status === 404) {
-      console.log("Resource could not be found!");
-    } else {
-      console.log(err.message);
-    }
-  }
+  const requestConfig = {
+    method: 'put',
+    url: `${baseURL}photographer/updatePhotographerById/${id}`,
+    data: {
+      bio,
+      phoneNumber,
+      photo,
+    },
+  };
+
+  return handleApiRequest(requestConfig);
 };

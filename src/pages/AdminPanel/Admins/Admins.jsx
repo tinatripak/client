@@ -75,12 +75,12 @@ const Admins = () => {
         Cell: ({ row }) =>
           row.original.photo ? (
             <img
-              className={classes.admin__photo}
+              className={classes.photo}
               src={row.original.photo}
               alt="Admin"
             />
           ) : (
-            <p className={classes.admin__text}>No photo</p>
+            <p className={classes.text}>No photo</p>
           ),
       },
       {
@@ -94,7 +94,7 @@ const Admins = () => {
         Cell: ({ row }) => (
           <span
             onClick={() => handleEdit(row.original)}
-            className={classes.admin__edit_button}
+            className={classes.edit_button}
           >
             <FiEdit2 color="#616161" size={20} />
           </span>
@@ -106,7 +106,7 @@ const Admins = () => {
         Cell: ({ row }) => (
           <span
             onClick={() => handleDelete(row.original)}
-            className={classes.admin__delete_button}
+            className={classes.delete_button}
           >
             <BsTrashFill color="#616161" size={20} />
           </span>
@@ -141,27 +141,27 @@ const Admins = () => {
 
   return (
     <div className={classes.admin}>
-      <div className={classes.admin__add}>
+      <div className={classes.add}>
         {}
         <p>Add an admin</p>
         <IoAddCircle
-          className={classes.admin__icon}
+          className={classes.icon}
           color={darkColor}
           size={35}
           onClick={handleCreate}
         />
       </div>
-      <table {...getTableProps()} className={classes.admin__admin_table}>
+      <table {...getTableProps()} className={classes.admin_table}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr
               {...headerGroup.getHeaderGroupProps()}
-              className={classes.admin__admin_table__header}
+              className={classes.header}
             >
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps()}
-                  className={classes.admin__admin_table__header__cell}
+                  className={classes.cell}
                 >
                   {column.render("Header")}
                 </th>
@@ -171,20 +171,20 @@ const Admins = () => {
         </thead>
         <tbody
           {...getTableBodyProps()}
-          className={classes.admin__admin_table__body}
+          className={classes.body}
         >
           {rows.map((row) => {
             prepareRow(row);
             return (
               <tr
                 {...row.getRowProps()}
-                className={classes.admin__admin_table__body__row}
+                className={classes.row}
                 key={row.id}
               >
                 {row.cells.map((cell) => (
                   <td
                     {...cell.getCellProps()}
-                    className={classes.admin__admin_table__body__row__cell}
+                    className={classes.cell}
                   >
                     {cell.render("Cell")}
                   </td>

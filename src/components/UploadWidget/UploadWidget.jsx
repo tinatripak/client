@@ -22,6 +22,7 @@ export function UploadWidget ({ children, onUpload }) {
     const options = {
       cloudName: 'dcxuxc5uw',
       uploadPreset: 'wd6fnebc',
+      multiple: true,
     };
 
     return cloudinary?.createUploadWidget(options,

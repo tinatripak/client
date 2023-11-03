@@ -10,23 +10,23 @@
       padding-right: 10vw;
       padding-left: 10vw;
       gap: 5vw;
-      &__info {
-            &__talk {
+      .info {
+            .talk {
                   h1 {
                         font-family: "Young Serif", serif;
                   }
                   margin-bottom: 5vh;
             }
-            &__email,
-            &__out {
+            .email,
+            .out {
                   h4 {
                         font-family: "Young Serif", serif;
                   }
             }
-            &__email {
+            .email {
                   margin-bottom: 5vh;
             }
-            &__out {
+            .out {
                   a {
                         color: rgb(0, 0, 0);
                   }

@@ -7,7 +7,7 @@ import {notFoundImage} from "../../constants.js"
 const NotFound = () => {
   return (
     <div className={classes.notFound}>
-      <div className={classes.notFound__photo}>
+      <div className={classes.photo}>
         <LazyLoadImage
           src={notFoundImage}
           effect="blur"

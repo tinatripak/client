@@ -8,8 +8,8 @@ const ContactsUs = () => {
     <div>
       <Header />
       <div className={classes.contacts}>
-        <div className={classes.contacts__info}>
-          <div className={classes.contacts__info__talk}>
+        <div className={classes.info}>
+          <div className={classes.talk}>
             <h1>Let's talk</h1>
             <p>
               Do you have any questions about photography or want to
@@ -17,11 +17,11 @@ const ContactsUs = () => {
               you
             </p>
           </div>
-          <div className={classes.contacts__info__email}>
+          <div className={classes.email}>
             <h4>EMAIL</h4>
             <p>kseniatripak@gmail.com</p>
           </div>
-          <div className={classes.contacts__info__out}>
+          <div className={classes.out}>
             <h4>CHECK US OUT</h4>
             <a href={instagramURL}>Instagram</a>
           </div>

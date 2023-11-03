@@ -81,16 +81,16 @@ const AdminPanel = () => {
 
   return (
     <div className={classes.panel}>
-      <div className={classes.panel__menu}>
+      <div className={classes.menu}>
         <div>
           <Link to={`${adminDashboardLink}${generalLink}`}>
-            <div className={classes.panel__menu__logo}>
+            <div className={classes.logo}>
               <img src="/logo-camera.png" alt="Logo" />
               <p>KSIGALLERY</p>
             </div>
           </Link>
-          <div className={classes.panel__menu__navLinks}>
-            <div className={classes.panel__menu__navLinks__link}>
+          <div className={classes.navLinks}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${homeLink}`}
                 style={textDecorationStyles}
@@ -99,7 +99,7 @@ const AdminPanel = () => {
               </NavLink>
             </div>
 
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${bioLink}`}
                 style={textDecorationStyles}
@@ -108,7 +108,7 @@ const AdminPanel = () => {
               </NavLink>
             </div>
 
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${photographyLink}`}
                 style={textDecorationStyles}
@@ -116,7 +116,7 @@ const AdminPanel = () => {
                 All photography
               </NavLink>
             </div>
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${typesLink}`}
                 style={textDecorationStyles}
@@ -124,7 +124,7 @@ const AdminPanel = () => {
                 Types of photoshoots
               </NavLink>
             </div>
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${bookingsLink}`}
                 style={textDecorationStyles}
@@ -132,7 +132,7 @@ const AdminPanel = () => {
                 Bookings
               </NavLink>
             </div>
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${adminsLink}`}
                 style={textDecorationStyles}
@@ -140,7 +140,7 @@ const AdminPanel = () => {
                 Admins
               </NavLink>
             </div>
-            <div className={classes.panel__menu__navLinks__link}>
+            <div className={classes.link}>
               <NavLink
                 to={`${adminDashboardLink}${questionsLink}`}
                 style={textDecorationStyles}
@@ -151,16 +151,16 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        <div className={classes.panel__menu__darkMod}>
+        <div className={classes.darkMod}>
           {isSwitchOff ? (
             <BsMoonStarsFill
               size={21}
-              className={classes.panel__menu__darkMod__icons__moon}
+              className={classes.icons__moon}
             />
           ) : (
             <FiSun
               size={29}
-              className={classes.panel__menu__darkMod__icons__sun}
+              className={classes.icons__sun}
             />
           )}
           <p>Dark mode</p>
@@ -169,20 +169,20 @@ const AdminPanel = () => {
             <LiaToggleOffSolid
               onClick={toggleSwitch}
               size={26}
-              className={classes.panel__menu__darkMod__icons__switch}
+              className={classes.icons__switch}
             />
           ) : (
             <LiaToggleOnSolid
               onClick={toggleSwitch}
               size={26}
-              className={classes.panel__menu__darkMod__icons__switch}
+              className={classes.icons__switch}
             />
           )}
         </div>
       </div>
-      <div className={classes.panel__main}>
-        <div className={classes.panel__main__settings}>
-          <div className={classes.panel__main__settings__user}>
+      <div className={classes.main}>
+        <div className={classes.settings}>
+          <div className={classes.user}>
             <img src={admin?.photo} alt="User" />
             <p>{admin?.username}</p>
             <div>
@@ -191,7 +191,7 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        <div className={classes.panel__main__block}>
+        <div className={classes.block}>
           <Routes>
             <Route path={`${generalLink}`} element={<General />} />
 

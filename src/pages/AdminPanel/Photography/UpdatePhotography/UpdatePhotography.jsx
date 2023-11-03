@@ -141,7 +141,7 @@ const UpdatePhotography = () => {
 
   return (
     <div className={classes.updatePhotography}>
-      <div className={classes.updatePhotography__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${photographyLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -149,7 +149,7 @@ const UpdatePhotography = () => {
         <h3>Update a photography '{oldValues.name}'</h3>
       </div>
       <form onSubmit={updateType}>
-        <div className={classes.updatePhotography__name}>
+        <div className={classes.name}>
           <label htmlFor="type">Name</label>
           <br />
           <input
@@ -166,7 +166,7 @@ const UpdatePhotography = () => {
           />
         </div>
 
-        <div className={classes.updatePhotography__photoType}>
+        <div className={classes.photoType}>
           <label htmlFor="title">Type of photoshoot</label>
           <br />
 
@@ -198,7 +198,7 @@ const UpdatePhotography = () => {
           </select>
         </div>
 
-        <div className={classes.updatePhotography__mainPhoto}>
+        <div className={classes.mainPhoto}>
           <br />
           <h4>The main photo of photography</h4>
           {error1 && <p>{error1}</p>}
@@ -212,7 +212,7 @@ const UpdatePhotography = () => {
               <img src={newValues.mainPhoto} alt="Main" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             {
               <UploadWidget onUpload={handleMainPhotoUpload}>
                 {({ open }) => {
@@ -223,7 +223,7 @@ const UpdatePhotography = () => {
                   return (
                     <button
                       onClick={handleOnClickMain}
-                      className={classes.updatePhotography__photo__uploadmain}
+                      className={classes.uploadmain}
                     >
                       Upload
                     </button>
@@ -234,20 +234,20 @@ const UpdatePhotography = () => {
           </div>
         </div>
 
-        <div className={classes.updatePhotography__allPhotos}>
+        <div className={classes.allPhotos}>
           <br />
           <h4>All photos from the photo shoot</h4>
           {error2 && <p>{error2}</p>}
           {newValues.arrayOfPhotos.length > 0 && (
-            <div className={classes.updatePhotography__allPhotos__show}>
+            <div className={classes.show}>
               {newValues.arrayOfPhotos.map((photo, index) => (
                 <div
                   key={index} 
-                  className={classes.updatePhotography__allPhotos__show__block}
+                  className={classes.block}
                 >
                   <div
                     className={
-                      classes.updatePhotography__allPhotos__show__block__delete
+                      classes.delete
                     }
                   >
                     <RxCross2
@@ -265,7 +265,7 @@ const UpdatePhotography = () => {
             </div>
           )}
 
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleArrayOfPhotosUpload}>
               {({ open }) => {
                 function handleOnClickArray(e) {
@@ -275,7 +275,7 @@ const UpdatePhotography = () => {
                 return (
                   <IoAddCircle
                     onClick={handleOnClickArray}
-                    className={classes.updatePhotography__photo__uploadall}
+                    className={classes.uploadall}
                     color={darkColor}
                     size={45}
                   />
@@ -285,7 +285,7 @@ const UpdatePhotography = () => {
           </div>
         </div>
 
-        <button className={classes.updatePhotography__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

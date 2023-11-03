@@ -1,7 +1,7 @@
 @import "../../../../variables.scss";
 
 .editType {
-    &__backButtonWithTitle {
+    .backButtonWithTitle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -19,7 +19,7 @@
         font-family: $Gotu;
         border: 2px solid rgb(65, 65, 65);
     }
-    &__text {
+    .text {
         textarea {
             height: 150px;
             text-wrap: wrap;
@@ -32,7 +32,7 @@
             border: 2px solid rgb(65, 65, 65);
         }
     }
-    &__photo {
+    .photo {
         h4 {
             margin-top: 0px;
         }
@@ -42,7 +42,7 @@
             object-fit: cover;
             border-radius: 30px;
         }
-        &__upload {
+        .upload {
             font-family: $Gotu;
             padding: 5px 15px;
             font-size: 16px;
@@ -51,7 +51,7 @@
             background-color: rgb(255, 255, 255);
         }
     }
-    &__button {
+    .button {
         margin-top: 20px;
         font-family: $Gotu;
         padding: 6px 30px;

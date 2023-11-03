@@ -62,37 +62,37 @@ const Photography = () => {
 
   return (
     <div className={classes.photography}>
-      <div className={classes.photography__add}>
+      <div className={classes.add}>
         <p>Add a photo shoot</p>
         <IoAddCircle
-          className={classes.photography__add__icon}
+          className={classes.icon}
           color={darkColor}
           size={35}
           onClick={handleCreate}
         />
       </div>
-      <div className={classes.photography__cards}>
+      <div className={classes.cards}>
         {arrayOfPhotographyWithTypesName?.length > 0 ? (
           arrayOfPhotographyWithTypesName.map((el, index) => (
-            <div className={classes.photography__cards__card} key={index}>
+            <div className={classes.card} key={index}>
               <LazyLoadImage
                 src={el?.mainPhoto}
-                className={classes.photography__cards__card__photo}
+                className={classes.photo}
                 effect="blur"
               />
               <div
-                className={classes.photography__cards__card__nameWithActions}
+                className={classes.nameWithActions}
               >
                 <p
                   className={
-                    classes.photography__cards__card__nameWithActions__name
+                    classes.name
                   }
                 >
                   {el?.name}
                 </p>
                 <div
                   className={
-                    classes.photography__cards__card__nameithActionss__actions
+                    classes.actions
                   }
                 >
                   <Link
@@ -101,7 +101,7 @@ const Photography = () => {
                     <RiEditCircleLine
                       size={22}
                       className={
-                        classes.photography__cards__card__nameWithActions__actions__icon
+                        classes.icon
                       }
                     />
                   </Link>
@@ -109,12 +109,12 @@ const Photography = () => {
                     size={22}
                     onClick={() => handleDeletePhotoshoot(el?._id)}
                     className={
-                      classes.photography__cards__card__nameWithActions__actions__icon
+                      classes.icon
                     }
                   />
                 </div>
               </div>
-              <p className={classes.photography__cards__card__type}>
+              <p className={classes.type}>
                 {el?.typeOfPhotography}
               </p>
             </div>

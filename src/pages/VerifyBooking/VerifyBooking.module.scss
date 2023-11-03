@@ -4,7 +4,7 @@
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      &__textIfCompleted {
+      .textIfCompleted {
             min-height: 70vh;
             place-content: center;
             display: grid;
@@ -12,9 +12,9 @@
             font-size: 16px;
             text-align: center;
       }
-      &__firework,
-      &__firework::before,
-      &__firework::after {
+      .firework,
+      .firework::before,
+      .firework::after {
             --initialSize: 2vmin;
             --finalSize: 50vmin;
             --particleSize: 0.3vmin;

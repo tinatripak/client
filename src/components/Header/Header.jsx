@@ -37,17 +37,17 @@ const Header = () => {
 
   return (
     <header className={classes.header}>
-      <div className={classes.header__content}>
+      <div className={classes.content}>
         <NavLink
           to="/"
-          className={classes.header__content__logo}
+          className={classes.logo}
           style={ textColorStyle }
         >
           KSIGALLERY
         </NavLink>
 
         <div
-          className={classes.header__content__div}
+          className={classes.div}
         >
           <nav>
             <ul>
@@ -60,7 +60,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-        <div className={classes.header__content__social}>
+        <div className={classes.social}>
             {createLinkIcons(
               instagramURL,
               <FontAwesome name="pinterest" size="2x" />

@@ -3,7 +3,7 @@
     padding-left: 50px;
     padding-right: 20px;
 
-    &__add {
+    .add {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -14,19 +14,19 @@
         }
     }
 
-    &__cards {
+    .cards {
         display: flex;
         flex-wrap: wrap;
         gap: 70px;
         justify-content: center;
 
-        &__card {
+        .card {
             border: 1px solid rgb(194, 194, 194);
             border-radius: 10px;
             width: min-content;
             background-color: #ebebeb;
 
-            &__titleWithActions {
+            .titleWithActions {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
@@ -34,17 +34,17 @@
                     margin: 2px 2px 5px 2px;
                     width: 50%;
                 }
-                &__actions {
+                .actions {
                     display: flex;
                     gap: 10px;
-                    &__icon {
+                    .icon {
                         cursor: pointer;
                     }
                 }
             }
         }
     }
-    &__photo {
+    .photo {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;

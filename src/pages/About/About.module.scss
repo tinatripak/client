@@ -3,7 +3,7 @@
 .about {
     font-family: $Gotu;
 
-    &__content {
+    .content {
         margin-top: 3vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -12,21 +12,21 @@
         @include breakpoint(sm) {
             display: block;
         }
-        &__p {
+        .bio {
             display: flex;
             align-items: center;
-        }
-        p {
-            font-size: 20px;
-            width: 350px;
-            margin-left: auto;
-            text-align: center;
-            @include breakpoint(sm) {
-                margin-right: auto;
-            }
-            @include breakpoint(xxs) {
-                font-size: 16px;
-                width: 250px;
+            p {
+                font-size: 20px;
+                width: 350px;
+                margin-left: auto;
+                text-align: center;
+                @include breakpoint(sm) {
+                    margin-right: auto;
+                }
+                @include breakpoint(xxs) {
+                    font-size: 16px;
+                    width: 250px;
+                }
             }
         }
         .img-spinner,
@@ -42,7 +42,7 @@
             }
         }
     }
-    &__photoshoots {
+    .photoshoots {
         width: 80%;
         margin-left: auto;
         margin-right: auto;

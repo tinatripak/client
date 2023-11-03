@@ -30,14 +30,14 @@ const TypesOfShooting = () => {
             {typesOfPhotography.map((el, index) => (
               <div key={index}>
                 <Link to={`${typeLink}/${el?.typeOfPhotography}`}>
-                  <div className={classes.types__element}>
+                  <div className={classes.element}>
                     <article>
                       <img
                         src={el?.mainPhoto}
                         alt="background"
-                        className={classes.types__element__img}
+                        className={classes.img}
                       />
-                      <h1 className={classes.types__element__h1}>
+                      <h1 className={classes.h1}>
                         {el?.typeOfPhotography}
                       </h1>
                     </article>

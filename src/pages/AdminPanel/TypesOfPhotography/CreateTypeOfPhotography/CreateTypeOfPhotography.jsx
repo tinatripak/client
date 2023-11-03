@@ -51,7 +51,7 @@ const CreateTypeOfPhotography = () => {
 
   return (
     <div className={classes.createType}>
-      <div className={classes.createType__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${typesLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -59,7 +59,7 @@ const CreateTypeOfPhotography = () => {
         <h3>Create type of photography</h3>
       </div>
       <form onSubmit={createType}>
-        <div className={classes.createType__typeOfPhotography}>
+        <div className={classes.typeOfPhotography}>
           <label htmlFor="type">Type of photography</label>
           <br />
           <input
@@ -71,7 +71,7 @@ const CreateTypeOfPhotography = () => {
           />
         </div>
 
-        <div className={classes.createType__shootingDuration}>
+        <div className={classes.shootingDuration}>
           <label htmlFor="duration">Duration of shooting</label>
           <br />
           <input
@@ -83,7 +83,7 @@ const CreateTypeOfPhotography = () => {
           />
         </div>
 
-        <div className={classes.createType__text}>
+        <div className={classes.text}>
           <label htmlFor="text">Text</label>
           <br />
           <textarea
@@ -94,7 +94,7 @@ const CreateTypeOfPhotography = () => {
           />
         </div>
 
-        <div className={classes.createType__mainPhoto}>
+        <div className={classes.mainPhoto}>
           <br />
           <h4>The photo of new type of photography</h4>
           {error && <p>{error}</p>}
@@ -103,7 +103,7 @@ const CreateTypeOfPhotography = () => {
               <img src={formData.mainPhoto} alt="Main" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -113,7 +113,7 @@ const CreateTypeOfPhotography = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.createType__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -122,7 +122,7 @@ const CreateTypeOfPhotography = () => {
             </UploadWidget>
           </div>
         </div>
-        <button className={classes.createType__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

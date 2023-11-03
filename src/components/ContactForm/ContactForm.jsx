@@ -29,7 +29,7 @@ const ContactForm = () => {
   return (
     <div className={classes.contactForm}>
       <form onSubmit={handleSubmit}>
-        <div className={classes.contactForm__nameInput}>
+        <div className={classes.nameInput}>
           <label htmlFor="name">Name:</label>
           <br />
           <input
@@ -40,7 +40,7 @@ const ContactForm = () => {
           />
         </div>
 
-        <div className={classes.contactForm__emailInput}>
+        <div className={classes.emailInput}>
           <label htmlFor="email">Email:</label>
           <br />
           <input
@@ -51,7 +51,7 @@ const ContactForm = () => {
           />
         </div>
 
-        <div className={classes.contactForm__messageTextarea}>
+        <div className={classes.messageTextarea}>
           <label htmlFor="message">Type your message here:</label>
           <br />
           <textarea
@@ -61,7 +61,7 @@ const ContactForm = () => {
           />
         </div>
 
-        <button className={classes.contactForm__sendButton} type="submit">
+        <button className={classes.sendButton} type="submit">
           SUBMIT
         </button>
       </form>

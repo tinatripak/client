@@ -5,20 +5,20 @@
   text-transform: uppercase; 
   padding: 6px;
 
-  &__content {
+  .content {
     color: $dark;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    &__logo {
+    .logo {
       font-size: 2rem;
       text-decoration: none;
       color: $dark;
       min-width: 200px;
     }
 
-    &__div {
+    .div {
       width: 100%;
       top: 0;
       right: 100%;
@@ -80,7 +80,7 @@
       }
     }
     
-    &__social{
+    .social{
       min-width: 200px;
       display: flex;
       justify-content: end;
@@ -101,7 +101,7 @@
       }
     }
 
-    &__toggle {
+    .toggle {
       cursor: pointer;
       color: inherit;
       display: flex;
@@ -118,7 +118,7 @@
         display: none;
       }
 
-      &__closeButton {
+      .closeButton {
         @include breakpoint(sm) {
           color: white;
         }

@@ -28,29 +28,29 @@ const Home = () => {
       content={
         <div className={classes.home}>
           <Header />
-          <div className={classes.home__main}>
+          <div className={classes.main}>
             <div
-              className={classes.home__main__image}
+              className={classes.image}
               style={backgroundImageStyle}
             >
               <p>Photography Is My Life</p>
             </div>
-            <div className={classes.home__main__text}>
+            <div className={classes.text}>
               I'm a Ukrainian photographer.
               <br />
               Photography is my passion and my life
             </div>
           </div>
-          <div className={classes.home__photos}>
+          <div className={classes.photos}>
             {arrayOfPhotos.slice(1).map((el, index) => (
               <figure
-                className={classes[`home__photos__item${index + 1}`]}
+                className={classes[`item${index + 1}`]}
                 key={index}
               >
                 <img
                   src={el?.photo}
                   alt="gallery item"
-                  className={classes.home__photos__img}
+                  className={classes.img}
                 />
               </figure>
             ))}

@@ -70,23 +70,23 @@ const Login = () => {
   return (
     <div className={classes.login}>
       <Header />
-      <div className={classes.login__block}>
-        <div className={classes.login__block__img}>
+      <div className={classes.block}>
+        <div className={classes.img}>
           <img src={cameraImage} alt="Camera" />
         </div>
-        <div className={classes.login__block__text}>
-          <p className={classes.login__block__text__welcome}>
+        <div className={classes.text}>
+          <p className={classes.welcome}>
             Welcome Back dear admin :&#41;
           </p>
-          <p className={classes.login__block__text__problems}>
+          <p className={classes.problems}>
             This login is for administrators only. If you are an admin and do
             not have access, please email tinatripak2002@gmail.com
           </p>
           <form
             onSubmit={handleSubmit}
-            className={classes.login__block__text__form}
+            className={classes.form}
           >
-            <div className={classes.login__block__text__form__email}>
+            <div className={classes.email}>
               <TfiEmail size={35} className={classes.icon} />
               <div>
                 <label>
@@ -96,13 +96,13 @@ const Login = () => {
                     type="email"
                     name="email"
                     value={email}
-                    className={classes.login__block__text__form__email_input}
+                    className={classes.email_input}
                     onChange={handleOnChange}
                   />
                 </label>
               </div>
             </div>
-            <div className={classes.login__block__text__form__password}>
+            <div className={classes.password}>
               <BiSolidLock size={50} className={classes.icon} />
               <div>
                 <label>
@@ -112,16 +112,16 @@ const Login = () => {
                     type="password"
                     name="password"
                     value={password}
-                    className={classes.login__block__text__form__password_input}
+                    className={classes.password_input}
                     onChange={handleOnChange}
                   />
                 </label>
               </div>
             </div>
-            <div className={classes.login__block__text__form__button}>
+            <div className={classes.button}>
               <button
                 type="submit"
-                className={classes.login__block__text__form__button__login}
+                className={classes.login}
               >
                 Login
               </button>

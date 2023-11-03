@@ -9,7 +9,7 @@ import {aboutLink, bookingLink, instagramURL, portfolioLink, typesLink} from '..
 const Footer = () => {
   return (
     <div className={classes.footer}>
-      <div className={classes.footer__icons}>
+      <div className={classes.icons}>
         <NavLink
           to={instagramURL}
         >
@@ -25,8 +25,8 @@ const Footer = () => {
           />
         </NavLink>
       </div>
-      <div className={classes.footer__content}>
-        <nav className={classes.footer__content__nav}>
+      <div className={classes.content}>
+        <nav className={classes.nav}>
           <ul>
             <li>
               <NavLink to={aboutLink}>About</NavLink>
@@ -46,7 +46,7 @@ const Footer = () => {
           </ul>
         </nav>
       </div>
-      <div className={classes.footer__copyrigth}>Copyrigth &copy; 2023 Ksenia Tripak</div>
+      <div className={classes.copyrigth}>Copyrigth &copy; 2023 Ksenia Tripak</div>
     </div>
   );
 };

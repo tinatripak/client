@@ -63,7 +63,7 @@ const EditBio = () => {
 
   return (
     <div className={classes.editInfo}>
-      <div className={classes.editInfo__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${bioLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -71,7 +71,7 @@ const EditBio = () => {
         <h3>Updating the bio</h3>
       </div>
       <form onSubmit={updateBio}>
-        <div className={classes.editInfo__bio}>
+        <div className={classes.bio}>
           <label htmlFor="bio">Bio</label>
           <br />
           <textarea
@@ -81,7 +81,7 @@ const EditBio = () => {
           />
         </div>
 
-        <div className={classes.editInfo__phoneNumber}>
+        <div className={classes.phoneNumber}>
           <label htmlFor="phoneNumber">Phone number</label>
           <br />
           <input
@@ -92,14 +92,14 @@ const EditBio = () => {
           />
         </div>
 
-        <div className={classes.editInfo__photo}>
+        <div className={classes.photo}>
           <br />
           <h4>The photo of Ksenia Tripak</h4>
           {error && <p>{error}</p>}
           {formValues.photo && (
             <img src={formValues.photo} alt="Photo" />
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -109,7 +109,7 @@ const EditBio = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.editInfo__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -118,7 +118,7 @@ const EditBio = () => {
             </UploadWidget>
           </div>
         </div>
-        <button className={classes.editInfo__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

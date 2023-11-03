@@ -30,13 +30,6 @@ const Booking = () => {
     fetchTypesOfPhotographyData();
   }, [arrayOfTypes]);
 
-  // const findPhotoNameById = (photoTypeId) => {
-  //   if (arrayOfTypes) {
-  //     const type = arrayOfTypes.find((type) => type?._id === photoTypeId);
-  //     return type?.typeOfPhotography;
-  //   }
-  // };
-
   const columns = React.useMemo(
     () => [
       {
@@ -75,7 +68,7 @@ const Booking = () => {
         Cell: ({ row }) => (
           <div
             onClick={() => handleAccept(row.original)}
-            className={classes.booking__accept_button}
+            className={classes.accept_button}
           >
             <BsCheckLg color="green" size={20} />
           </div>
@@ -87,7 +80,7 @@ const Booking = () => {
         Cell: ({ row }) => (
           <div
             onClick={() => handleDecline(row.original)}
-            className={classes.booking__decline_button}
+            className={classes.decline_button}
           >
             <RxCross2 color="#red" size={20} />
           </div>
@@ -120,18 +113,18 @@ const Booking = () => {
         <div>
           <table
             {...getTableProps()}
-            className={classes.booking__booking_table}
+            className={classes.booking_table}
           >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr
                   {...headerGroup.getHeaderGroupProps()}
-                  className={classes.booking__booking_table__header}
+                  className={classes.header}
                 >
                   {headerGroup.headers.map((column) => (
                     <th
                       {...column.getHeaderProps()}
-                      className={classes.booking__booking_table__header__cell}
+                      className={classes.cell}
                     >
                       {column.render("Header")}
                     </th>
@@ -141,21 +134,21 @@ const Booking = () => {
             </thead>
             <tbody
               {...getTableBodyProps()}
-              className={classes.booking__booking_table__body}
+              className={classes.body}
             >
               {rows.map((row) => {
                 prepareRow(row);
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className={classes.booking__booking_table__body__row}
+                    className={classes.row}
                     key={row.id}
                   >
                     {row.cells.map((cell) => (
                       <td
                         {...cell.getCellProps()}
                         className={
-                          classes.booking__booking_table__body__row__cell
+                          classes.cell
                         }
                       >
                         {cell.render("Cell")}

@@ -46,17 +46,17 @@ const Portfolio = () => {
             {photoshoots.map((el, index) => (
               <div key={index}>
                 <Link to={`${portfolioLink}/${el?.name}`}>
-                  <div className={classes.portfolio__element}>
-                    <div className={classes.portfolio__element__div}>
+                  <div className={classes.element}>
+                    <div className={classes.div}>
                       <img
                         src={el?.mainPhoto}
-                        className={classes.portfolio__element__div__img}
+                        className={classes.img}
                         alt="portfolio"
                       />
-                      <p className={classes.portfolio__element__div__name}>
+                      <p className={classes.name}>
                         {el?.name}
                       </p>
-                      <p className={classes.portfolio__element__div__text}>
+                      <p className={classes.text}>
                         {getTypeNameById(el?.photoTypeId)}
                       </p>
                     </div>

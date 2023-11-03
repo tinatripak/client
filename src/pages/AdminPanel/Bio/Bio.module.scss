@@ -3,19 +3,19 @@
     padding-left: 50px;
     padding-right: 20px;
 
-    &__photo {
+    .photo {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;
         background-color: #ebebeb;
         margin-bottom: 15px;
-        &__edit {
+        .edit {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             font-size: 18px;
-            &__icon {
+            .icon {
                 :hover {
                     cursor: pointer;
                 }
@@ -29,9 +29,9 @@
             border-top-left-radius: 8px;
         }
     }
-    &__article {
+    .article {
         padding-bottom: 15px;
-        &__edit {
+        .edit {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,16 +39,16 @@
             gap: 20px;
             font-size: 18px;
             text-decoration: underline;
-            &__icon {
+            .icon {
                 :hover {
                     cursor: pointer;
                 }
             }
         }
     }
-    &__phoneNumber {
+    .phoneNumber {
         padding-bottom: 15px;
-        &__edit {
+        .edit {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,7 +56,7 @@
             width: max-content;
             font-size: 18px;
             text-decoration: underline;
-            &__icon {
+            .icon {
                 :hover {
                     cursor: pointer;
                 }

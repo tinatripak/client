@@ -43,8 +43,8 @@ const PortfolioOneShoot = () => {
         <div>
           <Header />
           <div className={classes.shoot}>
-            <p className={classes.shoot__h1}>{name}'s photoshoot</p>
-            <div className={classes.shoot__images}>
+            <p className={classes.h1}>{name}'s photoshoot</p>
+            <div className={classes.images}>
               <ImageGallery
                 items={images}
                 showPlayButton={true}

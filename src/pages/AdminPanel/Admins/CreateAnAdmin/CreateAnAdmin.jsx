@@ -40,7 +40,7 @@ const CreateAnAdmin = () => {
 
   return (
     <div className={classes.createAdmin}>
-      <div className={classes.createAdmin__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${adminsLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -48,7 +48,7 @@ const CreateAnAdmin = () => {
         <h3>Create admin</h3>
       </div>
       <form onSubmit={addAdmin}>
-        <div className={classes.createAdmin__username}>
+        <div className={classes.username}>
           <label htmlFor="title">Full name</label>
           <br />
           <input
@@ -60,7 +60,7 @@ const CreateAnAdmin = () => {
           />
         </div>
 
-        <div className={classes.createAdmin__email}>
+        <div className={classes.email}>
           <label htmlFor="title">Email</label>
           <br />
           <input
@@ -72,7 +72,7 @@ const CreateAnAdmin = () => {
           />
         </div>
 
-        <div className={classes.createAdmin__password}>
+        <div className={classes.password}>
           <label htmlFor="title">Password</label>
           <br />
           <input
@@ -84,7 +84,7 @@ const CreateAnAdmin = () => {
           />
         </div>
 
-        <div className={classes.createAdmin__photo}>
+        <div className={classes.photo}>
           <br />
           <h4>The photo of the new admin</h4>
           {error && <p>{error}</p>}
@@ -93,7 +93,7 @@ const CreateAnAdmin = () => {
               <img src={formData.photo} alt="Admin" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -103,7 +103,7 @@ const CreateAnAdmin = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.createAdmin__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -113,7 +113,7 @@ const CreateAnAdmin = () => {
           </div>
         </div>
 
-        <button className={classes.createAdmin__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

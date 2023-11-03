@@ -1,7 +1,7 @@
 @import "../../../../variables.scss";
 
 .createPhotography {
-    &__backButtonWithTitle {
+    .backButtonWithTitle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -10,7 +10,7 @@
             text-align: center;
         }
     }
-    &__button {
+    .button {
         margin-top: 20px;
         font-family: $Gotu;
         padding: 6px 30px;
@@ -50,8 +50,8 @@
         object-fit: cover;
         border-radius: 30px;
     }
-    &__photo {
-        &__uploadmain {
+    .photo {
+        .uploadmain {
             font-family: $Gotu;
             padding: 5px 15px;
             font-size: 16px;
@@ -60,16 +60,16 @@
             background-color: rgb(255, 255, 255);
         }
     }
-    &__allPhotos {
-        &__show {
+    .allPhotos {
+        .show {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
             margin: 20px 20px;
-            &__block {
+            .block {
                 position: relative;
                 width: min-content;
-                &__delete {
+                .delete {
                     position: absolute;
                     border-radius: 50%;
                     right: 15px;

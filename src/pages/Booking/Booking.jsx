@@ -280,10 +280,10 @@ const Booking = () => {
         content={
           <div>
             <div className={classes.booking}>
-              <div className={classes.booking__image}>
+              <div className={classes.image}>
                 <Header />
               </div>
-              <div className={classes.booking__content}>
+              <div className={classes.content}>
                 <p>Ksenia Tripak</p>
                 <p>
                   If you want to contact with me {bio?.phoneNumber} or you can
@@ -293,21 +293,21 @@ const Booking = () => {
                   <li>
                     <a href={viberURL}>
                       <FaViber
-                        className={classes.booking__content__icons__viber}
+                        className={classes.icons__viber}
                       />{" "}
                     </a>
                   </li>
                   <li>
                     <a href={telegramURL}>
                       <LiaTelegram
-                        className={classes.booking__content__icons__telegram}
+                        className={classes.icons__telegram}
                       />
                     </a>
                   </li>
                   <li>
                     <a href="">
                       <BsWhatsapp
-                        className={classes.booking__content__icons__whatsapp}
+                        className={classes.icons__whatsapp}
                       />
                     </a>
                   </li>
@@ -315,12 +315,12 @@ const Booking = () => {
                 <p>Also you can fill out the form bellow:</p>
               </div>
 
-              <div className={classes.booking__contactForm}>
+              <div className={classes.contactForm}>
                 <form onSubmit={handleSubmit}>
-                  <div className={classes.booking__contactForm__commonBlock}>
+                  <div className={classes.commonBlock}>
                     <div
                       className={
-                        classes.booking__contactForm__commonBlock__formGroup__input
+                        classes.input
                       }
                     >
                       <label htmlFor="name">Name:</label>
@@ -332,7 +332,7 @@ const Booking = () => {
                     </div>
                     <div
                       className={
-                        classes.booking__contactForm__commonBlock__formGroup__input
+                        classes.input
                       }
                     >
                       <label htmlFor="email">Email:</label>
@@ -345,7 +345,7 @@ const Booking = () => {
                   </div>
                   <div
                     className={
-                      classes.booking__contactForm__commonBlock__formGroup__type
+                      classes.type
                     }
                   >
                     <label htmlFor="title">Type of photo shoot</label>
@@ -358,9 +358,6 @@ const Booking = () => {
                       <option
                         value=""
                         disabled
-                        className={
-                          classes.createPhotography__photoType__defaultOption
-                        }
                       >
                         Choose a name
                       </option>
@@ -373,12 +370,12 @@ const Booking = () => {
                   </div>
                   {photoTypeId ? (
                     <div
-                      className={classes.booking__contactForm__calendarBlock}
+                      className={classes.calendarBlock}
                     >
                       <p>Please, choose the date and time of the photoshoot</p>
                       <div
                         className={
-                          classes.booking__contactForm__calendarBlock__calendarWithSelect
+                          classes.calendarWithSelect
                         }
                       >
                         <div>{console.log(WEDDING_PHOTOTYPEID)}
@@ -410,14 +407,14 @@ const Booking = () => {
                             value={selectedTime}
                             onChange={handleTimeChange}
                             className={
-                              classes.booking__contactForm__calendarBlock__calendarWithSelect__select
+                              classes.select
                             }
                           >
                             <option
                               value=""
                               disabled
                               className={
-                                classes.booking__contactForm__calendarBlock__calendarWithSelect__select_default
+                                classes.default
                               }
                             >
                               Choose time
@@ -434,14 +431,14 @@ const Booking = () => {
                   ) : (
                     <div
                       className={
-                        classes.booking__contactForm__withoutPhotoshootType
+                        classes.withoutPhotoshootType
                       }
                     >
                       Please, choose the type of photo shoot and you will have
                       an opportunity to choose the date and time !
                     </div>
                   )}
-                  <div className={classes.booking__contactForm__textarea}>
+                  <div className={classes.textarea}>
                     <label htmlFor="message">Additional message:</label>
                     <br />
                     <textarea
@@ -450,7 +447,7 @@ const Booking = () => {
                     />
                   </div>
                   <button
-                    className={classes.booking__contactForm__button}
+                    className={classes.button}
                     type="submit"
                   >
                     Send

@@ -3,7 +3,7 @@
     padding-left: 50px;
     padding-right: 20px;
 
-    &__update {
+    .update {
         position: absolute;
         border-radius: 50%;
         right: 15px;
@@ -14,12 +14,12 @@
         }
     }
 
-    &__gridPhotos {
+    .gridPhotos {
         display: flex;
         flex-wrap: wrap;
         gap: 70px;
 
-        &__photoBlock {
+        .photoBlock {
             border: 1px solid rgb(194, 194, 194);
             border-radius: 10px;
             width: min-content;
@@ -31,7 +31,7 @@
             position: relative;
         }
     }
-    &__mainPhoto {
+    .mainPhoto {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;

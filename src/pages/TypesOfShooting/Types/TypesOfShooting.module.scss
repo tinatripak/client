@@ -14,18 +14,18 @@
         text-decoration: none;
         color: black;
     }
-    &__element {
+    .element {
         width: 17vw;
         font-family: $Gotu;
         article {
             position: relative;
         }
-        &__img {
+        .img {
             object-fit: cover;
             width: 290px;
             height: 290px;
         }
-        &__h1 {
+        .h1 {
             font-size: 18px;
             font-weight: 100;
             text-align: center;

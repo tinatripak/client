@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Cardo&family=Comfortaa:wght@300&family=Great+Vibes&family=Gwendolyn&family=Kalam:wght@300&family=Satisfy&display=swap");
 
 .booking {
-    &__content {
+    .content {
         font-family: $Gotu;
         width: 50%;
         margin-left: auto;
@@ -22,23 +22,23 @@
         @include breakpoint(xs) {
             width: 80%;
         }
-        &__icons {
-            &__telegram {
+        .icons {
+            .telegram {
                 color: #269eda;
                 font-size: 30px;
             }
-            &__viber {
+            .viber {
                 color: #7b519d;
                 font-size: 30px;
             }
-            &__whatsapp {
+            .whatsapp {
                 color: #3fea5f;
                 font-size: 30px;
             }
         }
     }
 
-    &__image {
+    .image {
         height: 85vh;
         background-image: url("https://res.cloudinary.com/dcxuxc5uw/image/upload/v1697684795/ptvfhott2dr8ucsvzrjo.jpg");
         background-size: cover;
@@ -46,22 +46,22 @@
         color: white;
     }
 
-    &__contactForm {
+    .contactForm {
         font-family: $Gotu;
         color: #505050;
         width: min-content;
         margin: 0 auto;
 
-        &__calendarBlock {
+        .calendarBlock {
             display: block;
             p {
                 text-decoration: underline;
             }
-            &__calendarWithSelect {
+            .calendarWithSelect {
                 display: flex;
                 gap: 60px;
                 margin-bottom: 60px;
-                &__calendar {
+                .calendar {
                     border-radius: 3px;
                     margin-bottom: 50px;
                     font-family: "Cardo", serif;
@@ -75,7 +75,7 @@
                         border-radius: 20px;
                     }
                 }
-                &__select {
+                .select {
                     height: 50px;
                     width: 200px;
                     font-size: 18px;
@@ -90,15 +90,15 @@
                 }
             }
         }
-        &__commonBlock {
+        .commonBlock {
             display: flex;
             justify-content: center;
             gap: 60px;
             @include breakpoint(xs) {
                 display: block;
             }
-            &__formGroup {
-                &__input {
+            .formGroup {
+                .input {
                     gap: 2vw;
                     input {
                         border: none;
@@ -113,7 +113,7 @@
                         padding-left: 3vw;
                     }
                 }
-                &__type {
+                .type {
                     margin-top: 30px;
                     select {
                         margin-top: 5px;
@@ -141,11 +141,11 @@
             }
         }
 
-        &__withoutPhotoshootType {
+        .withoutPhotoshootType {
             padding-top: 30px;
             color: #b80000;
         }
-        &__textarea {
+        .textarea {
             margin-top: 30px;
             margin-bottom: 3vh;
             margin-left: auto;
@@ -173,7 +173,7 @@
             }
         }
 
-        &__button {
+        .button {
             border: none;
             background-color: rgb(0, 0, 0);
             color: white;

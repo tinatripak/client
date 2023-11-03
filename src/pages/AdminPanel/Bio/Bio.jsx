@@ -21,11 +21,11 @@ const Bio = () => {
 
   return (
     <div className={classes.bio}>
-      <div className={classes.bio__photo}>
+      <div className={classes.photo}>
         <LazyLoadImage src={bioInfo.photo} effect="blur" />
-        <div className={classes.bio__photo__edit}>
+        <div className={classes.edit}>
           <p>Photographer</p>
-          <span className={classes.bio__photo__edit__icon}>
+          <span className={classes.icon}>
             <Link
               to={`${adminDashboardLink}${bioLink}${editLink}/${bioInfo?._id}`}
             >
@@ -34,14 +34,14 @@ const Bio = () => {
           </span>
         </div>
       </div>
-      <div className={classes.bio__article}>
-        <div className={classes.bio__article__edit}>
+      <div className={classes.article}>
+        <div className={classes.edit}>
           <p>Bio about photographer</p>
         </div>
         <div>{bioInfo.bio}</div>
       </div>
-      <div className={classes.bio__phoneNumber}>
-        <div className={classes.bio__phoneNumber__edit}>
+      <div className={classes.phoneNumber}>
+        <div className={classes.edit}>
           <p>Phone number</p>
         </div>
         <div>{bioInfo.phoneNumber}</div>

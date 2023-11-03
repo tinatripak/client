@@ -3,7 +3,7 @@
     padding-left: 50px;
     padding-right: 20px;
 
-    &__add {
+    .add {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -14,37 +14,37 @@
         }
     }
 
-    &__cards {
+    .cards {
         display: flex;
         flex-wrap: wrap;
         gap: 70px;
         justify-content: center;
 
-        &__card {
+        .card {
             border: 1px solid rgb(194, 194, 194);
             border-radius: 10px;
             width: min-content;
             background-color: #ebebeb;
 
-            &__nameWithActions {
+            .nameWithActions {
                 display: flex;
                 justify-content: space-between;
                 padding-left: 20px;
                 padding-right: 20px;
 
                 align-items: center;
-                &__name {
+                .name {
                     margin: 2px 2px 5px 2px;
                 }
-                &__actions {
+                .actions {
                     display: flex;
                     gap: 10px;
-                    &__icon {
+                    .icon {
                         cursor: pointer;
                     }
                 }
             }
-            &__type {
+            .type {
                 font-size: 14px;
                 color: #595959;
                 text-align: left;
@@ -54,7 +54,7 @@
             }
         }
     }
-    &__photo {
+    .photo {
         border: 1px solid rgb(194, 194, 194);
         border-radius: 10px;
         width: min-content;

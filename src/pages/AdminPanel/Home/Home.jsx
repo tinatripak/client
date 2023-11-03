@@ -22,10 +22,10 @@ const Home = () => {
 
   return (
     <div className={classes.home}>
-      <div className={classes.home__gridPhotos}>
+      <div className={classes.gridPhotos}>
         {arrayOfPhotos.map((el, index) => (
-          <div className={classes.home__gridPhotos__photoBlock} key={index}>
-            <div className={classes.home__update}>
+          <div className={classes.photoBlock} key={index}>
+            <div className={classes.update}>
               <Link
                 to={`${adminDashboardLink}${homeLink}${editLink}/${el?._id}`}
               >
@@ -35,7 +35,7 @@ const Home = () => {
             <div>
               <LazyLoadImage
                 src={el?.photo}
-                className={classes.home__update__photo}
+                className={classes.photo}
                 effect="blur"
               />
               <p>{el?.titleOfPhoto}</p>

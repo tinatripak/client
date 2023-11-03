@@ -44,29 +44,29 @@ const TypesOfPhotography = () => {
 
   return (
     <div className={classes.types}>
-      <div className={classes.types__add}>
+      <div className={classes.add}>
         <p>Add a type of photography</p>
         <IoAddCircle
-          className={classes.types__add__icon}
+          className={classes.icon}
           color={darkColor}
           size={35}
           onClick={handleCreate}
         />
       </div>
-      <div className={classes.types__cards}>
+      <div className={classes.cards}>
         {arrayOfTypes?.length > 0 ? (
           arrayOfTypes.map((el, index) => (
-            <div className={classes.types__cards__card} key={index}>
+            <div className={classes.card} key={index}>
               <LazyLoadImage
                 src={el?.mainPhoto}
-                className={classes.types__cards__card__photo}
+                className={classes.photo}
                 effect="blur"
               />
-              <div className={classes.types__cards__card__titleWithActions}>
+              <div className={classes.titleWithActions}>
                 <p>{el?.typeOfPhotography}</p>
                 <div
                   className={
-                    classes.types__cards__card__titleWithActions__actions
+                    classes.actions
                   }
                 >
                   <Link
@@ -75,7 +75,7 @@ const TypesOfPhotography = () => {
                     <RiEditCircleLine
                       size={22}
                       className={
-                        classes.types__cards__card__titleWithActions__actions__icon
+                        classes.icon
                       }
                     />
                   </Link>
@@ -83,7 +83,7 @@ const TypesOfPhotography = () => {
                     size={22}
                     onClick={() => handleDeleteTypeOfPhotography(el?._id)}
                     className={
-                      classes.types__cards__card__titleWithActions__actions__icon
+                      classes.icon
                     }
                   />
                 </div>

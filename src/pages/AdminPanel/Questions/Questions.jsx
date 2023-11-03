@@ -45,7 +45,7 @@ const Questions = () => {
         Header: "ANSWER",
         accessor: "answer",
         Cell: ({ row }) => (
-          <div className={classes.question__answer_button}>
+          <div className={classes.answer_button}>
             <Link
               to={`${adminDashboardLink}${questionLink}${answerLink}/${row.original._id}`}
             >
@@ -73,18 +73,18 @@ const Questions = () => {
         <div>
           <table
             {...getTableProps()}
-            className={classes.question__question_table}
+            className={classes.question_table}
           >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr
                   {...headerGroup.getHeaderGroupProps()}
-                  className={classes.question__question_table__header}
+                  className={classes.header}
                 >
                   {headerGroup.headers.map((column) => (
                     <th
                       {...column.getHeaderProps()}
-                      className={classes.question__question_table__header__cell}
+                      className={classes.cell}
                     >
                       {column.render("Header")}
                     </th>
@@ -94,21 +94,21 @@ const Questions = () => {
             </thead>
             <tbody
               {...getTableBodyProps()}
-              className={classes.question__question_table__body}
+              className={classes.body}
             >
               {rows.map((row) => {
                 prepareRow(row);
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className={classes.question__question_table__body__row}
+                    className={classes.row}
                     key={row.id}
                   >
                     {row.cells.map((cell) => (
                       <td
                         {...cell.getCellProps()}
                         className={
-                          classes.question__question_table__body__row__cell
+                          classes.cell
                         }
                       >
                         {cell.render("Cell")}

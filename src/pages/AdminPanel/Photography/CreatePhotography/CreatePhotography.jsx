@@ -53,13 +53,26 @@ const CreatePhotography = () => {
     }
   }, [formData, errors]);
 
+  // const handleAllPhotosUpload = useCallback((error, result, widget) => {
+  //   if (error) {
+  //     setErrors({ ...errors, arrayOfPhotos: error });
+  //     widget.close({ quiet: true });
+  //   } else {
+  //     setErrors({ ...errors, arrayOfPhotos: "" });
+  //     addPhoto(result?.info?.url);
+  //   }
+  // }, [formData, errors]);
+
   const handleAllPhotosUpload = useCallback((error, result, widget) => {
     if (error) {
       setErrors({ ...errors, arrayOfPhotos: error });
       widget.close({ quiet: true });
     } else {
       setErrors({ ...errors, arrayOfPhotos: "" });
-      addPhoto(result?.info?.url);
+  
+      result?.info?.files.forEach((file) => {
+        addPhoto(file.uploadInfo.url);
+      });
     }
   }, [formData, errors]);
 
@@ -81,14 +94,14 @@ const CreatePhotography = () => {
 
   return (
     <div className={classes.createPhotography}>
-      <div className={classes.createPhotography__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${photographyLink}`}>
           <IoChevronBackCircleSharp size={30} />
         </Link>
         <h3>Create a photography</h3>
       </div>
       <form onSubmit={createOnePhotoshoot}>
-        <div className={classes.createPhotography__name}>
+        <div className={classes.name}>
           <label htmlFor="type">Name</label>
           <br />
           <input
@@ -102,7 +115,7 @@ const CreatePhotography = () => {
           />
         </div>
 
-        <div className={classes.createPhotography__photoType}>
+        <div className={classes.photoType}>
           <label htmlFor="title">Type of photoshoot</label>
           <br />
           <select
@@ -114,7 +127,7 @@ const CreatePhotography = () => {
             <option
               value=""
               disabled
-              className={classes.createPhotography__photoType__defaultOption}
+              className={classes.defaultOption}
             >
               Choose a name
             </option>
@@ -126,7 +139,7 @@ const CreatePhotography = () => {
           </select>
         </div>
 
-        <div className={classes.createPhotography__mainPhoto}>
+        <div className={classes.mainPhoto}>
           <br />
           <h4>The main photo of photography</h4>
           {errors.mainPhoto && <p>{errors.mainPhoto}</p>}
@@ -135,7 +148,7 @@ const CreatePhotography = () => {
               <img src={formData.mainPhoto} alt="Main" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             {
               <UploadWidget onUpload={handleMainPhotoUpload}>
                 {({ open }) => {
@@ -146,7 +159,7 @@ const CreatePhotography = () => {
                   return (
                     <button
                       onClick={handleOnClickMain}
-                      className={classes.createPhotography__photo__uploadmain}
+                      className={classes.uploadmain}
                     >
                       Upload
                     </button>
@@ -157,20 +170,20 @@ const CreatePhotography = () => {
           </div>
         </div>
 
-        <div className={classes.createPhotography__allPhotos}>
+        <div className={classes.allPhotos}>
           <br />
           <h4>All photos from the photo shoot</h4>
           {errors.arrayOfPhotos && <p>{errors.arrayOfPhotos}</p>}
           {formData.arrayOfPhotos.length > 0 && (
-            <div className={classes.createPhotography__allPhotos__show}>
+            <div className={classes.show}>
               {formData.arrayOfPhotos.map((photo, index) => (
                 <div
                   key={index}
-                  className={classes.createPhotography__allPhotos__show__block}
+                  className={classes.block}
                 >
                   <div
                     className={
-                      classes.createPhotography__allPhotos__show__block__delete
+                      classes.delete
                     }
                   >
                     <RxCross2
@@ -188,7 +201,7 @@ const CreatePhotography = () => {
             </div>
           )}
 
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleAllPhotosUpload}>
               {({ open }) => {
                 function handleOnClickArray(e) {
@@ -198,7 +211,7 @@ const CreatePhotography = () => {
                 return (
                   <IoAddCircle
                     onClick={handleOnClickArray}
-                    className={classes.createPhotography__photo__uploadall}
+                    className={classes.uploadall}
                     color={darkColor}
                     size={45}
                   />
@@ -208,7 +221,7 @@ const CreatePhotography = () => {
           </div>
         </div>
 
-        <button className={classes.createPhotography__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

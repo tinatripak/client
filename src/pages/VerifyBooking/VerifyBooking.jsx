@@ -26,11 +26,11 @@ const VerifyBooking = () => {
       content={
         <div className={classes.verification}>
           <Header />
-          <div className={classes.verification__firework}></div>
-          <div className={classes.verification__firework}></div>
-          <div className={classes.verification__firework}></div>
+          <div className={classes.firework}></div>
+          <div className={classes.firework}></div>
+          <div className={classes.firework}></div>
           {data?.isValid && (
-            <p className={classes.verification__textIfCompleted}>
+            <p className={classes.textIfCompleted}>
               Thank you for confirming your reservation. Booking made by{" "}
               {data?.name} with email {data?.email} on {data?.date} at{" "}
               {data?.startTime} confirmed

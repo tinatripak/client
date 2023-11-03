@@ -49,7 +49,7 @@ const EditHome = () => {
 
   return (
     <div className={classes.edit_home}>
-      <div className={classes.edit_home__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${homeLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -57,12 +57,12 @@ const EditHome = () => {
         <h3>Updating the photo</h3>
       </div>
       <form onSubmit={updatePhotoAndText}>
-        <div className={classes.edit_home__title}>
+        <div className={classes.title}>
           <label htmlFor="title">Title of the photo</label>
           <br />
           <p>{formValues.titleOfPhoto}</p>
         </div>
-        <div className={classes.edit_home__photo}>
+        <div className={classes.photo}>
           <br />
           <h4>The photo</h4>
           {error && <p>{error}</p>}
@@ -71,7 +71,7 @@ const EditHome = () => {
               <img src={formValues.photo} alt="New" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -81,7 +81,7 @@ const EditHome = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.edit_home__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -90,7 +90,7 @@ const EditHome = () => {
             </UploadWidget>
           </div>
         </div>
-        <button className={classes.edit_home__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

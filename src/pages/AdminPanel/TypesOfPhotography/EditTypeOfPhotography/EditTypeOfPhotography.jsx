@@ -85,7 +85,7 @@ const EditTypeOfPhotography = () => {
 
   return (
     <div className={classes.editType}>
-      <div className={classes.editType__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${typesLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -93,7 +93,7 @@ const EditTypeOfPhotography = () => {
         <h3>Updating the type of photography</h3>
       </div>
       <form onSubmit={updateType}>
-        <div className={classes.editType__typeOfPhotography}>
+        <div className={classes.typeOfPhotography}>
           <label htmlFor="typeOfPhotography">Type of photography</label>
           <br />
           <input
@@ -105,7 +105,7 @@ const EditTypeOfPhotography = () => {
           />
         </div>
 
-        <div className={classes.editType__typeOfPhotography}>
+        <div className={classes.typeOfPhotography}>
           <label htmlFor="shootingDuration">Duration of shooting</label>
           <br />
           <input
@@ -117,7 +117,7 @@ const EditTypeOfPhotography = () => {
           />
         </div>
 
-        <div className={classes.editType__text}>
+        <div className={classes.text}>
           <label htmlFor="text">Text</label>
           <br />
           <textarea
@@ -127,7 +127,7 @@ const EditTypeOfPhotography = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className={classes.editType__photo}>
+        <div className={classes.photo}>
           <br />
           <h4>The photo of updated type of photography</h4>
           {error && <p>{error}</p>}
@@ -141,7 +141,7 @@ const EditTypeOfPhotography = () => {
               <img src={newValues.photo} alt="New" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -151,7 +151,7 @@ const EditTypeOfPhotography = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.editType__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -160,7 +160,7 @@ const EditTypeOfPhotography = () => {
             </UploadWidget>
           </div>
         </div>
-        <button className={classes.editType__button}>Save</button>
+        <button className={classes.button}>Save</button>
       </form>
     </div>
   );

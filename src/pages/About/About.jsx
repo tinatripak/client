@@ -37,13 +37,13 @@ const About = () => {
       content={
         <div className={classes.about}>
           <Header />
-          <div className={classes.about__content}>
-            <div className={classes.about__content__p}>
+          <div className={classes.content}>
+            <div className={classes.bio}>
               <p>{bio?.bio}</p>
             </div>
             <img src={bio?.photo} alt="photographer" />
           </div>
-          <div className={classes.about__photoshoots}>
+          <div className={classes.photoshoots}>
             <p>Photoshoots are available in Romania and Ukraine:</p>
             <ul>
               {typesOfPhotography.map((el, index) => (

@@ -81,7 +81,7 @@ const EditAdmin = () => {
 
   return (
     <div className={classes.editAdmin}>
-      <div className={classes.editAdmin__backButtonWithTitle}>
+      <div className={classes.backButtonWithTitle}>
         <Link to={`${adminDashboardLink}${adminsLink}`}>
           {" "}
           <IoChevronBackCircleSharp size={30} />{" "}
@@ -89,7 +89,7 @@ const EditAdmin = () => {
         <h3>Updating the admin {oldUsername}</h3>
       </div>
       <form onSubmit={updateAdmin}>
-        <div className={classes.editAdmin__username}>
+        <div className={classes.username}>
           <label htmlFor="title">Full name</label>
           <br />
           <input
@@ -101,7 +101,7 @@ const EditAdmin = () => {
           />
         </div>
   
-        <div className={classes.editAdmin__email}>
+        <div className={classes.email}>
           <label htmlFor="title">Email</label>
           <br />
           <input
@@ -113,7 +113,7 @@ const EditAdmin = () => {
           />
         </div>
   
-        <div className={classes.editAdmin__password}>
+        <div className={classes.password}>
           <label htmlFor="title">Password</label>
           <br />
           <input
@@ -125,7 +125,7 @@ const EditAdmin = () => {
           />
         </div>
   
-        <div className={classes.editAdmin__photo}>
+        <div className={classes.photo}>
           <br />
           <h4>The photo of the admin</h4>
           {error && <p>{error}</p>}
@@ -139,7 +139,7 @@ const EditAdmin = () => {
               <img src={photo} alt="New Admin" />
             </>
           )}
-          <div>
+          <div className={classes.photo}>
             <UploadWidget onUpload={handleOnUpload}>
               {({ open }) => {
                 function handleOnClick(e) {
@@ -149,7 +149,7 @@ const EditAdmin = () => {
                 return (
                   <button
                     onClick={handleOnClick}
-                    className={classes.editAdmin__photo__upload}
+                    className={classes.upload}
                   >
                     Upload
                   </button>
@@ -159,7 +159,7 @@ const EditAdmin = () => {
           </div>
         </div>
   
-        <button type="submit" className={classes.editAdmin__button}>Save</button>
+        <button type="submit" className={classes.button}>Save</button>
       </form>
     </div>
   );

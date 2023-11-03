@@ -27,9 +27,9 @@ const TypeOfShooting = () => {
         <div>
           <Header />
           <div className={classes.type}>
-            <p className={classes.type__name}>{name}</p>
-            <div className={classes.type__grid}>
-              <p className={classes.type__grid__text}>
+            <p className={classes.name}>{name}</p>
+            <div className={classes.grid}>
+              <p className={classes.text}>
                 {typeOfPhotography?.text?.split("\n").map((line, index) => (
                   <React.Fragment key={index}>
                     {line}
@@ -41,7 +41,7 @@ const TypeOfShooting = () => {
               </p>
               <img
                 src={typeOfPhotography?.mainPhoto}
-                className={classes.type__grid__photo}
+                className={classes.photo}
                 alt="Type"
               />
             </div>

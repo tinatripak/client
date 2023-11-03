@@ -35,7 +35,7 @@ const AnswerQuestion = () => {
   };
 
   return (
-    <div>
+    <div className={classes.answer}>
       <h2>Answer to the question</h2>
       <div>
         <div>
@@ -63,9 +63,9 @@ const AnswerQuestion = () => {
           <textarea
             defaultValue={answer}
             onChange={handleAnswerChange}
-            className={classes.answer__textarea}
+            className={classes.textarea}
           />
-          <button type="submit" className={classes.answer__button}>
+          <button type="submit" className={classes.button}>
             SEND
           </button>
         </form>

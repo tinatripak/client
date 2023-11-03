@@ -1,7 +1,7 @@
 @import "../../../../variables.scss";
 
 .createType {
-    &__backButtonWithTitle {
+    .backButtonWithTitle {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -10,7 +10,7 @@
             text-align: center;
         }
     }
-    &__button {
+    .button {
         margin-top: 20px;
         font-family: $Gotu;
         padding: 6px 30px;
@@ -47,8 +47,8 @@
         object-fit: cover;
         border-radius: 30px;
     }
-    &__photo {
-        &__upload {
+    .photo {
+        .upload {
             font-family: $Gotu;
             padding: 5px 15px;
             font-size: 16px;

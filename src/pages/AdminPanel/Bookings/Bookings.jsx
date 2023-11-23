@@ -5,11 +5,18 @@ import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
 import { RxCross2 } from "react-icons/rx";
 import { BsCheckLg } from "react-icons/bs";
-import { BasicCalendar, NotFound } from "../../../components";
+import {
+  BasicCalendar,
+  ConditionalRender,
+  NotFound,
+} from "../../../components";
 
 const Booking = () => {
   const [bookingList, setBookingList] = useState([]);
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
+  const [isLoadedBooking, setIsLoadedBooking] = useState(false);
+  const [isLoadedTypes, setIsLoadedTypes] = useState(false);
+
   useEffect(() => {
     fetchBookingsData();
   }, [bookingList]);
@@ -17,12 +24,14 @@ const Booking = () => {
   const fetchBookingsData = () => {
     getAllBookings().then((res) => {
       setBookingList(res.data);
+      setIsLoadedBooking(true);
     });
   };
 
   const fetchTypesOfPhotographyData = () => {
     getAllTypesOfPhotography().then((res) => {
       setArrayOfTypes(res.data);
+      setIsLoadedTypes(true);
     });
   };
 
@@ -104,65 +113,59 @@ const Booking = () => {
   };
 
   return (
-    <div className={classes.booking}>
-      {bookingList.length === 0 ? (
-        <div>
-          <NotFound />
-        </div>
-      ) : (
-        <div>
-          <table
-            {...getTableProps()}
-            className={classes.booking_table}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  {...headerGroup.getHeaderGroupProps()}
-                  className={classes.header}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      className={classes.cell}
+    <ConditionalRender
+      conditions={[isLoadedBooking, isLoadedTypes]}
+      content={
+        <div className={classes.booking}>
+          {bookingList.length === 0 ? (
+            <div>
+              <NotFound />
+            </div>
+          ) : (
+            <div>
+              <table {...getTableProps()} className={classes.booking_table}>
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      className={classes.header}
                     >
-                      {column.render("Header")}
-                    </th>
+                      {headerGroup.headers.map((column) => (
+                        <th
+                          {...column.getHeaderProps()}
+                          className={classes.cell}
+                        >
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              {...getTableBodyProps()}
-              className={classes.body}
-            >
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    {...row.getRowProps()}
-                    className={classes.row}
-                    key={row.id}
-                  >
-                    {row.cells.map((cell) => (
-                      <td
-                        {...cell.getCellProps()}
-                        className={
-                          classes.cell
-                        }
+                </thead>
+                <tbody {...getTableBodyProps()} className={classes.body}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        {...row.getRowProps()}
+                        className={classes.row}
+                        key={row.id}
                       >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()} className={classes.cell}>
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <BasicCalendar />
         </div>
-      )}
-      <BasicCalendar />
-    </div>
+      }
+    />
   );
 };
 

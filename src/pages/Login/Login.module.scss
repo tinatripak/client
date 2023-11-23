@@ -12,20 +12,42 @@
         border-radius: 30px;
         grid-template-columns: repeat(2, 1fr);
         background-color: #f7f7f7;
+
+        @include breakpoint(xxs) {
+            padding: 15px 20px;
+            margin-top: 50px;
+            margin-bottom: 100px;
+            width: 80%;
+        }
+
+        @include breakpoint(md) {
+            display: block;
+        }
         .img {
             img {
                 width: 20vw;
                 margin-top: 5vh;
                 margin-bottom: 5vh;
             }
+            @include breakpoint(md) {
+                display: none;
+            }
         }
         .text {
             font-family: $Gotu;
             .welcome {
                 font-size: 36px;
+
+                @include breakpoint(xxs) {
+                    font-size: 25px;
+                }
             }
             .problems {
                 font-size: 18px;
+
+                @include breakpoint(xxs) {
+                    font-size: 14px;
+                }
             }
             .form {
                 display: block;
@@ -36,12 +58,29 @@
                     background-color: white;
                     border: 1px solid #ebebeb;
                     padding: 5px 10px;
+                    width: min-content;
 
+                    @include breakpoint(md) {
+                        width: 40vw;
+                        svg{
+                            display: none;
+                        }
+                    }
+                    @include breakpoint(xxs) {
+                        width: 70vw;
+                    }
+    
                     input {
                         border: 0;
                         border-bottom: 1px solid black;
                         width: 300px;
                         font-family: $Gotu;
+                        @include breakpoint(md) {
+                            width: 38vw;
+                        }
+                        @include breakpoint(xxs) {
+                            width: 70vw;
+                        }
                     }
                     label {
                         font-size: 12px;
@@ -54,11 +93,29 @@
                     background-color: white;
                     border: 1px solid #ebebeb;
                     padding: 5px 10px;
+                    width: min-content;
+
+                    @include breakpoint(md) {
+                        width: 40vw;
+                        svg{
+                            display: none;
+                        }
+                    }
+
+                    @include breakpoint(xxs) {
+                        width: 70vw;
+                    }
 
                     input {
                         border: 0;
                         border-bottom: 1px solid black;
                         width: 300px;
+                        @include breakpoint(md) {
+                            width: 38vw;
+                        }
+                        @include breakpoint(xxs) {
+                            width: 70vw;
+                        }
                     }
                     label {
                         font-size: 12px;

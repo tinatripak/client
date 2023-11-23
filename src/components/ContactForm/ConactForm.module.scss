@@ -11,6 +11,11 @@
     @include breakpoint(xs) {
         display: block;
     }
+
+    @include breakpoint(md) {
+        justify-content: start !important;
+    }
+    
     input {
         border: none;
         width: 100%;
@@ -31,6 +36,9 @@
         @include breakpoint(xs) {
             justify-content: flex-start;
             padding-left: 3vw;
+        }
+        @include breakpoint(md) {
+            padding-left: 0;
         }
         textarea {
             border-radius: 10px;

@@ -3,7 +3,7 @@ import { useTable } from "react-table";
 import { RiQuestionAnswerFill } from "react-icons/ri";
 import classes from "./Questions.module.scss";
 import { getAllQuestions } from "../../../services/QuestionService";
-import { NotFound } from "../../../components";
+import { ConditionalRender, NotFound } from "../../../components";
 import { Link } from "react-router-dom";
 import {
   adminDashboardLink,
@@ -13,6 +13,7 @@ import {
 
 const Questions = () => {
   const [listOfQuestions, setListOfQuestions] = useState([]);
+  const [isLoadedQuestions, setIsLoadedQuestions] = useState(false);
 
   useEffect(() => {
     fetchQuestionsData();
@@ -21,6 +22,7 @@ const Questions = () => {
   const fetchQuestionsData = () => {
     getAllQuestions().then((data) => {
       setListOfQuestions(data?.data);
+      setIsLoadedQuestions(true);
     });
   };
 
@@ -64,64 +66,58 @@ const Questions = () => {
     useTable({ columns, data });
 
   return (
-    <div className={classes.question}>
-      {listOfQuestions.length === 0 ? (
-        <div>
-          <NotFound />
-        </div>
-      ) : (
-        <div>
-          <table
-            {...getTableProps()}
-            className={classes.question_table}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  {...headerGroup.getHeaderGroupProps()}
-                  className={classes.header}
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      className={classes.cell}
+    <ConditionalRender
+      conditions={[isLoadedQuestions]}
+      content={
+        <div className={classes.question}>
+          {listOfQuestions.length === 0 ? (
+            <div>
+              <NotFound />
+            </div>
+          ) : (
+            <div>
+              <table {...getTableProps()} className={classes.question_table}>
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      className={classes.header}
                     >
-                      {column.render("Header")}
-                    </th>
+                      {headerGroup.headers.map((column) => (
+                        <th
+                          {...column.getHeaderProps()}
+                          className={classes.cell}
+                        >
+                          {column.render("Header")}
+                        </th>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody
-              {...getTableBodyProps()}
-              className={classes.body}
-            >
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    {...row.getRowProps()}
-                    className={classes.row}
-                    key={row.id}
-                  >
-                    {row.cells.map((cell) => (
-                      <td
-                        {...cell.getCellProps()}
-                        className={
-                          classes.cell
-                        }
+                </thead>
+                <tbody {...getTableBodyProps()} className={classes.body}>
+                  {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                      <tr
+                        {...row.getRowProps()}
+                        className={classes.row}
+                        key={row.id}
                       >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()} className={classes.cell}>
+                            {cell.render("Cell")}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      }
+    />
   );
 };
 

@@ -12,12 +12,23 @@
         justify-content: center;
         gap: 200px;
         .photo {
-            width: 400px;
-            height: 400px;
             object-fit: cover;
+            width:400px;
+            height:400px;
+            background-size:cover;
+            background-position:center;
+            @include breakpoint(xxs) {
+                width:200px;
+                height:200px;
+            }
         }
         .text {
             font-size: 19px;
+        }
+        @include breakpoint(md) {
+            display: block;
+            margin-left: 50px;
+            margin-bottom: 40px;
         }
     }
 }

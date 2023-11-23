@@ -35,7 +35,7 @@
       transform: translate(0);
       transition: 0.3s ease transform;
 
-      @include breakpoint(md) {
+      @include breakpoint(lg) {
         transform: none;
         flex-direction: row;
         background: transparent;
@@ -54,12 +54,12 @@
         gap: 30px;
         padding: 0;
         justify-content: center;
-        @include breakpoint(md) {
+        @include breakpoint(lg) {
           flex-direction: row;
           align-items: center;
           margin-bottom: 0;
         }
-        @include breakpoint(sm) {
+        @include breakpoint(md) {
           flex-direction: column;
           align-items: center;
         }
@@ -71,7 +71,7 @@
             &:hover{
               text-decoration: underline;
             }
-            @include breakpoint(sm) {
+            @include breakpoint(md) {
               color:white
             }
       
@@ -96,7 +96,7 @@
           text-decoration: none;
         }
       }
-      @include breakpoint(sm) {
+      @include breakpoint(md) {
         display: none;
       }
     }
@@ -109,17 +109,19 @@
       font-size: 2rem;
       transition: 0.3s ease all;
       position: relative;
+      display: none;
+      
 
       &:hover {
         font-weight: bolder;
       }
 
       @include breakpoint(md) {
-        display: none;
+        display: block;
       }
 
       .closeButton {
-        @include breakpoint(sm) {
+        @include breakpoint(md) {
           color: white;
         }
       }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Header, Footer, ConditionalRender } from "../../components";
 import classes from "./Home.module.scss";
 import { getAllHomePhotos } from "../../services/HomeService";
+import ReactImageGallery from "react-image-gallery";
 
 const Home = () => {
   const [arrayOfPhotos, setArrayOfPhotos] = useState([]);
@@ -13,14 +14,24 @@ const Home = () => {
 
   const fetchHomeData = () => {
     getAllHomePhotos().then((data) => {
-      setArrayOfPhotos(data?.data);
+      let arr = []
+      for(let i=0;i<data?.data?.length;i++){
+        const newPhotos = data?.data[i].photo || [];
+        arr.push(newPhotos)
+      }
+      setArrayOfPhotos(arr);
       setIsLoaded(true);
     });
   };
 
   const backgroundImageStyle = {
-    backgroundImage: `url('${arrayOfPhotos[0]?.photo}')`,
+    backgroundImage: `url('${arrayOfPhotos[0]}')`,
   };
+
+  const images = arrayOfPhotos.slice(1).map((originalUrl) => ({
+    original: originalUrl,
+  }));
+  
 
   return (
     <ConditionalRender
@@ -48,12 +59,15 @@ const Home = () => {
                 key={index}
               >
                 <img
-                  src={el?.photo}
+                  src={el}
                   alt="gallery item"
                   className={classes.img}
                 />
               </figure>
             ))}
+          </div>
+          <div className={classes.carousel_photos}>
+            <ReactImageGallery items={images} />;
           </div>
           <Footer />
         </div>

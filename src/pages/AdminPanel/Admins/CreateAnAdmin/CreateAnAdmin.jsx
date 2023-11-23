@@ -8,7 +8,7 @@ import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const CreateAnAdmin = () => {
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -18,7 +18,12 @@ const CreateAnAdmin = () => {
   const [error, updateError] = useState();
 
   const addAdmin = () => {
-    createAdmin(formData.username, formData.email, formData.password, formData.photo);
+    createAdmin(
+      formData.username,
+      formData.email,
+      formData.password,
+      formData.photo
+    );
     navigate(`${adminDashboardLink}${adminsLink}`);
   };
 
@@ -33,10 +38,13 @@ const CreateAnAdmin = () => {
     setFormData({ ...formData, photo: result?.info?.url });
   }
 
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  }, [formData]);
+  const handleInputChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    },
+    [formData]
+  );
 
   return (
     <div className={classes.createAdmin}>
@@ -101,10 +109,7 @@ const CreateAnAdmin = () => {
                   open();
                 }
                 return (
-                  <button
-                    onClick={handleOnClick}
-                    className={classes.upload}
-                  >
+                  <button onClick={handleOnClick} className={classes.upload}>
                     Upload
                   </button>
                 );

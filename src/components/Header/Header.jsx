@@ -5,7 +5,7 @@ import classes from "./Header.module.scss";
 import { NavLink, useLocation } from "react-router-dom";
 import FontAwesome from "react-fontawesome";
 import { emptyLink, loginLink, aboutLink, portfolioLink, typesLink, bookingLink, contactUsLink, instagramURL, pinterestURL } from "../../constants";
-
+import { GiHamburgerMenu } from "react-icons/gi"
 
 const Header = () => {
   const location = useLocation();
@@ -73,6 +73,9 @@ const Header = () => {
               loginLink, 
               <BiLogInCircle size={33} />
             )}
+        </div>
+        <div className={classes.toggle}>
+          <GiHamburgerMenu size={33} />
         </div>
       </div>
     </header>

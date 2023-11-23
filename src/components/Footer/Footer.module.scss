@@ -40,7 +40,7 @@
         color: black;
         gap:1.5vw;
         text-transform: uppercase; 
-        @include breakpoint(xxs) {
+        @include breakpoint(xxxs) {
           display: block;
           text-align: center;
         }
@@ -53,7 +53,7 @@
             }
           }
           span{
-            @include breakpoint(xxs) {
+            @include breakpoint(xxxs) {
               display: none;
             }
           }

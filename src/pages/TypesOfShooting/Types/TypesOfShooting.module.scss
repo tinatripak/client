@@ -10,12 +10,15 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 120px;
+    @include breakpoint(xs) {
+        margin: 13px auto;
+    }
     a {
         text-decoration: none;
         color: black;
     }
     .element {
-        width: 17vw;
+        min-width: 17vw;
         font-family: $Gotu;
         article {
             position: relative;
@@ -24,6 +27,7 @@
             object-fit: cover;
             width: 290px;
             height: 290px;
+            
         }
         .h1 {
             font-size: 18px;

@@ -43,38 +43,31 @@ const CreatePhotography = () => {
     navigate(`${adminDashboardLink}${photographyLink}`);
   };
 
-  const handleMainPhotoUpload = useCallback((error, result, widget) => {
-    if (error) {
-      setErrors({ ...errors, mainPhoto: error });
-      widget.close({ quiet: true });
-    } else {
-      setErrors({ ...errors, mainPhoto: "" });
-      setFormData({ ...formData, mainPhoto: result?.info?.url });
-    }
-  }, [formData, errors]);
+  const handleMainPhotoUpload = useCallback(
+    (error, result, widget) => {
+      if (error) {
+        setErrors({ ...errors, mainPhoto: error });
+        widget.close({ quiet: true });
+      } else {
+        setErrors({ ...errors, mainPhoto: "" });
+        setFormData({ ...formData, mainPhoto: result?.info?.url });
+      }
+    },
+    [formData, errors]
+  );
 
-  // const handleAllPhotosUpload = useCallback((error, result, widget) => {
-  //   if (error) {
-  //     setErrors({ ...errors, arrayOfPhotos: error });
-  //     widget.close({ quiet: true });
-  //   } else {
-  //     setErrors({ ...errors, arrayOfPhotos: "" });
-  //     addPhoto(result?.info?.url);
-  //   }
-  // }, [formData, errors]);
-
-  const handleAllPhotosUpload = useCallback((error, result, widget) => {
-    if (error) {
-      setErrors({ ...errors, arrayOfPhotos: error });
-      widget.close({ quiet: true });
-    } else {
-      setErrors({ ...errors, arrayOfPhotos: "" });
-  
-      result?.info?.files.forEach((file) => {
-        addPhoto(file.uploadInfo.url);
-      });
-    }
-  }, [formData, errors]);
+  const handleAllPhotosUpload = useCallback(
+    (error, result, widget) => {
+      if (error) {
+        setErrors({ ...errors, arrayOfPhotos: error });
+        widget.close({ quiet: true });
+      } else {
+        setErrors({ ...errors, arrayOfPhotos: "" });
+        addPhoto(result?.info?.url);
+      }
+    },
+    [formData, errors]
+  );
 
   const addPhoto = (newPhoto) => {
     setFormData({
@@ -109,9 +102,7 @@ const CreatePhotography = () => {
             name="name"
             placeholder="Enter the name"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
         </div>
 
@@ -124,11 +115,7 @@ const CreatePhotography = () => {
               setFormData({ ...formData, photoTypeId: e.target.value })
             }
           >
-            <option
-              value=""
-              disabled
-              className={classes.defaultOption}
-            >
+            <option value="" disabled className={classes.defaultOption}>
               Choose a name
             </option>
             {allPhotoTypesName.map((type) => (
@@ -177,15 +164,8 @@ const CreatePhotography = () => {
           {formData.arrayOfPhotos.length > 0 && (
             <div className={classes.show}>
               {formData.arrayOfPhotos.map((photo, index) => (
-                <div
-                  key={index}
-                  className={classes.block}
-                >
-                  <div
-                    className={
-                      classes.delete
-                    }
-                  >
+                <div key={index} className={classes.block}>
+                  <div className={classes.delete}>
                     <RxCross2
                       color="white"
                       size={30}

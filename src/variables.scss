@@ -16,8 +16,13 @@ $borderRadius: 12px;
 $headerHeight: 60px;
 
 @mixin breakpoint($point) {
+    @if $point == lg {
+        @media (min-width: 1025px) {
+            @content;
+        }
+    }
     @if $point == md {
-        @media (min-width: 880px) {
+        @media (max-width: 1024px) {
             @content;
         }
     }
@@ -32,6 +37,11 @@ $headerHeight: 60px;
         }
     }
     @if $point == xxs {
+        @media (max-width: 500px) {
+            @content;
+        }
+    }
+    @if $point == xxxs {
         @media (max-width: 400px) {
             @content;
         }

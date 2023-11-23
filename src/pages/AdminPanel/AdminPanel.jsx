@@ -3,7 +3,14 @@ import { BsMoonStarsFill } from "react-icons/bs";
 import { LiaToggleOffSolid, LiaToggleOnSolid } from "react-icons/lia";
 import { FiSun } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { Link, NavLink, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Home, EditHome } from "./Home";
 import { Bookings, CreateBooking, EditBooking } from "./Bookings";
@@ -53,8 +60,8 @@ const textDecorationStyles = ({ isActive }) => {
 const AdminPanel = () => {
   const [cookies] = useCookies([]);
   const [admin, setAdmin] = useState([]);
-  const [isSwitchOff, setIsSwitchOff] = useState(true);
-  const decoded = cookies?.token !== 'undefined' ? jwtDecode(cookies.token) : null;
+  const decoded =
+    cookies?.token !== "undefined" ? jwtDecode(cookies.token) : null;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,10 +70,6 @@ const AdminPanel = () => {
     }
   }, [decoded, navigate]);
 
-  const toggleSwitch = () => {
-    setIsSwitchOff(!isSwitchOff);
-  };
-
   const getAdmin = useCallback(() => {
     getAdminById(decoded?.id).then((data) => {
       setAdmin(data?.data);
@@ -74,7 +77,7 @@ const AdminPanel = () => {
   }, [decoded?.id]);
 
   useEffect(() => {
-    if (cookies?.token !== 'undefined') {
+    if (cookies?.token !== "undefined") {
       getAdmin();
     }
   }, [getAdmin]);
@@ -151,7 +154,7 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        <div className={classes.darkMod}>
+        {/* <div className={classes.darkMod}>
           {isSwitchOff ? (
             <BsMoonStarsFill
               size={21}
@@ -178,7 +181,7 @@ const AdminPanel = () => {
               className={classes.icons__switch}
             />
           )}
-        </div>
+        </div> */}
       </div>
       <div className={classes.main}>
         <div className={classes.settings}>
@@ -186,7 +189,7 @@ const AdminPanel = () => {
             <img src={admin?.photo} alt="User" />
             <p>{admin?.username}</p>
             <div>
-              <DropdownMenu/>
+              <DropdownMenu />
             </div>
           </div>
         </div>
@@ -235,12 +238,20 @@ const AdminPanel = () => {
 
             <Route
               path={`${adminLink}${createLink}`}
-              element={<ProtectedRoute adminRole = {admin?.role}><CreateAnAdmin /></ProtectedRoute>}
+              element={
+                <ProtectedRoute adminRole={admin?.role}>
+                  <CreateAnAdmin />
+                </ProtectedRoute>
+              }
             />
 
             <Route
               path={`${adminLink}${editLink}/:id`}
-              element={<ProtectedRoute adminRole = {admin?.role}><EditAdmin /></ProtectedRoute>}
+              element={
+                <ProtectedRoute adminRole={admin?.role}>
+                  <EditAdmin />
+                </ProtectedRoute>
+              }
             />
 
             <Route path={`${questionsLink}`} element={<Questions />} />
@@ -257,14 +268,14 @@ const AdminPanel = () => {
 
 export default AdminPanel;
 
-
 const ProtectedRoute = ({
-  admin,
+  adminRole,
   redirecthPath = `${adminDashboardLink}${adminsLink}`,
-  children
+  children,
 }) => {
-  if(admin?.role !== 'chief admin'){
-    return <Navigate to={redirecthPath} replace/>
+  console.log(adminRole)
+  if (adminRole !== "chief admin") {
+    return <Navigate to={redirecthPath} replace />;
   }
-  return children
-}
+  return children;
+};

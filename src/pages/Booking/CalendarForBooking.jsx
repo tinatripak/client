@@ -5,15 +5,13 @@ import "react-calendar/dist/Calendar.css";
 
 const CalendarForBooking = ({ handleDateChange, date, isDateDisabled }) => {
   return (
-    <div>
-      <Calendar
-        onChange={handleDateChange}
-        value={date}
-        locale="en-En"
-        minDate={new Date()}
-        tileDisabled={isDateDisabled}
-      />
-    </div>
+    <Calendar
+      onChange={handleDateChange}
+      value={date}
+      locale="en-En"
+      minDate={new Date()}
+      tileDisabled={isDateDisabled}
+    />
   );
 };
 

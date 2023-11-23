@@ -1,29 +1,50 @@
-.spinner {
+.spinnerBody{
+  width: 100vw;
+  height: 100vh;
   margin: 0;
+  padding: 0;
+
   display: grid;
-  min-height: 100vh;
-  place-content: center;
-  background: linear-gradient(45deg, #ccc, #fff);
+}
 
-  .loader {
-    width: 120px;
-    padding: 15px;
-    background: #dfa343;
+.text {
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  font-size: 17px;
+  fill: #111;
+  text-shadow: 2px 0px #ccc;
+}
 
-    aspect-ratio: 1;
-    border-radius: 50%;
-    --_m: conic-gradient(#0000, #000), linear-gradient(#000 0 0) content-box;
-    -webkit-mask: var(--_m);
-    mask: var(--_m);
-    -webkit-mask-composite: source-out;
-    mask-composite: subtract;
-    box-sizing: border-box;
-    animation: load 1s linear infinite;
+.rotatingText {
+  animation-name: rotate-circle;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotate-circle {
+  to {
+    transform: rotate(1turn);
   }
+}
 
-  @keyframes load {
-    to {
-      transform: rotate(1turn);
-    }
-  }
+.spinner {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.spinner img {
+  position: absolute;
+}
+
+.spinner img {
+  position: absolute;
+  animation-name: rotate-circle;
+  animation-direction: reverse;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  filter: drop-shadow(0px 0px 5px #333);
 }

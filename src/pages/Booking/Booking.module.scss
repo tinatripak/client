@@ -23,15 +23,15 @@
             width: 80%;
         }
         .icons {
-            .telegram {
+            &__telegram {
                 color: #269eda;
                 font-size: 30px;
             }
-            .viber {
+            &__viber {
                 color: #7b519d;
                 font-size: 30px;
             }
-            .whatsapp {
+            &__whatsapp {
                 color: #3fea5f;
                 font-size: 30px;
             }
@@ -51,6 +51,9 @@
         color: #505050;
         width: min-content;
         margin: 0 auto;
+        padding-left: 10px;
+        padding-right: 10px;
+
 
         .calendarBlock {
             display: block;
@@ -97,53 +100,60 @@
             @include breakpoint(xs) {
                 display: block;
             }
-            .formGroup {
-                .input {
-                    gap: 2vw;
-                    input {
-                        border: none;
-                        border-bottom: 1px solid #b6b6b6;
-                        width: 250px;
-                        @include breakpoint(xs) {
-                            width: 50%;
-                        }
-                    }
+            
+        }
+
+        .formGroup {
+            &__input {
+                gap: 2vw;
+                input {
+                    border: none;
+                    border-bottom: 1px solid #b6b6b6;
+                    width: 300px;
                     @include breakpoint(xs) {
-                        margin-bottom: 30px;
-                        padding-left: 3vw;
+                        width: 50%;
                     }
                 }
-                .type {
-                    margin-top: 30px;
-                    select {
-                        margin-top: 5px;
-                        padding: 5px 5px;
-                        border-radius: 10px;
-                        font-size: 15px;
-                        width: 400px;
-                        border: 1px solid #b6b6b6;
-                        font-family: $Gotu;
-                    }
-                    select {
-                        background-image: linear-gradient(45deg, transparent 50%, rgb(94, 94, 94) 60%),
-                            linear-gradient(135deg, rgb(94, 94, 94) 40%, transparent 50%) !important;
-                        background-position:
-                            calc(100% - 30px) 14px,
-                            calc(100% - 20px) 14px,
-                            100% 0;
-                        background-size:
-                            10px 10px,
-                            10px 10px;
-                        background-repeat: no-repeat;
-                        appearance: none;
-                    }
+                @include breakpoint(xs) {
+                    margin-bottom: 30px;
+                    // padding-left: 3vw;
+                }
+            }
+            &__type {
+                margin-top: 30px;
+                // padding-left: 3vw;
+                select {
+                    margin-top: 5px;
+                    padding: 5px 5px;
+                    border-radius: 10px;
+                    font-size: 15px;
+                    width: 400px;
+                    border: 1px solid #b6b6b6;
+                    font-family: $Gotu;
+
+                    
+                    background-image: linear-gradient(45deg, transparent 50%, rgb(94, 94, 94) 60%),
+                        linear-gradient(135deg, rgb(94, 94, 94) 40%, transparent 50%) !important;
+                    background-position:
+                        calc(100% - 30px) 14px,
+                        calc(100% - 20px) 14px,
+                        100% 0;
+                    background-size:
+                        10px 10px,
+                        10px 10px;
+                    background-repeat: no-repeat;
+                    appearance: none;
                 }
             }
         }
 
         .withoutPhotoshootType {
+            // padding-left: 3vw;
             padding-top: 30px;
             color: #b80000;
+            p{
+                text-wrap: balance;
+            }
         }
         .textarea {
             margin-top: 30px;
@@ -154,7 +164,7 @@
             justify-content: center;
             @include breakpoint(xs) {
                 justify-content: flex-start;
-                padding-left: 3vw;
+                // padding-left: 3vw;
             }
             textarea {
                 border-radius: 10px;

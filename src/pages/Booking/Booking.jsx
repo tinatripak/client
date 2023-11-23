@@ -118,19 +118,11 @@ const Booking = () => {
         if (allBookings instanceof Array) {
           return allBookings.some((booking) => {
             const bookingDateObject = new Date(booking.date);
-            return (
-              bookingDateObject.getDate() === date.getDate() &&
-              bookingDateObject.getMonth() === date.getMonth() &&
-              bookingDateObject.getFullYear() === date.getFullYear()
-            );
+            return equalData(bookingDateObject, date);
           });
         } else if (allBookings) {
           const bookingDateObject = new Date(allBookings.date);
-          return (
-            bookingDateObject.getDate() === date.getDate() &&
-            bookingDateObject.getMonth() === date.getMonth() &&
-            bookingDateObject.getFullYear() === date.getFullYear()
-          );
+          return equalData(bookingDateObject, date);
         }
         return date < today;
       }
@@ -320,7 +312,7 @@ const Booking = () => {
                   <div className={classes.commonBlock}>
                     <div
                       className={
-                        classes.input
+                        classes.formGroup__input
                       }
                     >
                       <label htmlFor="name">Name:</label>
@@ -332,7 +324,7 @@ const Booking = () => {
                     </div>
                     <div
                       className={
-                        classes.input
+                        classes.formGroup__input
                       }
                     >
                       <label htmlFor="email">Email:</label>
@@ -345,7 +337,7 @@ const Booking = () => {
                   </div>
                   <div
                     className={
-                      classes.type
+                      classes.formGroup__type
                     }
                   >
                     <label htmlFor="title">Type of photo shoot</label>
@@ -378,7 +370,7 @@ const Booking = () => {
                           classes.calendarWithSelect
                         }
                       >
-                        <div>{console.log(WEDDING_PHOTOTYPEID)}
+                        <div>
                           {photoTypeId !== WEDDING_PHOTOTYPEID ? (
                             <CalendarForBooking
                               handleDateChange={handleDateChange}
@@ -434,8 +426,8 @@ const Booking = () => {
                         classes.withoutPhotoshootType
                       }
                     >
-                      Please, choose the type of photo shoot and you will have
-                      an opportunity to choose the date and time !
+                      <p>Please, choose the type of photo shoot and you will have
+                      an opportunity to choose the date and time !</p>
                     </div>
                   )}
                   <div className={classes.textarea}>

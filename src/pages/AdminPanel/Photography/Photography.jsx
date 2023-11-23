@@ -10,7 +10,7 @@ import {
   getPhotoshoots,
 } from "../../../services/PhotoshootService";
 import { getAllTypesOfPhotography } from "../../../services/PhototypeService";
-import { NotFound } from "../../../components";
+import { ConditionalRender, NotFound } from "../../../components";
 import {
   adminDashboardLink,
   createLink,
@@ -24,6 +24,7 @@ const Photography = () => {
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
 
   const navigate = useNavigate();
+  const [isLoadedPhotography, setIsLoadedPhotography] = useState(false);
 
   useEffect(() => {
     getAllPhotography();
@@ -33,6 +34,7 @@ const Photography = () => {
   const getAllPhotography = () => {
     getPhotoshoots().then((data) => {
       setArrayOfPhotographs(data?.data);
+      setIsLoadedPhotography(true);
     });
   };
 
@@ -61,69 +63,53 @@ const Photography = () => {
   });
 
   return (
-    <div className={classes.photography}>
-      <div className={classes.add}>
-        <p>Add a photo shoot</p>
-        <IoAddCircle
-          className={classes.icon}
-          color={darkColor}
-          size={35}
-          onClick={handleCreate}
-        />
-      </div>
-      <div className={classes.cards}>
-        {arrayOfPhotographyWithTypesName?.length > 0 ? (
-          arrayOfPhotographyWithTypesName.map((el, index) => (
-            <div className={classes.card} key={index}>
-              <LazyLoadImage
-                src={el?.mainPhoto}
-                className={classes.photo}
-                effect="blur"
-              />
-              <div
-                className={classes.nameWithActions}
-              >
-                <p
-                  className={
-                    classes.name
-                  }
-                >
-                  {el?.name}
-                </p>
-                <div
-                  className={
-                    classes.actions
-                  }
-                >
-                  <Link
-                    to={`${adminDashboardLink}${photographyLink}${editLink}/${el?._id}`}
-                  >
-                    <RiEditCircleLine
-                      size={22}
-                      className={
-                        classes.icon
-                      }
-                    />
-                  </Link>
-                  <MdDelete
-                    size={22}
-                    onClick={() => handleDeletePhotoshoot(el?._id)}
-                    className={
-                      classes.icon
-                    }
+    <ConditionalRender
+      conditions={[isLoadedPhotography]}
+      content={
+        <div className={classes.photography}>
+          <div className={classes.add}>
+            <p>Add a photo shoot</p>
+            <IoAddCircle
+              className={classes.icon}
+              color={darkColor}
+              size={35}
+              onClick={handleCreate}
+            />
+          </div>
+          <div className={classes.cards}>
+            {arrayOfPhotographyWithTypesName?.length > 0 ? (
+              arrayOfPhotographyWithTypesName.map((el, index) => (
+                <div className={classes.card} key={index}>
+                  <LazyLoadImage
+                    src={el?.mainPhoto}
+                    className={classes.photo}
+                    effect="blur"
                   />
+                  <div className={classes.nameWithActions}>
+                    <p className={classes.name}>{el?.name}</p>
+                    <div className={classes.actions}>
+                      <Link
+                        to={`${adminDashboardLink}${photographyLink}${editLink}/${el?._id}`}
+                      >
+                        <RiEditCircleLine size={22} className={classes.icon} />
+                      </Link>
+                      <MdDelete
+                        size={22}
+                        onClick={() => handleDeletePhotoshoot(el?._id)}
+                        className={classes.icon}
+                      />
+                    </div>
+                  </div>
+                  <p className={classes.type}>{el?.typeOfPhotography}</p>
                 </div>
-              </div>
-              <p className={classes.type}>
-                {el?.typeOfPhotography}
-              </p>
-            </div>
-          ))
-        ) : (
-          <NotFound />
-        )}
-      </div>
-    </div>
+              ))
+            ) : (
+              <NotFound />
+            )}
+          </div>
+        </div>
+      }
+    />
   );
 };
 

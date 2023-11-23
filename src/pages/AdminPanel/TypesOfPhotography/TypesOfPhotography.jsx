@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./TypesOfPhotography.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoAddCircle } from "react-icons/io5";
-import { NotFound } from "../../../components";
+import { ConditionalRender, NotFound } from "../../../components";
 import {
   adminDashboardLink,
   createLink,
@@ -21,6 +21,7 @@ import {
 const TypesOfPhotography = () => {
   const [arrayOfTypes, setArrayOfTypes] = useState([]);
   const navigate = useNavigate();
+  const [isLoadedPhotography, setIsLoadedPhotography] = useState(false);
 
   useEffect(() => {
     getTypesOfPhotography();
@@ -29,6 +30,7 @@ const TypesOfPhotography = () => {
   const getTypesOfPhotography = () => {
     getAllTypesOfPhotography().then((data) => {
       setArrayOfTypes(data?.data);
+      setIsLoadedPhotography(true);
     });
   };
 
@@ -43,58 +45,52 @@ const TypesOfPhotography = () => {
   };
 
   return (
-    <div className={classes.types}>
-      <div className={classes.add}>
-        <p>Add a type of photography</p>
-        <IoAddCircle
-          className={classes.icon}
-          color={darkColor}
-          size={35}
-          onClick={handleCreate}
-        />
-      </div>
-      <div className={classes.cards}>
-        {arrayOfTypes?.length > 0 ? (
-          arrayOfTypes.map((el, index) => (
-            <div className={classes.card} key={index}>
-              <LazyLoadImage
-                src={el?.mainPhoto}
-                className={classes.photo}
-                effect="blur"
-              />
-              <div className={classes.titleWithActions}>
-                <p>{el?.typeOfPhotography}</p>
-                <div
-                  className={
-                    classes.actions
-                  }
-                >
-                  <Link
-                    to={`${adminDashboardLink}${typeLink}${editLink}/${el?._id}`}
-                  >
-                    <RiEditCircleLine
-                      size={22}
-                      className={
-                        classes.icon
-                      }
-                    />
-                  </Link>
-                  <MdDelete
-                    size={22}
-                    onClick={() => handleDeleteTypeOfPhotography(el?._id)}
-                    className={
-                      classes.icon
-                    }
+    <ConditionalRender
+      conditions={[isLoadedPhotography]}
+      content={
+        <div className={classes.types}>
+          <div className={classes.add}>
+            <p>Add a type of photography</p>
+            <IoAddCircle
+              className={classes.icon}
+              color={darkColor}
+              size={35}
+              onClick={handleCreate}
+            />
+          </div>
+          <div className={classes.cards}>
+            {arrayOfTypes?.length > 0 ? (
+              arrayOfTypes.map((el, index) => (
+                <div className={classes.card} key={index}>
+                  <LazyLoadImage
+                    src={el?.mainPhoto}
+                    className={classes.photo}
+                    effect="blur"
                   />
+                  <div className={classes.titleWithActions}>
+                    <p>{el?.typeOfPhotography}</p>
+                    <div className={classes.actions}>
+                      <Link
+                        to={`${adminDashboardLink}${typeLink}${editLink}/${el?._id}`}
+                      >
+                        <RiEditCircleLine size={22} className={classes.icon} />
+                      </Link>
+                      <MdDelete
+                        size={22}
+                        onClick={() => handleDeleteTypeOfPhotography(el?._id)}
+                        className={classes.icon}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <NotFound />
-        )}
-      </div>
-    </div>
+              ))
+            ) : (
+              <NotFound />
+            )}
+          </div>
+        </div>
+      }
+    />
   );
 };
 

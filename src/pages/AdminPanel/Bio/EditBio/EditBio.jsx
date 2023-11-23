@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { UploadWidget } from "../../../../components";
+import { ConditionalRender, UploadWidget } from "../../../../components";
 import classes from "./EditBio.module.scss";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import {
@@ -19,9 +19,15 @@ const EditBio = () => {
   });
 
   const [error, updateError] = useState();
+  const [isLoadedBio, setIsLoadedBio] = useState(false);
 
   const updateBio = () => {
-    updatePhotographerById(id, formValues.bio, formValues.phoneNumber, formValues.photo);
+    updatePhotographerById(
+      id,
+      formValues.bio,
+      formValues.phoneNumber,
+      formValues.photo
+    );
   };
 
   const getOldBio = useCallback(() => {
@@ -32,6 +38,7 @@ const EditBio = () => {
         phoneNumber: data?.data?.phoneNumber,
       };
       setFormValues((prevValues) => ({ ...prevValues, ...oldValues }));
+      setIsLoadedBio(true);
     });
   }, [id]);
 
@@ -62,65 +69,68 @@ const EditBio = () => {
   }
 
   return (
-    <div className={classes.editInfo}>
-      <div className={classes.backButtonWithTitle}>
-        <Link to={`${adminDashboardLink}${bioLink}`}>
-          {" "}
-          <IoChevronBackCircleSharp size={30} />{" "}
-        </Link>
-        <h3>Updating the bio</h3>
-      </div>
-      <form onSubmit={updateBio}>
-        <div className={classes.bio}>
-          <label htmlFor="bio">Bio</label>
-          <br />
-          <textarea
-            name="bio"
-            value={formValues.bio}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className={classes.phoneNumber}>
-          <label htmlFor="phoneNumber">Phone number</label>
-          <br />
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={formValues.phoneNumber}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className={classes.photo}>
-          <br />
-          <h4>The photo of Ksenia Tripak</h4>
-          {error && <p>{error}</p>}
-          {formValues.photo && (
-            <img src={formValues.photo} alt="Photo" />
-          )}
-          <div className={classes.photo}>
-            <UploadWidget onUpload={handleOnUpload}>
-              {({ open }) => {
-                function handleOnClick(e) {
-                  e.preventDefault();
-                  open();
-                }
-                return (
-                  <button
-                    onClick={handleOnClick}
-                    className={classes.upload}
-                  >
-                    Upload
-                  </button>
-                );
-              }}
-            </UploadWidget>
+    <ConditionalRender
+      conditions={[isLoadedBio]}
+      content={
+        <div className={classes.editInfo}>
+          <div className={classes.backButtonWithTitle}>
+            <Link to={`${adminDashboardLink}${bioLink}`}>
+              {" "}
+              <IoChevronBackCircleSharp size={30} />{" "}
+            </Link>
+            <h3>Updating the bio</h3>
           </div>
+          <form onSubmit={updateBio}>
+            <div className={classes.bio}>
+              <label htmlFor="bio">Bio</label>
+              <br />
+              <textarea
+                name="bio"
+                value={formValues.bio}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={classes.phoneNumber}>
+              <label htmlFor="phoneNumber">Phone number</label>
+              <br />
+              <input
+                type="tel"
+                name="phoneNumber"
+                value={formValues.phoneNumber}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={classes.photo}>
+              <br />
+              <h4>The photo of Ksenia Tripak</h4>
+              {error && <p>{error}</p>}
+              {formValues.photo && <img src={formValues.photo} alt="Photo" />}
+              <div className={classes.photo}>
+                <UploadWidget onUpload={handleOnUpload}>
+                  {({ open }) => {
+                    function handleOnClick(e) {
+                      e.preventDefault();
+                      open();
+                    }
+                    return (
+                      <button
+                        onClick={handleOnClick}
+                        className={classes.upload}
+                      >
+                        Upload
+                      </button>
+                    );
+                  }}
+                </UploadWidget>
+              </div>
+            </div>
+            <button className={classes.button}>Save</button>
+          </form>
         </div>
-        <button className={classes.button}>Save</button>
-      </form>
-    </div>
+      }
+    />
   );
 };
 

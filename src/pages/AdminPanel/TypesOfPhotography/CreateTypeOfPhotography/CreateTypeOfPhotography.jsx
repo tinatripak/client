@@ -111,10 +111,7 @@ const CreateTypeOfPhotography = () => {
                   open();
                 }
                 return (
-                  <button
-                    onClick={handleOnClick}
-                    className={classes.upload}
-                  >
+                  <button onClick={handleOnClick} className={classes.upload}>
                     Upload
                   </button>
                 );

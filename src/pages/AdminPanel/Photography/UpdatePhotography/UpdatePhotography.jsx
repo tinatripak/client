@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { UploadWidget } from "../../../../components";
+import { ConditionalRender, UploadWidget } from "../../../../components";
 import classes from "./UpdatePhotography.module.scss";
 import { IoAddCircle, IoChevronBackCircleSharp } from "react-icons/io5";
 import {
@@ -35,6 +35,7 @@ const UpdatePhotography = () => {
   const [error1, updateError1] = useState();
   const [error2, updateError2] = useState();
   const [allPhotoTypesName, setAllPhotoTypesName] = useState([]);
+  const [isLoadedPhotography, setIsLoadedPhotography] = useState(false);
 
   useEffect(() => {
     getAllPhotoTypesName();
@@ -56,16 +57,11 @@ const UpdatePhotography = () => {
   }, []);
 
   useEffect(() => {
-    setNewValues({arrayOfPhotos: oldValues.arrayOfPhotos})
-  }, [oldValues])
+    setNewValues({ arrayOfPhotos: oldValues.arrayOfPhotos });
+  }, [oldValues]);
 
   const updateType = () => {
-    const {
-      mainPhoto,
-      name,
-      photoTypeId,
-      arrayOfPhotos,
-    } = newValues;
+    const { mainPhoto, name, photoTypeId, arrayOfPhotos } = newValues;
 
     const updatedMainPhoto = mainPhoto || oldValues.mainPhoto;
     const updatedName = name || oldValues.name;
@@ -73,7 +69,7 @@ const UpdatePhotography = () => {
     const updatedArrayOfPhotos = arrayOfPhotos;
 
     updatePhotoshootById(
-      id, 
+      id,
       updatedName,
       updatedPhotoTypeId,
       updatedMainPhoto,
@@ -89,6 +85,7 @@ const UpdatePhotography = () => {
         photoTypeId: data?.data?.photoTypeId,
         arrayOfPhotos: data?.data?.arrayOfPhotos,
       });
+      setIsLoadedPhotography(true);
     });
   };
 
@@ -140,154 +137,152 @@ const UpdatePhotography = () => {
   );
 
   return (
-    <div className={classes.updatePhotography}>
-      <div className={classes.backButtonWithTitle}>
-        <Link to={`${adminDashboardLink}${photographyLink}`}>
-          {" "}
-          <IoChevronBackCircleSharp size={30} />{" "}
-        </Link>
-        <h3>Update a photography '{oldValues.name}'</h3>
-      </div>
-      <form onSubmit={updateType}>
-        <div className={classes.name}>
-          <label htmlFor="type">Name</label>
-          <br />
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter the name"
-            defaultValue={oldValues.name}
-            onChange={(e) =>
-              setNewValues((prevValues) => ({
-                ...prevValues,
-                name: e.target.value,
-              }))
-            }
-          />
-        </div>
-
-        <div className={classes.photoType}>
-          <label htmlFor="title">Type of photoshoot</label>
-          <br />
-
-          <select
-            value={newValues.photoTypeId}
-            onChange={(e) =>
-              setNewValues((prevValues) => ({
-                ...prevValues,
-                photoTypeId: e.target.value,
-              }))
-            }
-          >
-            <option value={oldValues.photoTypeId}>
-              {
-                allPhotoTypesName.find(
-                  (type) => type.id === oldValues.photoTypeId
-                )?.name
-              }
-            </option>
-
-            {allPhotoTypesName.map(
-              (type) =>
-                type.id !== oldValues.photoTypeId && (
-                  <option key={type.id} value={type.id}>
-                    {type.name}
-                  </option>
-                )
-            )}
-          </select>
-        </div>
-
-        <div className={classes.mainPhoto}>
-          <br />
-          <h4>The main photo of photography</h4>
-          {error1 && <p>{error1}</p>}
-          {oldValues.mainPhoto !== "" && !newValues.mainPhoto && (
-            <>
-              <img src={oldValues.mainPhoto} alt="Main" />
-            </>
-          )}
-          {newValues.mainPhoto && (
-            <>
-              <img src={newValues.mainPhoto} alt="Main" />
-            </>
-          )}
-          <div className={classes.photo}>
-            {
-              <UploadWidget onUpload={handleMainPhotoUpload}>
-                {({ open }) => {
-                  function handleOnClickMain(e) {
-                    e.preventDefault();
-                    open();
-                  }
-                  return (
-                    <button
-                      onClick={handleOnClickMain}
-                      className={classes.uploadmain}
-                    >
-                      Upload
-                    </button>
-                  );
-                }}
-              </UploadWidget>
-            }
+    <ConditionalRender
+      conditions={[isLoadedPhotography]}
+      content={
+        <div className={classes.updatePhotography}>
+          <div className={classes.backButtonWithTitle}>
+            <Link to={`${adminDashboardLink}${photographyLink}`}>
+              {" "}
+              <IoChevronBackCircleSharp size={30} />{" "}
+            </Link>
+            <h3>Update a photography '{oldValues.name}'</h3>
           </div>
-        </div>
-
-        <div className={classes.allPhotos}>
-          <br />
-          <h4>All photos from the photo shoot</h4>
-          {error2 && <p>{error2}</p>}
-          {newValues.arrayOfPhotos.length > 0 && (
-            <div className={classes.show}>
-              {newValues.arrayOfPhotos.map((photo, index) => (
-                <div
-                  key={index} 
-                  className={classes.block}
-                >
-                  <div
-                    className={
-                      classes.delete
-                    }
-                  >
-                    <RxCross2
-                      color="gray"
-                      size={30}
-                      onClick={() => deletePhoto(photo)}
-                    />{" "}
-                    <br />
-                  </div>
-                  <div>
-                    <img src={photo} alt={`Gallery item-${index}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <div className={classes.photo}>
-            <UploadWidget onUpload={handleArrayOfPhotosUpload}>
-              {({ open }) => {
-                function handleOnClickArray(e) {
-                  e.preventDefault();
-                  open();
+          <form onSubmit={updateType}>
+            <div className={classes.name}>
+              <label htmlFor="type">Name</label>
+              <br />
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter the name"
+                defaultValue={oldValues.name}
+                onChange={(e) =>
+                  setNewValues((prevValues) => ({
+                    ...prevValues,
+                    name: e.target.value,
+                  }))
                 }
-                return (
-                  <IoAddCircle
-                    onClick={handleOnClickArray}
-                    className={classes.uploadall}
-                    color={darkColor}
-                    size={45}
-                  />
-                );
-              }}
-            </UploadWidget>
-          </div>
-        </div>
+              />
+            </div>
 
-        <button className={classes.button}>Save</button>
-      </form>
-    </div>
+            <div className={classes.photoType}>
+              <label htmlFor="title">Type of photoshoot</label>
+              <br />
+
+              <select
+                value={newValues.photoTypeId}
+                onChange={(e) =>
+                  setNewValues((prevValues) => ({
+                    ...prevValues,
+                    photoTypeId: e.target.value,
+                  }))
+                }
+              >
+                <option value={oldValues.photoTypeId}>
+                  {
+                    allPhotoTypesName.find(
+                      (type) => type.id === oldValues.photoTypeId
+                    )?.name
+                  }
+                </option>
+
+                {allPhotoTypesName.map(
+                  (type) =>
+                    type.id !== oldValues.photoTypeId && (
+                      <option key={type.id} value={type.id}>
+                        {type.name}
+                      </option>
+                    )
+                )}
+              </select>
+            </div>
+
+            <div className={classes.mainPhoto}>
+              <br />
+              <h4>The main photo of photography</h4>
+              {error1 && <p>{error1}</p>}
+              {oldValues.mainPhoto !== "" && !newValues.mainPhoto && (
+                <>
+                  <img src={oldValues.mainPhoto} alt="Main" />
+                </>
+              )}
+              {newValues.mainPhoto && (
+                <>
+                  <img src={newValues.mainPhoto} alt="Main" />
+                </>
+              )}
+              <div className={classes.photo}>
+                {
+                  <UploadWidget onUpload={handleMainPhotoUpload}>
+                    {({ open }) => {
+                      function handleOnClickMain(e) {
+                        e.preventDefault();
+                        open();
+                      }
+                      return (
+                        <button
+                          onClick={handleOnClickMain}
+                          className={classes.uploadmain}
+                        >
+                          Upload
+                        </button>
+                      );
+                    }}
+                  </UploadWidget>
+                }
+              </div>
+            </div>
+
+            <div className={classes.allPhotos}>
+              <br />
+              <h4>All photos from the photo shoot</h4>
+              {error2 && <p>{error2}</p>}
+              {newValues.arrayOfPhotos.length > 0 && (
+                <div className={classes.show}>
+                  {newValues.arrayOfPhotos.map((photo, index) => (
+                    <div key={index} className={classes.block}>
+                      <div className={classes.delete}>
+                        <RxCross2
+                          color="gray"
+                          size={30}
+                          onClick={() => deletePhoto(photo)}
+                        />{" "}
+                        <br />
+                      </div>
+                      <div>
+                        <img src={photo} alt={`Gallery item-${index}`} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className={classes.photo}>
+                <UploadWidget onUpload={handleArrayOfPhotosUpload}>
+                  {({ open }) => {
+                    function handleOnClickArray(e) {
+                      e.preventDefault();
+                      open();
+                    }
+                    return (
+                      <IoAddCircle
+                        onClick={handleOnClickArray}
+                        className={classes.uploadall}
+                        color={darkColor}
+                        size={45}
+                      />
+                    );
+                  }}
+                </UploadWidget>
+              </div>
+            </div>
+
+            <button className={classes.button}>Save</button>
+          </form>
+        </div>
+      }
+    />
   );
 };
 

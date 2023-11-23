@@ -2,7 +2,6 @@
 
 .about {
     font-family: $Gotu;
-
     .content {
         margin-top: 3vh;
         display: grid;
@@ -23,7 +22,7 @@
                 @include breakpoint(sm) {
                     margin-right: auto;
                 }
-                @include breakpoint(xxs) {
+                @include breakpoint(xxxs) {
                     font-size: 16px;
                     width: 250px;
                 }
@@ -32,12 +31,12 @@
         .img-spinner,
         img {
             margin-right: auto;
-            width: 55%;
+            width: 48.5%;
             @include breakpoint(sm) {
                 margin-left: auto;
                 display: flex;
             }
-            @include breakpoint(xxs) {
+            @include breakpoint(xxxs) {
                 width: 30%;
             }
         }

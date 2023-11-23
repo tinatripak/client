@@ -16,6 +16,7 @@
                 transform: translate(-50%, -50%);
                 margin: 0;
                 font-size: 30px;
+                text-align: center;
             }
         }
         .text {
@@ -72,5 +73,21 @@
             grid-column: 5 / span 4;
             grid-row: 6 / span 3;
         }
+
+        @include breakpoint(sm) {
+            display: none; 
+        }
+    }
+    .carousel_photos{
+        display: none;
+
+        @include breakpoint(sm) {
+            display: block; 
+            img{
+                height: 70vh;
+            }
+        }
     }
 }
+
+

@@ -6,7 +6,7 @@ import {
   getAdminById,
   updateAdminById,
 } from "../../../../services/AdminService";
-import { UploadWidget } from "../../../../components";
+import { ConditionalRender, UploadWidget } from "../../../../components";
 import { adminDashboardLink, adminsLink } from "../../../../constants";
 
 const EditAdmin = () => {
@@ -25,6 +25,7 @@ const EditAdmin = () => {
     password: "",
     photo: "",
   });
+  const [isLoadedAdmin, setIsLoadedAdmin] = useState(false);
 
   const [error, updateError] = useState();
 
@@ -36,7 +37,13 @@ const EditAdmin = () => {
       photo: newValues.photo || oldValues.photo,
     };
 
-    updateAdminById(id, updatedValues.username, updatedValues.email, updatedValues.password, updatedValues.photo);
+    updateAdminById(
+      id,
+      updatedValues.username,
+      updatedValues.email,
+      updatedValues.password,
+      updatedValues.photo
+    );
   };
 
   const getOldAdmin = useCallback(() => {
@@ -47,6 +54,7 @@ const EditAdmin = () => {
         password: data?.data?.password || "",
         photo: data?.data?.photo || "",
       });
+      setIsLoadedAdmin(true);
     });
   }, [id]);
 
@@ -77,91 +85,103 @@ const EditAdmin = () => {
   }
 
   const { username, email, password, photo } = newValues;
-  const { username: oldUsername, email: oldEmail, password: oldPassword, photo: oldPhoto } = oldValues;
+  const {
+    username: oldUsername,
+    email: oldEmail,
+    password: oldPassword,
+    photo: oldPhoto,
+  } = oldValues;
 
   return (
-    <div className={classes.editAdmin}>
-      <div className={classes.backButtonWithTitle}>
-        <Link to={`${adminDashboardLink}${adminsLink}`}>
-          {" "}
-          <IoChevronBackCircleSharp size={30} />{" "}
-        </Link>
-        <h3>Updating the admin {oldUsername}</h3>
-      </div>
-      <form onSubmit={updateAdmin}>
-        <div className={classes.username}>
-          <label htmlFor="title">Full name</label>
-          <br />
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter your full name"
-            defaultValue={oldUsername}
-            onChange={handleInputChange}
-          />
-        </div>
-  
-        <div className={classes.email}>
-          <label htmlFor="title">Email</label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            defaultValue={oldEmail}
-            onChange={handleInputChange}
-          />
-        </div>
-  
-        <div className={classes.password}>
-          <label htmlFor="title">Password</label>
-          <br />
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            defaultValue={oldPassword}
-            onChange={handleInputChange}
-          />
-        </div>
-  
-        <div className={classes.photo}>
-          <br />
-          <h4>The photo of the admin</h4>
-          {error && <p>{error}</p>}
-          {oldPhoto !== "" && !photo && (
-            <>
-              <img src={oldPhoto} alt="Old Admin" />
-            </>
-          )}
-          {photo && (
-            <>
-              <img src={photo} alt="New Admin" />
-            </>
-          )}
-          <div className={classes.photo}>
-            <UploadWidget onUpload={handleOnUpload}>
-              {({ open }) => {
-                function handleOnClick(e) {
-                  e.preventDefault();
-                  open();
-                }
-                return (
-                  <button
-                    onClick={handleOnClick}
-                    className={classes.upload}
-                  >
-                    Upload
-                  </button>
-                );
-              }}
-            </UploadWidget>
+    <ConditionalRender
+      conditions={[isLoadedAdmin]}
+      content={
+        <div className={classes.editAdmin}>
+          <div className={classes.backButtonWithTitle}>
+            <Link to={`${adminDashboardLink}${adminsLink}`}>
+              {" "}
+              <IoChevronBackCircleSharp size={30} />{" "}
+            </Link>
+            <h3>Updating the admin {oldUsername}</h3>
           </div>
+          <form onSubmit={updateAdmin}>
+            <div className={classes.username}>
+              <label htmlFor="title">Full name</label>
+              <br />
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter your full name"
+                defaultValue={oldUsername}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={classes.email}>
+              <label htmlFor="title">Email</label>
+              <br />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                defaultValue={oldEmail}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={classes.password}>
+              <label htmlFor="title">Password</label>
+              <br />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                defaultValue={oldPassword}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={classes.photo}>
+              <br />
+              <h4>The photo of the admin</h4>
+              {error && <p>{error}</p>}
+              {oldPhoto !== "" && !photo && (
+                <>
+                  <img src={oldPhoto} alt="Old Admin" />
+                </>
+              )}
+              {photo && (
+                <>
+                  <img src={photo} alt="New Admin" />
+                </>
+              )}
+              <div className={classes.photo}>
+                <UploadWidget onUpload={handleOnUpload}>
+                  {({ open }) => {
+                    function handleOnClick(e) {
+                      e.preventDefault();
+                      open();
+                    }
+                    return (
+                      <button
+                        onClick={handleOnClick}
+                        className={classes.upload}
+                      >
+                        Upload
+                      </button>
+                    );
+                  }}
+                </UploadWidget>
+              </div>
+            </div>
+
+            <button type="submit" className={classes.button}>
+              Save
+            </button>
+          </form>
         </div>
-  
-        <button type="submit" className={classes.button}>Save</button>
-      </form>
-    </div>
+      }
+    />
   );
 };
 

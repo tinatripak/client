@@ -45,18 +45,6 @@
         }
     }
     .photo {
-        border: 1px solid rgb(194, 194, 194);
-        border-radius: 10px;
-        width: min-content;
-        margin-bottom: 20px;
-        background-color: #ebebeb;
-        p {
-            margin: 2px 2px 5px 2px;
-            text-align: center;
-        }
-        position: relative;
-    }
-    img {
         width: 250px;
         height: 250px;
         object-fit: cover;

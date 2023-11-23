@@ -35,21 +35,23 @@ const About = () => {
     <ConditionalRender
       conditions={[isLoadedBio, isLoadedTypes]}
       content={
-        <div className={classes.about}>
+        <div>
           <Header />
-          <div className={classes.content}>
-            <div className={classes.bio}>
-              <p>{bio?.bio}</p>
+          <div className={classes.about}>
+            <div className={classes.content}>
+              <div className={classes.bio}>
+                <p>{bio?.bio}</p>
+              </div>
+              <img src={bio?.photo} alt="photographer" />
             </div>
-            <img src={bio?.photo} alt="photographer" />
-          </div>
-          <div className={classes.photoshoots}>
-            <p>Photoshoots are available in Romania and Ukraine:</p>
-            <ul>
-              {typesOfPhotography.map((el, index) => (
-                <li key={index}>{el?.typeOfPhotography}</li>
-              ))}
-            </ul>
+            <div className={classes.photoshoots}>
+              <p>Photoshoots are available in Romania and Ukraine:</p>
+              <ul>
+                {typesOfPhotography.map((el, index) => (
+                  <li key={index}>{el?.typeOfPhotography}</li>
+                ))}
+              </ul>
+            </div>
           </div>
           <Footer />
         </div>

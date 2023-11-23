@@ -78,6 +78,10 @@
                         border-radius: 20px;
                     }
                 }
+
+                @include breakpoint(sm) {
+                    display: block;
+                }
                 .select {
                     height: 50px;
                     width: 200px;

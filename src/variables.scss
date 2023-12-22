@@ -16,6 +16,16 @@ $borderRadius: 12px;
 $headerHeight: 60px;
 
 @mixin breakpoint($point) {
+    @if $point == burger {
+        @media (min-width: 1105px) {
+            @content;
+        }
+    }
+    @if $point == nav {
+        @media (max-width: 1104px) {
+            @content;
+        }
+    }
     @if $point == lg {
         @media (min-width: 1025px) {
             @content;

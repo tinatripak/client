@@ -27,13 +27,14 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (size.width > 1105 && menuOpen) {
+    if (size.width > 1105) {
       setMenuOpen(false);
     }
-  }, [size.width, menuOpen]);
+  }, [size.width]);
 
   const menuToggleHandler = () => {
     setMenuOpen((p) => !p);
+    console.log(menuOpen)
   };
 
   return (
@@ -44,7 +45,7 @@ const Header = () => {
         </Link>
         <nav
           className={`${classes.header__content__nav} ${
-            menuOpen && size.width < 1105 ? classes.isMenu : ""
+            menuOpen ? classes.isMenu : classes.withoutMenu
           }`}
         >
           <ul>
@@ -80,8 +81,9 @@ const Header = () => {
             </li>
           </ul>
           <div className={classes.header__content__social}>
-            <FaPinterest size={30}/>
-            <FaInstagram size={30}/>
+          <Link to="https://www.pinterest.com/ksisex/" onClick={menuToggleHandler}><FaPinterest size={30}/></Link>
+            
+          <Link to="https://www.instagram.com/ksigallery?igsh=MTBwYTYweTEwY3h4NQ==" onClick={menuToggleHandler}><FaInstagram size={30}/></Link>
           </div>
         </nav>
         <div className={classes.header__content__toggle}>

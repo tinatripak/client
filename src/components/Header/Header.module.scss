@@ -4,6 +4,7 @@
     height: $headerHeight;
     font-family: $Gotu;
     padding: 0 1rem;
+     transition: 0.3s ease all;
 
     a{
         color: black;
@@ -58,6 +59,7 @@
             backdrop-filter: blur(2px);
             transform: translate(0);
             transition: 0.3s ease transform;
+            z-index: 2;
             
             @include breakpoint(nav) {
                 a {
@@ -137,7 +139,10 @@
             }
 
             &.isMenu {
-                transform: translate(100%);
+                transform: translate(100%) !important;
+            }
+            &.withoutMenu{
+                transform: none;
             }
         }
 
@@ -148,6 +153,7 @@
             font-size: 2rem;
             transition: 0.3s ease all;
             position: relative;
+            z-index: 2;
 
             &:hover {
                 color: $primary;

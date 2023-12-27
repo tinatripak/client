@@ -124,18 +124,15 @@
                 }
                 @include breakpoint(xs) {
                     margin-bottom: 30px;
-                    // padding-left: 3vw;
                 }
             }
             &__type {
                 margin-top: 30px;
-                // padding-left: 3vw;
                 select {
                     margin-top: 5px;
                     padding: 5px 5px;
                     border-radius: 10px;
                     font-size: 15px;
-                    width: 400px;
                     border: 1px solid #b6b6b6;
                     font-family: $Gotu;
 

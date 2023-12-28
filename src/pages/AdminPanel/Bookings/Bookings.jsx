@@ -71,30 +71,30 @@ const Booking = () => {
         accessor: "time",
         Cell: ({ row }) => <p>{row.original.startTime}</p>,
       },
-      {
-        Header: "ACCEPT",
-        accessor: "accept",
-        Cell: ({ row }) => (
-          <div
-            onClick={() => handleAccept(row.original)}
-            className={classes.accept_button}
-          >
-            <BsCheckLg color="green" size={20} />
-          </div>
-        ),
-      },
-      {
-        Header: "DECLINE",
-        accessor: "decline",
-        Cell: ({ row }) => (
-          <div
-            onClick={() => handleDecline(row.original)}
-            className={classes.decline_button}
-          >
-            <RxCross2 color="#red" size={20} />
-          </div>
-        ),
-      },
+      // {
+      //   Header: "ACCEPT",
+      //   accessor: "accept",
+      //   Cell: ({ row }) => (
+      //     <div
+      //       onClick={() => handleAccept(row.original)}
+      //       className={classes.accept_button}
+      //     >
+      //       <BsCheckLg color="green" size={20} />
+      //     </div>
+      //   ),
+      // },
+      // {
+      //   Header: "DECLINE",
+      //   accessor: "decline",
+      //   Cell: ({ row }) => (
+      //     <div
+      //       onClick={() => handleDecline(row.original)}
+      //       className={classes.decline_button}
+      //     >
+      //       <RxCross2 color="#red" size={20} />
+      //     </div>
+      //   ),
+      // },
     ],
     []
   );
@@ -104,13 +104,13 @@ const Booking = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
-  const handleAccept = (booking) => {
-    console.log("accept");
-  };
+  // const handleAccept = (booking) => {
+  //   console.log("accept");
+  // };
 
-  const handleDecline = (booking) => {
-    console.log("decline");
-  };
+  // const handleDecline = (booking) => {
+  //   console.log("decline");
+  // };
 
   return (
     <ConditionalRender

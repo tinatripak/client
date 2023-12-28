@@ -151,7 +151,6 @@ const Admins = () => {
     }
   };
   const handleCreate = () => {
-    console.log(currentAdminRole)
     if (currentAdminRole === "chief admin") {
       navigate(`${adminDashboardLink}${adminLink}${createLink}`);
     } else {

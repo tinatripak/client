@@ -34,7 +34,6 @@ const Header = () => {
 
   const menuToggleHandler = () => {
     setMenuOpen((p) => !p);
-    console.log(menuOpen)
   };
 
   return (

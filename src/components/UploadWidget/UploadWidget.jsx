@@ -4,10 +4,8 @@ let cloudinary;
 let widget;
 
 export function UploadWidget ({ children, onUpload }) {
-  // const { CLOUD_NAME, UPLOAD_PRESET } = process.env;
 
   useEffect(() => {
-  // console.log(CLOUD_NAME)
     if (!cloudinary) {
       cloudinary = window.cloudinary;
     }

@@ -273,7 +273,6 @@ const ProtectedRoute = ({
   redirecthPath = `${adminDashboardLink}${adminsLink}`,
   children,
 }) => {
-  console.log(adminRole)
   if (adminRole !== "chief admin") {
     return <Navigate to={redirecthPath} replace />;
   }

@@ -1,7 +1,7 @@
 export const sizeWidth = 880;
 
-// export const baseURL = "https://photograph-portfolio-service.onrender.com/";
-export const baseURL = "http://localhost:8000/";
+export const baseURL = "https://photograph-portfolio-service.onrender.com/";
+// export const baseURL = "http://localhost:8000/";
 
 
 export const emptyLink = "/";

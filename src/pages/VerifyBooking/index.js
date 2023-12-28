@@ -1,1 +1,1 @@
-export { default as VerifyBooking } from './VerifyBooking'
+export { default as VerifyBooking } from "./VerifyBooking";

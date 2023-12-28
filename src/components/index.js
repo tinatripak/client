@@ -1,9 +1,9 @@
-export {default as BasicCalendar} from './BasicCalendar/BasicCalendar'
-export {default as ConditionalRender} from './ConditionalRender/ConditionalRender'
-export {default as ContactForm} from './ContactForm/ContactForm'
-export {default as CustomCalendar} from './CustomCalendar/CustomCalendar'
-export {default as Footer} from './Footer/Footer'
-export {default as Header} from './Header/Header'
-export {default as NotFound} from './NotFound/NotFound'
-export {default as Spinner} from './Spinner/Spinner'
-export {default as UploadWidget} from './UploadWidget/UploadWidget'
+export { default as BasicCalendar } from "./BasicCalendar/BasicCalendar";
+export { default as ConditionalRender } from "./ConditionalRender/ConditionalRender";
+export { default as ContactForm } from "./ContactForm/ContactForm";
+export { default as CustomCalendar } from "./CustomCalendar/CustomCalendar";
+export { default as Footer } from "./Footer/Footer";
+export { default as Header } from "./Header/Header";
+export { default as NotFound } from "./NotFound/NotFound";
+export { default as Spinner } from "./Spinner/Spinner";
+export { default as UploadWidget } from "./UploadWidget/UploadWidget";

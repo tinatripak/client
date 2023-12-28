@@ -3,8 +3,8 @@ import { getAllBookings } from "../../../services/BookingService";
 import { getAllTypesOfPhotography } from "../../../services/PhototypeService";
 import { useTable } from "react-table";
 import classes from "./Bookings.module.scss";
-import { RxCross2 } from "react-icons/rx";
-import { BsCheckLg } from "react-icons/bs";
+// import { RxCross2 } from "react-icons/rx";
+// import { BsCheckLg } from "react-icons/bs";
 import {
   BasicCalendar,
   ConditionalRender,
@@ -96,7 +96,7 @@ const Booking = () => {
       //   ),
       // },
     ],
-    []
+    [],
   );
 
   const data = React.useMemo(() => bookingList, [bookingList]);

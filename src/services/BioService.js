@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getPhotographers = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}photographer/getPhotographers`,
   };
 
@@ -12,7 +12,7 @@ export const getPhotographers = async () => {
 
 export const getPhotographerById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}photographer/getPhotographerById/${id}`,
   };
 
@@ -21,7 +21,7 @@ export const getPhotographerById = async (id) => {
 
 export const updatePhotographerById = async (id, bio, phoneNumber, photo) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}photographer/updatePhotographerById/${id}`,
     data: {
       bio,

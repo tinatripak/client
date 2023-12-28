@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 let cloudinary;
 let widget;
 
-export function UploadWidget ({ children, onUpload }) {
-
+export function UploadWidget({ children, onUpload }) {
   useEffect(() => {
     if (!cloudinary) {
       cloudinary = window.cloudinary;
@@ -14,22 +13,22 @@ export function UploadWidget ({ children, onUpload }) {
         widget = createWidget();
       }
     }
-    'requestIdleCallback' in window ? requestIdleCallback(onIdle) : setTimeout(onIdle, 1);
+    "requestIdleCallback" in window
+      ? requestIdleCallback(onIdle)
+      : setTimeout(onIdle, 1);
   }, []);
   function createWidget() {
     const options = {
-      cloudName: 'dcxuxc5uw',
-      uploadPreset: 'wd6fnebc',
+      cloudName: "dcxuxc5uw",
+      uploadPreset: "wd6fnebc",
       // multiple: true,
     };
 
-    return cloudinary?.createUploadWidget(options,
-      function (error, result) {
-        if (error || result.event === 'success') {
-          onUpload(error, result, widget);
-        }
+    return cloudinary?.createUploadWidget(options, function (error, result) {
+      if (error || result.event === "success") {
+        onUpload(error, result, widget);
       }
-    );
+    });
   }
 
   function open() {
@@ -37,11 +36,7 @@ export function UploadWidget ({ children, onUpload }) {
     widget && widget.open();
   }
 
-  return (
-    <>
-      {children({ cloudinary, widget, open })}
-    </>
-  )
+  return <>{children({ cloudinary, widget, open })}</>;
 }
 
 export default UploadWidget;

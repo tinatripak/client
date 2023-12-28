@@ -37,9 +37,7 @@ const TypesOfShooting = () => {
                         alt="background"
                         className={classes.img}
                       />
-                      <h1 className={classes.h1}>
-                        {el?.typeOfPhotography}
-                      </h1>
+                      <h1 className={classes.h1}>{el?.typeOfPhotography}</h1>
                     </article>
                   </div>
                 </Link>

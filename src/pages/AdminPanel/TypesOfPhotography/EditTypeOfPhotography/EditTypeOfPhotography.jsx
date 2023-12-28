@@ -46,7 +46,7 @@ const EditTypeOfPhotography = () => {
       updatedType.typeOfPhotography,
       updatedType.shootingDuration,
       updatedType.photo,
-      updatedType.text
+      updatedType.text,
     );
   };
 

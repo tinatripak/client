@@ -42,7 +42,7 @@ const EditAdmin = () => {
       updatedValues.username,
       updatedValues.email,
       updatedValues.password,
-      updatedValues.photo
+      updatedValues.photo,
     );
   };
 

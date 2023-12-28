@@ -61,7 +61,9 @@ const AdminPanel = () => {
   const [cookies] = useCookies([]);
   const [admin, setAdmin] = useState([]);
   const decoded =
-    cookies?.token !== "undefined" ? jwtDecode(cookies.token) : null;
+    cookies?.token !== "undefined" && cookies?.token
+      ? jwtDecode(cookies.token)
+      : null;
   const navigate = useNavigate();
 
   useEffect(() => {

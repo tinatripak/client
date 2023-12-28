@@ -4,21 +4,19 @@ import { useEffect, useState, useCallback } from "react";
 import Spinner from "../Spinner/Spinner";
 import CustomCalendar from "../CustomCalendar/CustomCalendar";
 
-
 const BasicCalendar = () => {
   const [calendarData, setCalendarData] = useState([]);
   const [events, setEvents] = useState([]);
   const [isLoadedData, setIsLoadedData] = useState(false);
 
   const getVerifiedBookingData = () => {
-    getAllBookings()
-      .then((data) => {
-        const validData = data?.data.find((item) => item.isValid);
-        if (validData) {
-          setCalendarData(data?.data);
-        }
-        setIsLoadedData(true);
-      });
+    getAllBookings().then((data) => {
+      const validData = data?.data.find((item) => item.isValid);
+      if (validData) {
+        setCalendarData(data?.data);
+      }
+      setIsLoadedData(true);
+    });
   };
 
   const formatDateTime = (date, time) => {

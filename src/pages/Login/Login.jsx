@@ -26,7 +26,7 @@ const Login = () => {
         [name]: value,
       });
     },
-    [inputValue]
+    [inputValue],
   );
 
   const handleError = useCallback(
@@ -34,7 +34,7 @@ const Login = () => {
       toast.error(err, {
         position: "bottom-left",
       }),
-    []
+    [],
   );
 
   const handleSuccess = useCallback(
@@ -42,7 +42,7 @@ const Login = () => {
       toast.success(msg, {
         position: "bottom-left",
       }),
-    []
+    [],
   );
 
   const handleSubmit = useCallback(
@@ -64,7 +64,7 @@ const Login = () => {
         password: "",
       });
     },
-    [inputValue, navigate, handleSuccess, handleError]
+    [inputValue, navigate, handleSuccess, handleError],
   );
 
   return (
@@ -75,17 +75,12 @@ const Login = () => {
           <img src={cameraImage} alt="Camera" />
         </div>
         <div className={classes.text}>
-          <p className={classes.welcome}>
-            Welcome Back dear admin :&#41;
-          </p>
+          <p className={classes.welcome}>Welcome Back dear admin :&#41;</p>
           <p className={classes.problems}>
             This login is for administrators only. If you are an admin and do
             not have access, please email tinatripak2002@gmail.com
           </p>
-          <form
-            onSubmit={handleSubmit}
-            className={classes.form}
-          >
+          <form onSubmit={handleSubmit} className={classes.form}>
             <div className={classes.email}>
               <TfiEmail size={35} className={classes.icon} />
               <div>
@@ -119,10 +114,7 @@ const Login = () => {
               </div>
             </div>
             <div className={classes.button}>
-              <button
-                type="submit"
-                className={classes.login}
-              >
+              <button type="submit" className={classes.login}>
                 Login
               </button>
             </div>

@@ -14,10 +14,10 @@ const Home = () => {
 
   const fetchHomeData = () => {
     getAllHomePhotos().then((data) => {
-      let arr = []
-      for(let i=0;i<data?.data?.length;i++){
+      let arr = [];
+      for (let i = 0; i < data?.data?.length; i++) {
         const newPhotos = data?.data[i].photo || [];
-        arr.push(newPhotos)
+        arr.push(newPhotos);
       }
       setArrayOfPhotos(arr);
       setIsLoaded(true);
@@ -31,7 +31,6 @@ const Home = () => {
   const images = arrayOfPhotos.slice(1).map((originalUrl) => ({
     original: originalUrl,
   }));
-  
 
   return (
     <ConditionalRender
@@ -40,10 +39,7 @@ const Home = () => {
         <div className={classes.home}>
           <Header />
           <div className={classes.main}>
-            <div
-              className={classes.image}
-              style={backgroundImageStyle}
-            >
+            <div className={classes.image} style={backgroundImageStyle}>
               <p>Photography Is My Life</p>
             </div>
             <div className={classes.text}>
@@ -54,15 +50,8 @@ const Home = () => {
           </div>
           <div className={classes.photos}>
             {arrayOfPhotos.slice(1).map((el, index) => (
-              <figure
-                className={classes[`item${index + 1}`]}
-                key={index}
-              >
-                <img
-                  src={el}
-                  alt="gallery item"
-                  className={classes.img}
-                />
+              <figure className={classes[`item${index + 1}`]} key={index}>
+                <img src={el} alt="gallery item" className={classes.img} />
               </figure>
             ))}
           </div>

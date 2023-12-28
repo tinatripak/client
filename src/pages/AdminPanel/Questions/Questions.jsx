@@ -57,7 +57,7 @@ const Questions = () => {
         ),
       },
     ],
-    []
+    [],
   );
 
   const data = React.useMemo(() => listOfQuestions, [listOfQuestions]);

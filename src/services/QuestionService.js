@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getAllQuestions = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}question/getAllQuestions`,
   };
 
@@ -12,7 +12,7 @@ export const getAllQuestions = async () => {
 
 export const getQuestionById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}question/getQuestionById/${id}`,
   };
 
@@ -21,7 +21,7 @@ export const getQuestionById = async (id) => {
 
 export const createQuestion = async (name, email, question) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}question/createQuestion`,
     data: {
       name,
@@ -35,7 +35,7 @@ export const createQuestion = async (name, email, question) => {
 
 export const deleteQuestionById = async (id) => {
   const requestConfig = {
-    method: 'delete',
+    method: "delete",
     url: `${baseURL}question/deleteQuestionById/${id}`,
   };
 
@@ -44,7 +44,7 @@ export const deleteQuestionById = async (id) => {
 
 export const answerToQuestion = async (id, email, question, answer) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}question/answerToQuestion`,
     data: {
       id,

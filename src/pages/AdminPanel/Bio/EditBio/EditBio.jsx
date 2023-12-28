@@ -26,7 +26,7 @@ const EditBio = () => {
       id,
       formValues.bio,
       formValues.phoneNumber,
-      formValues.photo
+      formValues.photo,
     );
   };
 

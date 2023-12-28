@@ -11,9 +11,9 @@ const AdminAccount = () => {
   const [cookies, remove] = useCookies([]);
 
   const verifyCookie = async () => {
-    if (cookies?.token === 'undefined') {
+    if (cookies?.token === "undefined") {
       navigate(loginLink);
-    } else{
+    } else {
       const { data } = await userVerification();
       if (!data) {
         remove("token");

@@ -1,1 +1,1 @@
-export { default as PortfolioOneShoot } from './PortfolioOneShoot'
+export { default as PortfolioOneShoot } from "./PortfolioOneShoot";

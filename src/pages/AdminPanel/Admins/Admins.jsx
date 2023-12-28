@@ -36,27 +36,23 @@ const Admins = () => {
 
   useEffect(() => {
     fetchAdminsData();
-  }, []);
-
-  const fetchAdminsData = () => {
-    getAllAdmins().then((response) => {
-      setAdminList(response.data);
-      setIsLoadedAdmins(true);
-    });
-  };
-
-  const getAdmin = useCallback(() => {
-    getAdminById(decoded?.id).then((data) => {
-      setCurrentAdminRole(data?.data?.role);
-      setIsLoadedAdmin(true);
-    });
-  }, [decoded?.id]);
-
-  useEffect(() => {
     if (cookies?.token !== "undefined") {
       getAdmin();
     }
-  }, [cookies.token]);
+  }, [cookies?.token]);
+
+  const fetchAdminsData = useCallback(async () => {
+    console.log(cookies);
+    const response = await getAllAdmins();
+    setAdminList(response.data);
+    setIsLoadedAdmins(true);
+  }, [adminList]);
+
+  const getAdmin = useCallback(async () => {
+    const data = await getAdminById(decoded?.id);
+    setCurrentAdminRole(data?.data?.role);
+    setIsLoadedAdmin(true);
+  }, [decoded?.id, cookies?.token]);
 
   const handleEdit = useCallback(
     (admin) => {
@@ -73,67 +69,67 @@ const Admins = () => {
         }
       }
     },
-    [navigate, currentAdminRole]
+    [navigate, currentAdminRole],
   );
 
-    columns = React.useMemo(
-      () => [
-        {
-          Header: "FULL NAME",
-          accessor: "username",
-          Cell: ({ row }) => <p>{row.original.username}</p>,
-        },
-        {
-          Header: "EMAIL",
-          accessor: "email",
-          Cell: ({ row }) => <p>{row.original.email}</p>,
-        },
-        {
-          Header: "PHOTO",
-          accessor: "photo",
-          Cell: ({ row }) =>
-            row.original.photo ? (
-              <img
-                className={classes.photo}
-                src={row.original.photo}
-                alt="Admin"
-              />
-            ) : (
-              <p className={classes.text}>No photo</p>
-            ),
-        },
-        {
-          Header: "ADDED",
-          accessor: "createdAt",
-          Cell: ({ row }) => <p>{row.original.createdAt}</p>,
-        },
-        {
-          Header: "",
-          accessor: "edit",
-          Cell: ({ row }) => (
-            <span
-              onClick={() => handleEdit(row.original)}
-              className={classes.edit_button}
-            >
-              <FiEdit2 color="#616161" size={20} />
-            </span>
+  columns = React.useMemo(
+    () => [
+      {
+        Header: "FULL NAME",
+        accessor: "username",
+        Cell: ({ row }) => <p>{row.original.username}</p>,
+      },
+      {
+        Header: "EMAIL",
+        accessor: "email",
+        Cell: ({ row }) => <p>{row.original.email}</p>,
+      },
+      {
+        Header: "PHOTO",
+        accessor: "photo",
+        Cell: ({ row }) =>
+          row.original.photo ? (
+            <img
+              className={classes.photo}
+              src={row.original.photo}
+              alt="Admin"
+            />
+          ) : (
+            <p className={classes.text}>No photo</p>
           ),
-        },
-        {
-          Header: "",
-          accessor: "delete",
-          Cell: ({ row }) => (
-            <span
-              onClick={() => handleDelete(row.original)}
-              className={classes.delete_button}
-            >
-              <BsTrashFill color="#616161" size={20} />
-            </span>
-          ),
-        },
-      ],
-      [handleEdit]
-    );
+      },
+      {
+        Header: "ADDED",
+        accessor: "createdAt",
+        Cell: ({ row }) => <p>{row.original.createdAt}</p>,
+      },
+      {
+        Header: "",
+        accessor: "edit",
+        Cell: ({ row }) => (
+          <span
+            onClick={() => handleEdit(row.original)}
+            className={classes.edit_button}
+          >
+            <FiEdit2 color="#616161" size={20} />
+          </span>
+        ),
+      },
+      {
+        Header: "",
+        accessor: "delete",
+        Cell: ({ row }) => (
+          <span
+            onClick={() => handleDelete(row.original)}
+            className={classes.delete_button}
+          >
+            <BsTrashFill color="#616161" size={20} />
+          </span>
+        ),
+      },
+    ],
+    [handleEdit],
+  );
 
   const data = React.useMemo(() => adminList, [adminList]);
 

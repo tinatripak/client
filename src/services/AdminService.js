@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getAllAdmins = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}admin/getAllAdmins`,
   };
 
@@ -12,8 +12,9 @@ export const getAllAdmins = async () => {
 
 export const getAdminById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}admin/getAdminById/${id}`,
+    credentials: "include",
   };
 
   return handleApiRequest(requestConfig);
@@ -21,7 +22,7 @@ export const getAdminById = async (id) => {
 
 export const createAdmin = async (username, email, password, photo) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}admin/createAdmin`,
     data: {
       username,
@@ -29,6 +30,7 @@ export const createAdmin = async (username, email, password, photo) => {
       password,
       photo,
     },
+    credentials: "include",
   };
 
   return handleApiRequest(requestConfig);
@@ -36,7 +38,7 @@ export const createAdmin = async (username, email, password, photo) => {
 
 export const updateAdminById = async (id, username, email, password, photo) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}admin/updateAdminById/${id}`,
     data: {
       username,
@@ -44,6 +46,7 @@ export const updateAdminById = async (id, username, email, password, photo) => {
       password,
       photo,
     },
+    credentials: "include",
   };
 
   return handleApiRequest(requestConfig);
@@ -51,8 +54,9 @@ export const updateAdminById = async (id, username, email, password, photo) => {
 
 export const deleteAdminById = async (id) => {
   const requestConfig = {
-    method: 'delete',
+    method: "delete",
     url: `${baseURL}admin/deleteAdminById/${id}`,
+    credentials: "include",
   };
 
   return handleApiRequest(requestConfig);

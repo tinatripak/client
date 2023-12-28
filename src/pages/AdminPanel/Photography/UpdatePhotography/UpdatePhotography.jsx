@@ -47,7 +47,7 @@ const UpdatePhotography = () => {
         data?.data?.map((item) => ({
           id: item._id,
           name: item.typeOfPhotography,
-        }))
+        })),
       );
     });
   };
@@ -73,7 +73,7 @@ const UpdatePhotography = () => {
       updatedName,
       updatedPhotoTypeId,
       updatedMainPhoto,
-      updatedArrayOfPhotos
+      updatedArrayOfPhotos,
     );
   };
 
@@ -121,7 +121,7 @@ const UpdatePhotography = () => {
         arrayOfPhotos: [...prevValues.arrayOfPhotos, newPhoto],
       }));
     },
-    [newValues]
+    [newValues],
   );
 
   const deletePhoto = useCallback(
@@ -129,11 +129,11 @@ const UpdatePhotography = () => {
       setNewValues((prevValues) => ({
         ...prevValues,
         arrayOfPhotos: prevValues.arrayOfPhotos.filter(
-          (photo) => photo !== photoToDelete
+          (photo) => photo !== photoToDelete,
         ),
       }));
     },
-    [newValues]
+    [newValues],
   );
 
   return (
@@ -182,7 +182,7 @@ const UpdatePhotography = () => {
                 <option value={oldValues.photoTypeId}>
                   {
                     allPhotoTypesName.find(
-                      (type) => type.id === oldValues.photoTypeId
+                      (type) => type.id === oldValues.photoTypeId,
                     )?.name
                   }
                 </option>
@@ -193,7 +193,7 @@ const UpdatePhotography = () => {
                       <option key={type.id} value={type.id}>
                         {type.name}
                       </option>
-                    )
+                    ),
                 )}
               </select>
             </div>

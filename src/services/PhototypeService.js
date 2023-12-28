@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getAllTypesOfPhotography = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}typeOfPhotography/getAllTypesOfPhotography`,
   };
 
@@ -12,7 +12,7 @@ export const getAllTypesOfPhotography = async () => {
 
 export const getTypeOfPhotographyById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}typeOfPhotography/getTypeOfPhotographyById/${id}`,
   };
 
@@ -21,7 +21,7 @@ export const getTypeOfPhotographyById = async (id) => {
 
 export const getTypeOfPhotographyByTypeName = async (name) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}typeOfPhotography/getTypeOfPhotographyByTypeName/${name}`,
   };
 
@@ -32,10 +32,10 @@ export const createTypeOfPhotography = async (
   typeOfPhotography,
   shootingDuration,
   mainPhoto,
-  text
+  text,
 ) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}typeOfPhotography/createTypeOfPhotography`,
     data: {
       typeOfPhotography,
@@ -53,10 +53,10 @@ export const updateTypeOfPhotographyById = async (
   typeOfPhotography,
   shootingDuration,
   mainPhoto,
-  text
+  text,
 ) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}typeOfPhotography/updateTypeOfPhotographyById/${id}`,
     data: {
       typeOfPhotography,
@@ -71,7 +71,7 @@ export const updateTypeOfPhotographyById = async (
 
 export const deleteTypeOfPhotographyById = async (id) => {
   const requestConfig = {
-    method: 'delete',
+    method: "delete",
     url: `${baseURL}typeOfPhotography/deleteTypeOfPhotographyById/${id}`,
   };
 

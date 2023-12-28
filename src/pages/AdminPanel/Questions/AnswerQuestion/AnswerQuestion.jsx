@@ -33,7 +33,7 @@ const AnswerQuestion = () => {
       question?._id,
       question?.email,
       question?.question,
-      answer
+      answer,
     );
   };
 

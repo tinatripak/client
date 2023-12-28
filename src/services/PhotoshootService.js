@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getPhotoshoots = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}photoshoot/getPhotoshoots`,
   };
 
@@ -12,7 +12,7 @@ export const getPhotoshoots = async () => {
 
 export const getPhotoshootById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}photoshoot/getPhotoshootById/${id}`,
   };
 
@@ -21,7 +21,7 @@ export const getPhotoshootById = async (id) => {
 
 export const getPhotoshootByName = async (name) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}photoshoot/getPhotoshootByName/${name}`,
   };
 
@@ -32,10 +32,10 @@ export const createPhotoshoot = async (
   name,
   photoTypeId,
   mainPhoto,
-  arrayOfPhotos
+  arrayOfPhotos,
 ) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}photoshoot/createPhotoshoot`,
     data: {
       name,
@@ -53,10 +53,10 @@ export const updatePhotoshootById = async (
   name,
   photoTypeId,
   mainPhoto,
-  arrayOfPhotos
+  arrayOfPhotos,
 ) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}photoshoot/updatePhotoshootById/${id}`,
     data: {
       name,
@@ -71,7 +71,7 @@ export const updatePhotoshootById = async (
 
 export const deletePhotoshootById = async (id) => {
   const requestConfig = {
-    method: 'delete',
+    method: "delete",
     url: `${baseURL}photoshoot/deletePhotoshootById/${id}`,
   };
 

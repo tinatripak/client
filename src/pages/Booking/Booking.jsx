@@ -60,7 +60,7 @@ const Booking = () => {
         data?.data?.map((item) => ({
           id: item._id,
           name: item.typeOfPhotography,
-        }))
+        })),
       );
       setIsPhotoTypesLoaded(true);
     });
@@ -86,7 +86,7 @@ const Booking = () => {
     ({ date }) => {
       const today = new Date();
       const weddingBookings = allBookings.find(
-        (x) => x.photoTypeId === WEDDING_PHOTOTYPEID
+        (x) => x.photoTypeId === WEDDING_PHOTOTYPEID,
       );
 
       if (weddingBookings instanceof Array) {
@@ -100,7 +100,7 @@ const Booking = () => {
       }
       return date < today;
     },
-    [allBookings, WEDDING_PHOTOTYPEID]
+    [allBookings, WEDDING_PHOTOTYPEID],
   );
 
   const equalData = (weddingDate, date) => {
@@ -127,7 +127,7 @@ const Booking = () => {
         return date < today;
       }
     },
-    [allBookings, photoTypeId]
+    [allBookings, photoTypeId],
   );
 
   const getBookings = useCallback(() => {
@@ -171,7 +171,7 @@ const Booking = () => {
       });
       setAllBookingsByDate(bookingsForSelectedDate);
     },
-    [allBookings, formatDate]
+    [allBookings, formatDate],
   );
 
   useEffect(() => {
@@ -184,11 +184,11 @@ const Booking = () => {
     if (date && allBookingsByDate.length > 0 && photoTypeId) {
       if (photoTypeId !== WEDDING_PHOTOTYPEID) {
         const bookedTimes = allBookingsByDate.map(
-          (booking) => booking.startTime
+          (booking) => booking.startTime,
         );
 
         const bookedTimeIndices = bookedTimes.map((bookedTime) =>
-          timeOptions.indexOf(bookedTime)
+          timeOptions.indexOf(bookedTime),
         );
 
         const matches = photoshootDuration.match(/\d+/);
@@ -204,7 +204,7 @@ const Booking = () => {
           });
         }
         const availableTimes = timeOptions.filter(
-          (_, index) => !indicesToDelete.has(index)
+          (_, index) => !indicesToDelete.has(index),
         );
         setFilteredTimeOptions(availableTimes);
       }
@@ -244,7 +244,7 @@ const Booking = () => {
   const handleSubmit = useCallback(() => {
     const endTimePhotoshoot = addDurationToTime(
       selectedTime,
-      photoshootDuration
+      photoshootDuration,
     );
     createBooking(
       name,
@@ -253,7 +253,7 @@ const Booking = () => {
       photoTypeId,
       formatDate(date),
       selectedTime,
-      endTimePhotoshoot
+      endTimePhotoshoot,
     );
   }, [
     name,
@@ -284,23 +284,17 @@ const Booking = () => {
                 <ul>
                   <li>
                     <a href={viberURL}>
-                      <FaViber
-                        className={classes.icons__viber}
-                      />{" "}
+                      <FaViber className={classes.icons__viber} />{" "}
                     </a>
                   </li>
                   <li>
                     <a href={telegramURL}>
-                      <LiaTelegram
-                        className={classes.icons__telegram}
-                      />
+                      <LiaTelegram className={classes.icons__telegram} />
                     </a>
                   </li>
                   <li>
                     <a href="">
-                      <BsWhatsapp
-                        className={classes.icons__whatsapp}
-                      />
+                      <BsWhatsapp className={classes.icons__whatsapp} />
                     </a>
                   </li>
                 </ul>
@@ -310,11 +304,7 @@ const Booking = () => {
               <div className={classes.contactForm}>
                 <form onSubmit={handleSubmit}>
                   <div className={classes.commonBlock}>
-                    <div
-                      className={
-                        classes.formGroup__input
-                      }
-                    >
+                    <div className={classes.formGroup__input}>
                       <label htmlFor="name">Name:</label>
                       <input
                         type="text"
@@ -322,11 +312,7 @@ const Booking = () => {
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
-                    <div
-                      className={
-                        classes.formGroup__input
-                      }
-                    >
+                    <div className={classes.formGroup__input}>
                       <label htmlFor="email">Email:</label>
                       <input
                         type="email"
@@ -335,11 +321,7 @@ const Booking = () => {
                       />
                     </div>
                   </div>
-                  <div
-                    className={
-                      classes.formGroup__type
-                    }
-                  >
+                  <div className={classes.formGroup__type}>
                     <label htmlFor="title">Type of photo shoot</label>
                     <br />
 
@@ -347,10 +329,7 @@ const Booking = () => {
                       value={photoTypeId}
                       onChange={(e) => setPhotoTypeId(e.target.value)}
                     >
-                      <option
-                        value=""
-                        disabled
-                      >
+                      <option value="" disabled>
                         Choose a name
                       </option>
                       {allPhotoTypesName.map((type) => (
@@ -361,15 +340,9 @@ const Booking = () => {
                     </select>
                   </div>
                   {photoTypeId ? (
-                    <div
-                      className={classes.calendarBlock}
-                    >
+                    <div className={classes.calendarBlock}>
                       <p>Please, choose the date and time of the photoshoot</p>
-                      <div
-                        className={
-                          classes.calendarWithSelect
-                        }
-                      >
+                      <div className={classes.calendarWithSelect}>
                         <div>
                           {photoTypeId !== WEDDING_PHOTOTYPEID ? (
                             <CalendarForBooking
@@ -398,16 +371,12 @@ const Booking = () => {
                           <select
                             value={selectedTime}
                             onChange={handleTimeChange}
-                            className={
-                              classes.select
-                            }
+                            className={classes.select}
                           >
                             <option
                               value=""
                               disabled
-                              className={
-                                classes.default
-                              }
+                              className={classes.default}
                             >
                               Choose time
                             </option>
@@ -421,13 +390,11 @@ const Booking = () => {
                       </div>
                     </div>
                   ) : (
-                    <div
-                      className={
-                        classes.withoutPhotoshootType
-                      }
-                    >
-                      <p>Please, choose the type of photo shoot and you will have
-                      an opportunity to choose the date and time !</p>
+                    <div className={classes.withoutPhotoshootType}>
+                      <p>
+                        Please, choose the type of photo shoot and you will have
+                        an opportunity to choose the date and time !
+                      </p>
                     </div>
                   )}
                   <div className={classes.textarea}>
@@ -438,10 +405,7 @@ const Booking = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     />
                   </div>
-                  <button
-                    className={classes.button}
-                    type="submit"
-                  >
+                  <button className={classes.button} type="submit">
                     Send
                   </button>
                 </form>

@@ -28,7 +28,7 @@ const PortfolioOneShoot = () => {
       photoshoot.map((url, index) => ({
         id: index,
         original: url,
-      }))
+      })),
     );
   };
 

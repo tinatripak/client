@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getAllHomePhotos = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}home/getAllHomePhotos`,
   };
 
@@ -12,7 +12,7 @@ export const getAllHomePhotos = async () => {
 
 export const getHomePhotoById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}home/getHomePhotoById/${id}`,
   };
 
@@ -21,7 +21,7 @@ export const getHomePhotoById = async (id) => {
 
 export const updateHomePhotoById = async (id, photo) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}home/updateHomePhotoById/${id}`,
     data: {
       photo,

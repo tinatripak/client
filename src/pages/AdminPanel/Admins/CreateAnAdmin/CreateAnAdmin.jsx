@@ -22,7 +22,7 @@ const CreateAnAdmin = () => {
       formData.username,
       formData.email,
       formData.password,
-      formData.photo
+      formData.photo,
     );
     navigate(`${adminDashboardLink}${adminsLink}`);
   };
@@ -43,7 +43,7 @@ const CreateAnAdmin = () => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
     },
-    [formData]
+    [formData],
   );
 
   return (

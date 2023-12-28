@@ -22,7 +22,7 @@ const CreateTypeOfPhotography = () => {
       formData.typeOfPhotography,
       formData.shootingDuration,
       formData.mainPhoto,
-      formData.text
+      formData.text,
     );
     navigate(`${adminDashboardLink}${typesLink}`);
   };

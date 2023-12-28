@@ -53,9 +53,7 @@ const Portfolio = () => {
                         className={classes.img}
                         alt="portfolio"
                       />
-                      <p className={classes.name}>
-                        {el?.name}
-                      </p>
+                      <p className={classes.name}>{el?.name}</p>
                       <p className={classes.text}>
                         {getTypeNameById(el?.photoTypeId)}
                       </p>

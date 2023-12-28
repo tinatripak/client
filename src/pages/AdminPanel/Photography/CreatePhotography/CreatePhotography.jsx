@@ -33,7 +33,7 @@ const CreatePhotography = () => {
         data?.data?.map((item) => ({
           id: item._id,
           name: item.typeOfPhotography,
-        }))
+        })),
       );
     });
   };
@@ -53,7 +53,7 @@ const CreatePhotography = () => {
         setFormData({ ...formData, mainPhoto: result?.info?.url });
       }
     },
-    [formData, errors]
+    [formData, errors],
   );
 
   const handleAllPhotosUpload = useCallback(
@@ -66,7 +66,7 @@ const CreatePhotography = () => {
         addPhoto(result?.info?.url);
       }
     },
-    [formData, errors]
+    [formData, errors],
   );
 
   const addPhoto = (newPhoto) => {
@@ -80,7 +80,7 @@ const CreatePhotography = () => {
     setFormData({
       ...formData,
       arrayOfPhotos: formData.arrayOfPhotos.filter(
-        (photo) => photo !== photoToDelete
+        (photo) => photo !== photoToDelete,
       ),
     });
   };

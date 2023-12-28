@@ -11,7 +11,6 @@ const DropdownMenu = () => {
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
 
-
   let menuRef = useRef();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const DropdownMenu = () => {
   });
 
   const Logout = () => {
-    logoutUser(cookies)
+    logoutUser(cookies);
     navigate("/login");
   };
 

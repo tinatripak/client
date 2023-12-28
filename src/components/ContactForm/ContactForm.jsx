@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import classes from "./ConactForm.module.scss";
-import { createQuestion } from '../../services/QuestionService';
+import { createQuestion } from "../../services/QuestionService";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -9,13 +9,16 @@ const ContactForm = () => {
     message: "",
   });
 
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }, [formData]);
+  const handleInputChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    },
+    [formData],
+  );
 
   const handleSubmit = () => {
     createQuestion(formData.name, formData.email, formData.message);

@@ -3,7 +3,7 @@ import { baseURL } from "../constants";
 
 export const getAllBookings = async () => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}booking/getAllBookings`,
   };
 
@@ -12,7 +12,7 @@ export const getAllBookings = async () => {
 
 export const getBookingById = async (id) => {
   const requestConfig = {
-    method: 'get',
+    method: "get",
     url: `${baseURL}booking/getBookingById/${id}`,
   };
 
@@ -26,10 +26,10 @@ export const createBooking = async (
   photoTypeId,
   date,
   startTime,
-  endTime
+  endTime,
 ) => {
   const requestConfig = {
-    method: 'post',
+    method: "post",
     url: `${baseURL}booking/createBooking`,
     data: {
       name,
@@ -47,7 +47,7 @@ export const createBooking = async (
 
 export const deleteDeclinedBookingById = async (id) => {
   const requestConfig = {
-    method: 'delete',
+    method: "delete",
     url: `${baseURL}booking/deleteDeclinedBookingById/${id}`,
   };
 
@@ -56,7 +56,7 @@ export const deleteDeclinedBookingById = async (id) => {
 
 export const verifyBooking = async (uniqueString) => {
   const requestConfig = {
-    method: 'put',
+    method: "put",
     url: `${baseURL}booking/verifyBooking/${uniqueString}`,
   };
 

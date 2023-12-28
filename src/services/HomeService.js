@@ -26,6 +26,7 @@ export const updateHomePhotoById = async (id, photo) => {
     data: {
       photo,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

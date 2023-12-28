@@ -14,7 +14,6 @@ export const getAdminById = async (id) => {
   const requestConfig = {
     method: "get",
     url: `${baseURL}admin/getAdminById/${id}`,
-    credentials: "include",
   };
 
   return handleApiRequest(requestConfig);
@@ -30,7 +29,7 @@ export const createAdmin = async (username, email, password, photo) => {
       password,
       photo,
     },
-    credentials: "include",
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -46,7 +45,7 @@ export const updateAdminById = async (id, username, email, password, photo) => {
       password,
       photo,
     },
-    credentials: "include",
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -56,7 +55,7 @@ export const deleteAdminById = async (id) => {
   const requestConfig = {
     method: "delete",
     url: `${baseURL}admin/deleteAdminById/${id}`,
-    credentials: "include",
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

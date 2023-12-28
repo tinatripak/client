@@ -1,14 +1,15 @@
 import { handleApiRequest } from "../utils/apiRequest";
 import { baseURL } from "../constants";
 
-export const userVerification = async () => {
+export const userVerification = async (cookies) => {
   const requestConfig = {
     method: "post",
     url: `${baseURL}`,
     data: {},
     withCredentials: true,
+    cookies,
   };
-
+ 
   return handleApiRequest(requestConfig);
 };
 

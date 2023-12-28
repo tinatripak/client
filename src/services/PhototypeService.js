@@ -43,6 +43,7 @@ export const createTypeOfPhotography = async (
       mainPhoto,
       text,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -64,6 +65,7 @@ export const updateTypeOfPhotographyById = async (
       mainPhoto,
       text,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -73,6 +75,7 @@ export const deleteTypeOfPhotographyById = async (id) => {
   const requestConfig = {
     method: "delete",
     url: `${baseURL}typeOfPhotography/deleteTypeOfPhotographyById/${id}`,
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

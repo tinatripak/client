@@ -49,6 +49,7 @@ export const deleteDeclinedBookingById = async (id) => {
   const requestConfig = {
     method: "delete",
     url: `${baseURL}booking/deleteDeclinedBookingById/${id}`,
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

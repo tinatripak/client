@@ -43,6 +43,7 @@ export const createPhotoshoot = async (
       mainPhoto,
       arrayOfPhotos,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -64,6 +65,7 @@ export const updatePhotoshootById = async (
       mainPhoto,
       arrayOfPhotos,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -73,6 +75,7 @@ export const deletePhotoshootById = async (id) => {
   const requestConfig = {
     method: "delete",
     url: `${baseURL}photoshoot/deletePhotoshootById/${id}`,
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

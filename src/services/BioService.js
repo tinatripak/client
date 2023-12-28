@@ -28,6 +28,7 @@ export const updatePhotographerById = async (id, bio, phoneNumber, photo) => {
       phoneNumber,
       photo,
     },
+    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

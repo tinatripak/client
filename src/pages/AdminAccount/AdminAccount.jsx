@@ -14,7 +14,7 @@ const AdminAccount = () => {
     if (cookies?.token === "undefined") {
       navigate(loginLink);
     } else {
-      const { data } = await userVerification();
+      const { data } = await userVerification(cookies);
       if (!data) {
         remove("token");
         navigate(loginLink);

@@ -42,7 +42,6 @@ const Admins = () => {
   }, [cookies?.token]);
 
   const fetchAdminsData = useCallback(async () => {
-    console.log(cookies);
     const response = await getAllAdmins();
     setAdminList(response.data);
     setIsLoadedAdmins(true);

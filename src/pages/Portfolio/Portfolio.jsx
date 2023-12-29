@@ -5,6 +5,8 @@ import { getAllTypesOfPhotography } from "../../services/PhototypeService";
 import { getPhotoshoots } from "../../services/PhotoshootService";
 import { Link } from "react-router-dom";
 import { portfolioLink } from "../../constants";
+// import { AsyncImage } from 'loadable-image'
+// import { Blur, Grow, Slide } from 'transitions-kit'
 
 const Portfolio = () => {
   const [photoshoots, setPhotoshoots] = useState([]);
@@ -38,7 +40,7 @@ const Portfolio = () => {
 
   return (
     <ConditionalRender
-      conditions={[isLoadedPhotoshoots, isLoadedTypes]}
+      conditions={[isLoadedPhotoshoots, isLoadedTypes,]}
       content={
         <div>
           <Header />

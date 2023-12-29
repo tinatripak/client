@@ -20,6 +20,8 @@
     .element {
         min-width: 17vw;
         font-family: $Gotu;
+        position: relative;
+        background-color: rgba(169, 169, 169, 0.5);
         article {
             position: relative;
         }
@@ -27,7 +29,6 @@
             object-fit: cover;
             width: 290px;
             height: 290px;
-            
         }
         .h1 {
             font-size: 18px;

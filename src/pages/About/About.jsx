@@ -42,7 +42,10 @@ const About = () => {
               <div className={classes.bio}>
                 <p>{bio?.bio}</p>
               </div>
-              <img src={bio?.photo} alt="photographer" />
+              <img 
+                  src={bio?.photo} 
+                  alt="photographer" 
+                />
             </div>
             <div className={classes.photoshoots}>
               <p>Photoshoots are available in Romania and Ukraine:</p>

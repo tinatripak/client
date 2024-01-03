@@ -12,6 +12,8 @@ import {
 } from "../../services/PhototypeService";
 import { telegramURL, viberURL } from "../../constants.js";
 import CalendarForBooking from "./CalendarForBooking";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Booking = () => {
   const [bio, setBio] = useState([]);
@@ -33,11 +35,20 @@ const Booking = () => {
   const [filteredTimeOptions, setFilteredTimeOptions] = useState([]);
   const [date, setDate] = useState(null);
 
+  const [nameError, setNameError] = useState("Name is required");
+  const [emailError, setEmailError] = useState("Email address is required");
+  const [photoTypeIdError, setPhotoTypeIdError] = useState(
+    "Type of photo shoot is required"
+  );
+  const [dateError, setDateError] = useState("Date is required");
+  const [selectedTimeError, setSelectedTimeError] =
+    useState("Time is required");
+
   const timeOptions = [];
   const currentTime = new Date("2000-01-01T08:30:00");
   const endTime = new Date("2000-01-01T20:00:00");
 
-  const { WEDDING_PHOTOTYPEID } = process.env;
+  const { REACT_APP_WEDDING_PHOTOTYPE_ID } = process.env;
 
   useEffect(() => {
     fetchPhotographersData();
@@ -60,7 +71,7 @@ const Booking = () => {
         data?.data?.map((item) => ({
           id: item._id,
           name: item.typeOfPhotography,
-        })),
+        }))
       );
       setIsPhotoTypesLoaded(true);
     });
@@ -82,27 +93,6 @@ const Booking = () => {
     getBookings();
   }, [allBookings]);
 
-  const isDateDisabled = useCallback(
-    ({ date }) => {
-      const today = new Date();
-      const weddingBookings = allBookings.find(
-        (x) => x.photoTypeId === WEDDING_PHOTOTYPEID,
-      );
-
-      if (weddingBookings instanceof Array) {
-        return weddingBookings.some((booking) => {
-          const weddingDateObject = new Date(booking.date);
-          return equalData(weddingDateObject, date);
-        });
-      } else if (weddingBookings) {
-        const weddingDateObject = new Date(weddingBookings.date);
-        return equalData(weddingDateObject, date);
-      }
-      return date < today;
-    },
-    [allBookings, WEDDING_PHOTOTYPEID],
-  );
-
   const equalData = (weddingDate, date) => {
     return (
       weddingDate.getDate() === date.getDate() &&
@@ -111,23 +101,31 @@ const Booking = () => {
     );
   };
 
+  const isDateDisabled = useCallback(
+    ({ date }) => {
+      const today = new Date();
+      const existingWeddingBookings = allBookings.filter((booking) => {
+        return (
+          formatDate(new Date(booking.date)) === formatDate(date) &&
+          booking.photoTypeId === REACT_APP_WEDDING_PHOTOTYPE_ID
+        );
+      });
+
+      return existingWeddingBookings.length > 0 || date < today;
+    },
+    [allBookings, REACT_APP_WEDDING_PHOTOTYPE_ID]
+  );
+
   const isDateDisabledForWedding = useCallback(
     ({ date }) => {
       const today = new Date();
-      if (photoTypeId) {
-        if (allBookings instanceof Array) {
-          return allBookings.some((booking) => {
-            const bookingDateObject = new Date(booking.date);
-            return equalData(bookingDateObject, date);
-          });
-        } else if (allBookings) {
-          const bookingDateObject = new Date(allBookings.date);
-          return equalData(bookingDateObject, date);
-        }
-        return date < today;
-      }
+      const existingBookings = allBookings.filter((booking) => {
+        return formatDate(new Date(booking.date)) === formatDate(date);
+      });
+
+      return existingBookings.length > 0 || date < today;
     },
-    [allBookings, photoTypeId],
+    [allBookings]
   );
 
   const getBookings = useCallback(() => {
@@ -146,10 +144,6 @@ const Booking = () => {
     currentTime.setMinutes(currentTime.getMinutes() + 30);
   }
 
-  const handleTimeChange = useCallback((event) => {
-    setSelectedTime(event.target.value);
-  }, []);
-
   const formatDate = (date) => {
     if (date instanceof Date) {
       return date.toLocaleDateString("en-US", {
@@ -166,12 +160,14 @@ const Booking = () => {
       setDate(value);
       setIsDateSelected(true);
 
+      validateDate(value);
+
       const bookingsForSelectedDate = allBookings.filter((booking) => {
         return formatDate(new Date(booking.date)) === formatDate(value);
       });
       setAllBookingsByDate(bookingsForSelectedDate);
     },
-    [allBookings, formatDate],
+    [allBookings, formatDate]
   );
 
   useEffect(() => {
@@ -182,13 +178,13 @@ const Booking = () => {
     const indicesToDelete = new Set();
 
     if (date && allBookingsByDate.length > 0 && photoTypeId) {
-      if (photoTypeId !== WEDDING_PHOTOTYPEID) {
+      if (photoTypeId !== REACT_APP_WEDDING_PHOTOTYPE_ID) {
         const bookedTimes = allBookingsByDate.map(
-          (booking) => booking.startTime,
+          (booking) => booking.startTime
         );
 
         const bookedTimeIndices = bookedTimes.map((bookedTime) =>
-          timeOptions.indexOf(bookedTime),
+          timeOptions.indexOf(bookedTime)
         );
 
         const matches = photoshootDuration.match(/\d+/);
@@ -204,7 +200,7 @@ const Booking = () => {
           });
         }
         const availableTimes = timeOptions.filter(
-          (_, index) => !indicesToDelete.has(index),
+          (_, index) => !indicesToDelete.has(index)
         );
         setFilteredTimeOptions(availableTimes);
       }
@@ -241,32 +237,163 @@ const Booking = () => {
     return formattedEndDate;
   };
 
-  const handleSubmit = useCallback(() => {
-    const endTimePhotoshoot = addDurationToTime(
-      selectedTime,
-      photoshootDuration,
-    );
-    createBooking(
-      name,
-      email,
-      message,
-      photoTypeId,
-      formatDate(date),
-      selectedTime,
-      endTimePhotoshoot,
-    );
-  }, [
-    name,
-    email,
-    message,
-    photoTypeId,
-    date,
-    selectedTime,
-    photoshootDuration,
-  ]);
+  const validateName = (value) => {
+    if (!value.trim()) {
+      setNameError("Name is required");
+      return false;
+    } else {
+      setNameError("");
+      return true;
+    }
+  };
+
+  const validateEmail = (value) => {
+    if (!value) {
+      setEmailError("Email address is required");
+      return false;
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!value.match(emailRegex)) {
+        setEmailError("Invalid email address");
+        return false;
+      } else {
+        setEmailError("");
+        return true;
+      }
+    }
+  };
+
+  const validatePhotoTypeId = (value) => {
+    if (!value) {
+      setPhotoTypeIdError("Type of photo shoot is required");
+      return false;
+    } else {
+      setPhotoTypeIdError("");
+      return true;
+    }
+  };
+
+  const validateDate = (value) => {
+    if (!value) {
+      setDateError("Date is required");
+      return false;
+    } else {
+      setDateError("");
+      return true;
+    }
+  };
+
+  const validateSelectedTime = (value) => {
+    if (!value) {
+      setSelectedTimeError("Time is required");
+      return false;
+    } else {
+      setSelectedTimeError("");
+      return true;
+    }
+  };
+
+  const handleNameBlur = () => {
+    validateName(name);
+  };
+
+  const handleEmailBlur = () => {
+    validateEmail(email);
+  };
+
+  const handlePhotoTypeIdBlur = () => {
+    validatePhotoTypeId(photoTypeId);
+  };
+
+  const handleDateBlur = () => {
+    validateDate(date);
+  };
+
+  const handleTimeBlur = () => {
+    validateSelectedTime(selectedTime);
+  };
+
+  const handleNameChange = (event) => {
+    const value = event.target.value;
+    setName(value);
+    validateName(value);
+  };
+
+  const handleEmailChange = (event) => {
+    const value = event.target.value;
+    setEmail(value);
+    validateEmail(value);
+  };
+
+  const handlePhotoTypeIdChange = (event) => {
+    const value = event.target.value;
+    setPhotoTypeId(value);
+    validatePhotoTypeId(value);
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  const handleTimeChange = (event) => {
+    const value = event.target.value;
+    setSelectedTime(value);
+    validateSelectedTime(value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const isNameValid = validateName(name);
+    const isEmailValid = validateEmail(email);
+    const isPhotoTypeIdValid = validatePhotoTypeId(photoTypeId);
+    const isDateValid = validateDate(date);
+    const isSelectedTimeValid = validateSelectedTime(selectedTime);
+
+    if (
+      isNameValid &&
+      isEmailValid &&
+      isPhotoTypeIdValid &&
+      isDateValid &&
+      isSelectedTimeValid
+    ) {
+      const endTimePhotoshoot = addDurationToTime(
+        selectedTime,
+        photoshootDuration
+      );
+      try {
+        const response = await createBooking(
+          name,
+          email,
+          message,
+          photoTypeId,
+          formatDate(date),
+          selectedTime,
+          endTimePhotoshoot
+        );
+        if (response.success) {
+          setName("");
+          setEmail("");
+          setMessage("");
+          setPhotoTypeId("");
+          setDate(null);
+          setSelectedTime("");
+          setIsDateSelected(false);
+          toast.success("Booking submitted successfully!");
+        } else {
+          toast.error("Failed to create the question. Please try again.");
+        }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
+      }
+    } else {
+      toast.error("Your fields are not valid. Try again.");
+    }
+  };
 
   return (
     <div>
+      <ToastContainer />
       <ConditionalRender
         conditions={[isBioLoaded, isPhotoTypesLoaded, isBookingsLoaded]}
         content={
@@ -298,36 +425,49 @@ const Booking = () => {
                     </a>
                   </li>
                 </ul>
-                <p>Also you can fill out the form bellow:</p>
+                <p>Also you can fill out the form below:</p>
               </div>
-
               <div className={classes.contactForm}>
                 <form onSubmit={handleSubmit}>
                   <div className={classes.commonBlock}>
                     <div className={classes.formGroup__input}>
                       <label htmlFor="name">Name:</label>
+                      <br />
+                      {nameError && (
+                        <span className={classes.error}>{nameError}</span>
+                      )}
                       <input
                         type="text"
-                        defaultValue={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        onChange={handleNameChange}
+                        onBlur={handleNameBlur}
                       />
                     </div>
                     <div className={classes.formGroup__input}>
                       <label htmlFor="email">Email:</label>
+                      <br />
+                      {emailError && (
+                        <span className={classes.error}>{emailError}</span>
+                      )}
                       <input
                         type="email"
-                        defaultValue={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        onChange={handleEmailChange}
+                        onBlur={handleEmailBlur}
                       />
                     </div>
                   </div>
                   <div className={classes.formGroup__type}>
                     <label htmlFor="title">Type of photo shoot</label>
                     <br />
-
+                    {photoTypeIdError && (
+                      <span className={classes.error}>{photoTypeIdError}</span>
+                    )}
+                    <br />
                     <select
                       value={photoTypeId}
-                      onChange={(e) => setPhotoTypeId(e.target.value)}
+                      onChange={handlePhotoTypeIdChange}
+                      onBlur={handlePhotoTypeIdBlur}
                     >
                       <option value="" disabled>
                         Choose a name
@@ -339,23 +479,31 @@ const Booking = () => {
                       ))}
                     </select>
                   </div>
+
                   {photoTypeId ? (
                     <div className={classes.calendarBlock}>
                       <p>Please, choose the date and time of the photoshoot</p>
                       <div className={classes.calendarWithSelect}>
                         <div>
-                          {photoTypeId !== WEDDING_PHOTOTYPEID ? (
+                          {dateError && (
+                            <span className={classes.error}>{dateError}</span>
+                          )}
+                          {photoTypeId !== REACT_APP_WEDDING_PHOTOTYPE_ID ? (
                             <CalendarForBooking
                               handleDateChange={handleDateChange}
                               date={date}
                               isDateDisabled={isDateDisabled}
+                              onBlur={handleDateBlur}
                             />
                           ) : (
-                            <CalendarForBooking
-                              handleDateChange={handleDateChange}
-                              date={date}
-                              isDateDisabled={isDateDisabledForWedding}
-                            />
+                            <>
+                              <CalendarForBooking
+                                handleDateChange={handleDateChange}
+                                date={date}
+                                isDateDisabled={isDateDisabledForWedding}
+                                onBlur={handleDateBlur}
+                              />
+                            </>
                           )}
                           {date !== null && (
                             <span>
@@ -366,44 +514,48 @@ const Booking = () => {
                             </span>
                           )}
                         </div>
-
-                        {isDateSelected && photoTypeId && (
-                          <select
-                            value={selectedTime}
-                            onChange={handleTimeChange}
-                            className={classes.select}
-                          >
-                            <option
-                              value=""
-                              disabled
-                              className={classes.default}
+                        <div>
+                          {selectedTimeError && (
+                            <span className={classes.error}>
+                              {selectedTimeError}
+                            </span>
+                          )}
+                          {isDateSelected && photoTypeId && (
+                            <select
+                              value={selectedTime}
+                              onChange={handleTimeChange}
+                              onBlur={handleTimeBlur}
+                              className={classes.select}
                             >
-                              Choose time
-                            </option>
-                            {filteredTimeOptions.map((time, index) => (
-                              <option key={index} value={time}>
-                                {time}
+                              <option
+                                value=""
+                                disabled
+                                className={classes.default}
+                              >
+                                Choose time
                               </option>
-                            ))}
-                          </select>
-                        )}
+                              {filteredTimeOptions.map((time, index) => (
+                                <option key={index} value={time}>
+                                  {time}
+                                </option>
+                              ))}
+                            </select>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ) : (
                     <div className={classes.withoutPhotoshootType}>
                       <p>
                         Please, choose the type of photo shoot and you will have
-                        an opportunity to choose the date and time !
+                        an opportunity to choose the date and time!
                       </p>
                     </div>
                   )}
                   <div className={classes.textarea}>
                     <label htmlFor="message">Additional message:</label>
                     <br />
-                    <textarea
-                      defaultValue={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                    />
+                    <textarea value={message} onChange={handleMessageChange} />
                   </div>
                   <button className={classes.button} type="submit">
                     Send

@@ -24,7 +24,7 @@
             width: 50%;
         }
         font-family: $Gotu;
-        margin-bottom: 3vh;
+        margin-bottom: 1vh;
     }
     .messageTextarea {
         margin-top: 2vh;
@@ -67,5 +67,9 @@
         font-family: $Gotu;
         display: flex;
         margin-left: auto;
+    }
+    .error{
+        color:red;
+        font-size: 12px;
     }
 }

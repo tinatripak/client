@@ -19,8 +19,8 @@ export function UploadWidget({ children, onUpload }) {
   }, []);
   function createWidget() {
     const options = {
-      cloudName: "dcxuxc5uw",
-      uploadPreset: "wd6fnebc",
+      cloudName:process.env.REACT_APP_CLOUD_NAME,
+      uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
       // multiple: true,
     };
 

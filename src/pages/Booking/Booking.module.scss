@@ -135,8 +135,17 @@
                     font-size: 15px;
                     border: 1px solid #b6b6b6;
                     font-family: $Gotu;
+                    width: 20vw;
+                    @include breakpoint(md) {
+                        width: 30vw;
+                    }
+                    @include breakpoint(xs) {
+                        width: 45vw;
+                    }
+                    @include breakpoint(xxs) {
+                        width: 65vw;
+                    }
 
-                    
                     background-image: linear-gradient(45deg, transparent 50%, rgb(94, 94, 94) 60%),
                         linear-gradient(135deg, rgb(94, 94, 94) 40%, transparent 50%) !important;
                     background-position:
@@ -201,5 +210,9 @@
             margin-right: auto;
             margin-bottom: 50px;
         }
+    }
+    .error{
+        color:red;
+        font-size: 12px;
     }
 }

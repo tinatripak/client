@@ -3,6 +3,9 @@
 .booking {
     margin-top: 30px;
     font-family: "Cormorant Garamond";
+    h2{
+        padding-left: 4vw;
+    }
 
     .add {
         display: flex;
@@ -66,4 +69,21 @@
     .text {
         text-align: center;
     }
+}
+
+    
+.decline, .delete, .accept{
+    font-size:30px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.decline{
+    color:#e4682a
+}
+.delete{
+    color:#d20000
+}
+.accept{
+    color:#217e1c
 }

@@ -10,10 +10,18 @@ const localizer = momentLocalizer(moment);
 const CustomCalendar = (props) => {
   const minTime = new Date();
   minTime.setHours(8, 0, 0, 0);
+  const views = ["week", "day", "agenda"];
 
   return (
     <div className={classes.calendar}>
-      <Calendar {...props} localizer={localizer} min={minTime} />;
+      <Calendar
+        {...props}
+        localizer={localizer}
+        min={minTime}
+        views={views}
+        defaultView="week"
+      />
+      ;
     </div>
   );
 };

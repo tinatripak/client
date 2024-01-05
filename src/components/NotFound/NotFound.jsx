@@ -10,7 +10,7 @@ const NotFound = () => {
         <LazyLoadImage src={notFoundImage} effect="blur" />
       </div>
       <h3>No records has been added yet.</h3>
-      <h4>Add a new record by clicking the button on top center side.</h4>
+      {/* <h4>Add a new record by clicking the button on top center side.</h4> */}
     </div>
   );
 };

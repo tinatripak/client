@@ -5,7 +5,6 @@ export const getAllQuestions = async () => {
   const requestConfig = {
     method: "get",
     url: `${baseURL}question/getAllQuestions`,
-    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);
@@ -15,7 +14,6 @@ export const getQuestionById = async (id) => {
   const requestConfig = {
     method: "get",
     url: `${baseURL}question/getQuestionById/${id}`,
-    withCredentials: true,
   };
 
   return handleApiRequest(requestConfig);

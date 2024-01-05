@@ -48,59 +48,59 @@ const ContactForm = () => {
 
   return (
     <div className={classes.contactForm}>
-      <form noValidate
-    autoComplete="off" onSubmit={handleSubmit}>
+      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <div className={classes.nameInput}>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">Name:
           <br />
-          <label className={classes.error}>
-            {errors.name
-              ? errors.name
-              : ""}
-          </label>
+          {errors.name && (
+            <span className={classes.error}>{errors.name}</span>
+          )}
           <br />
           <input
             type="text"
             name="name"
+            id="name"
+            autoComplete="name"
             onBlur={form.handleBlurEvent}
             onChange={form.handleChangeEvent}
             value={fields.name}
           />
+          </label>
         </div>
 
         <div className={classes.emailInput}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email:
           <br />
-          <label className={classes.error}>
-            {errors.email
-              ? errors.email
-              : ""}
-          </label>
+          {errors.email && (
+            <span className={classes.error}>{errors.email}</span>
+          )}
           <br />
           <input
             type="email"
             name="email"
+            id="email"
+            autoComplete="email"
             onBlur={form.handleBlurEvent}
             onChange={form.handleChangeEvent}
             value={fields.email}
           />
+          </label>
         </div>
 
         <div className={classes.messageTextarea}>
-          <label htmlFor="question">Type your question here:</label>
+          <label htmlFor="question">Type your question here:
           <br />
-          <label className={classes.error}>
-            {errors.question
-              ? errors.question
-              : ""}
-          </label>
+          {errors.question && (
+            <span className={classes.error}>{errors.question}</span>
+          )}
           <br />
           <textarea
             name="question"
+            id="question"
             onBlur={form.handleBlurEvent}
             onChange={form.handleChangeEvent}
             value={fields.question}
-          />
+          /></label>
         </div>
 
         <button className={classes.sendButton} type="submit">

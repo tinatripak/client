@@ -1,0 +1,32 @@
+.booking_table {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      border-collapse: collapse;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      font-size: 18px;
+
+      .header {
+          .cell {
+              background-color: #f6f6f6;
+              text-align: center;
+              color: #616161;
+              padding: 5px 10px;
+              height: 60px;
+          }
+      }
+      .body {
+          .row {
+              .cell {
+                  border: 1px solid white;
+                  border-right: 1px solid rgb(219, 219, 219);
+                  border-bottom: 1px solid rgb(219, 219, 219);
+                  padding: 5px 10px;
+              }
+          }
+
+          :hover {
+              background-color: #e2e2e2;
+          }
+      }
+  }

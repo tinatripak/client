@@ -22,6 +22,7 @@ export const getBookingById = async (id) => {
 export const createBooking = async (
   name,
   email,
+  phone,
   message,
   photoTypeId,
   date,
@@ -34,6 +35,7 @@ export const createBooking = async (
     data: {
       name,
       email,
+      phone,
       message,
       photoTypeId,
       date,
@@ -45,10 +47,32 @@ export const createBooking = async (
   return handleApiRequest(requestConfig);
 };
 
-export const deleteDeclinedBookingById = async (id) => {
+export const acceptBookingById = async (id) => {
+  const requestConfig = {
+    withCredentials: true,
+    method: "put",
+    url: `${baseURL}booking/acceptBookingById/${id}`,
+  };
+  console.log(process.env.TOKEN_KEY)
+
+  return handleApiRequest(requestConfig);
+};
+
+export const declineBookingById = async (id) => {
+  const requestConfig = {
+    withCredentials: true,
+    method: "put",
+    url: `${baseURL}booking/declineBookingById/${id}`,
+  };
+  console.log(process.env.TOKEN_KEY)
+
+  return handleApiRequest(requestConfig);
+};
+
+export const deleteBookingById = async (id) => {
   const requestConfig = {
     method: "delete",
-    url: `${baseURL}booking/deleteDeclinedBookingById/${id}`,
+    url: `${baseURL}booking/deleteBookingById/${id}`,
     withCredentials: true,
   };
 

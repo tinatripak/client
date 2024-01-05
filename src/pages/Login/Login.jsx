@@ -90,6 +90,7 @@ const Login = () => {
                   <input
                     type="email"
                     name="email"
+                    autoComplete="email"
                     value={email}
                     className={classes.email_input}
                     onChange={handleOnChange}
@@ -105,6 +106,7 @@ const Login = () => {
                   <br />
                   <input
                     type="password"
+                    autoComplete="current-password"
                     name="password"
                     value={password}
                     className={classes.password_input}

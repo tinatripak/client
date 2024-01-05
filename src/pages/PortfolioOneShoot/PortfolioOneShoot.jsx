@@ -53,7 +53,7 @@ const PortfolioOneShoot = () => {
                 slideOnThumbnailOver={true}
                 showIndex={true}
                 onPlay={() => {
-                  alert("slideshow is now playing!");
+                  console.log("slideshow is now playing!");
                 }}
               />
               ;

@@ -49,7 +49,7 @@ const AnswerQuestion = () => {
             </div>
             <div>
               <p>
-                <u>{question?.name}'s message:</u>
+                <u>{question?.name}'s question:</u>
               </p>
               <p>— {question?.question}</p>
             </div>
@@ -62,7 +62,8 @@ const AnswerQuestion = () => {
               </div>
             )}
           </div>
-          <div>
+          {!question?.answer ? (
+            <div>
             <form onSubmit={handleSubmit}>
               <label htmlFor="">The answer</label>
               <br />
@@ -76,6 +77,11 @@ const AnswerQuestion = () => {
               </button>
             </form>
           </div>
+          ) : (
+            <div className={classes.isAnswered}>
+              You have already answered to the person
+            </div>
+          )}
         </div>
       }
     />

@@ -14,6 +14,9 @@ import { telegramURL, viberURL } from "../../constants.js";
 import CalendarForBooking from "./CalendarForBooking";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 
 const Booking = () => {
   const [bio, setBio] = useState([]);
@@ -26,6 +29,8 @@ const Booking = () => {
   const [allBookingsByDate, setAllBookingsByDate] = useState([]);
   const [photoTypeId, setPhotoTypeId] = useState("");
 
+  const [phone, setPhone] = useState();
+
   const [isBioLoaded, setIsBioLoaded] = useState(false);
   const [isPhotoTypesLoaded, setIsPhotoTypesLoaded] = useState(false);
   const [isBookingsLoaded, setIsBookingsLoaded] = useState(false);
@@ -36,6 +41,7 @@ const Booking = () => {
   const [date, setDate] = useState(null);
 
   const [nameError, setNameError] = useState("Name is required");
+  const [phoneError, setPhoneError] = useState("Phone number is required");
   const [emailError, setEmailError] = useState("Email address is required");
   const [photoTypeIdError, setPhotoTypeIdError] = useState(
     "Type of photo shoot is required"
@@ -263,6 +269,18 @@ const Booking = () => {
     }
   };
 
+  const validatePhone = (value) => {
+    if (!value ) {
+      setPhoneError("Phone number is required");
+      return false;
+    } else if(value.length < 7){
+      setPhoneError("The phone number must be at least 7 characters.");
+    } else {
+      setPhoneError("");
+      return true;
+    }
+  };
+
   const validatePhotoTypeId = (value) => {
     if (!value) {
       setPhotoTypeIdError("Type of photo shoot is required");
@@ -325,6 +343,12 @@ const Booking = () => {
     validateEmail(value);
   };
 
+  const handlePhoneChange = (value) => {
+    console.log(value);
+    setPhone(value);
+    validatePhone(value);
+  };
+
   const handlePhotoTypeIdChange = (event) => {
     const value = event.target.value;
     setPhotoTypeId(value);
@@ -346,6 +370,7 @@ const Booking = () => {
 
     const isNameValid = validateName(name);
     const isEmailValid = validateEmail(email);
+    const isPhoneValid = validatePhone(phone);
     const isPhotoTypeIdValid = validatePhotoTypeId(photoTypeId);
     const isDateValid = validateDate(date);
     const isSelectedTimeValid = validateSelectedTime(selectedTime);
@@ -353,6 +378,7 @@ const Booking = () => {
     if (
       isNameValid &&
       isEmailValid &&
+      isPhoneValid &&
       isPhotoTypeIdValid &&
       isDateValid &&
       isSelectedTimeValid
@@ -365,6 +391,7 @@ const Booking = () => {
         const response = await createBooking(
           name,
           email,
+          phone,
           message,
           photoTypeId,
           formatDate(date),
@@ -374,6 +401,7 @@ const Booking = () => {
         if (response.success) {
           setName("");
           setEmail("");
+          setPhone("");
           setMessage("");
           setPhotoTypeId("");
           setDate(null);
@@ -431,40 +459,64 @@ const Booking = () => {
                 <form onSubmit={handleSubmit}>
                   <div className={classes.commonBlock}>
                     <div className={classes.formGroup__input}>
-                      <label htmlFor="name">Name:</label>
+                      <label htmlFor="name">Name:
                       <br />
                       {nameError && (
                         <span className={classes.error}>{nameError}</span>
                       )}
                       <input
                         type="text"
+                        name="name"
+                        autoComplete="name"
+                        id="name"
                         value={name}
                         onChange={handleNameChange}
                         onBlur={handleNameBlur}
                       />
+                      </label>
                     </div>
                     <div className={classes.formGroup__input}>
-                      <label htmlFor="email">Email:</label>
+                      <label htmlFor="email">Email:
                       <br />
                       {emailError && (
                         <span className={classes.error}>{emailError}</span>
                       )}
                       <input
                         type="email"
+                        name="email"
+                        id="email"
+                        autoComplete="email"
                         value={email}
                         onChange={handleEmailChange}
                         onBlur={handleEmailBlur}
                       />
+                      </label>
                     </div>
                   </div>
+                  <div className={classes.formGroup__input}>
+                      <label htmlFor="tel">Phone number:
+                      <br />
+                      {phoneError && (
+                        <span className={classes.error}>{phoneError}</span>
+                      )}
+                       <PhoneInput
+                          placeholder="Enter phone number"
+                          value={phone}
+                          onChange={handlePhoneChange}
+                        />
+                      </label>
+                      {console.log(phone)}
+                    </div>
                   <div className={classes.formGroup__type}>
-                    <label htmlFor="title">Type of photo shoot</label>
+                    <label htmlFor="typeNames">Type of photo shoot
                     <br />
                     {photoTypeIdError && (
                       <span className={classes.error}>{photoTypeIdError}</span>
                     )}
                     <br />
                     <select
+                      name="typeNames"
+                      id="typeNames"
                       value={photoTypeId}
                       onChange={handlePhotoTypeIdChange}
                       onBlur={handlePhotoTypeIdBlur}
@@ -478,6 +530,7 @@ const Booking = () => {
                         </option>
                       ))}
                     </select>
+                    </label>
                   </div>
 
                   {photoTypeId ? (
@@ -526,6 +579,7 @@ const Booking = () => {
                               onChange={handleTimeChange}
                               onBlur={handleTimeBlur}
                               className={classes.select}
+                              name="time"
                             >
                               <option
                                 value=""
@@ -553,9 +607,12 @@ const Booking = () => {
                     </div>
                   )}
                   <div className={classes.textarea}>
-                    <label htmlFor="message">Additional message:</label>
+                    <label htmlFor="message">Additional message:
                     <br />
-                    <textarea value={message} onChange={handleMessageChange} />
+                    <textarea value={message} onChange={handleMessageChange} 
+                      id="message"
+                      name="message" />
+                      </label>
                   </div>
                   <button className={classes.button} type="submit">
                     Send

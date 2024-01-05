@@ -20,6 +20,10 @@ import {
 import { useCookies } from "react-cookie";
 import jwtDecode from "jwt-decode";
 import { ConditionalRender } from "../../../components";
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Admins = () => {
   const [adminList, setAdminList] = useState([]);
@@ -61,10 +65,10 @@ const Admins = () => {
           if (adminId) {
             navigate(`${adminDashboardLink}${adminLink}${editLink}/${adminId}`);
           } else {
-            alert("Invalid admin ID");
+            toast.error("Invalid admin ID");
           }
         } else {
-          alert("You dont have any permissions for it");
+          toast.error("You dont have any permissions for it");
         }
       }
     },
@@ -110,7 +114,7 @@ const Admins = () => {
             onClick={() => handleEdit(row.original)}
             className={classes.edit_button}
           >
-            <FiEdit2 color="#616161" size={20} />
+            <FiEdit2 color="#1e569e" size={20} />
           </span>
         ),
       },
@@ -122,7 +126,7 @@ const Admins = () => {
             onClick={() => handleDelete(row.original)}
             className={classes.delete_button}
           >
-            <BsTrashFill color="#616161" size={20} />
+            <BsTrashFill color="#972c2c" size={20} />
           </span>
         ),
       },
@@ -137,19 +141,37 @@ const Admins = () => {
 
   const handleDelete = (admin) => {
     if (currentAdminRole === "chief admin") {
-      deleteAdminById(admin._id).then(() => {
-        setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
-        alert(`Admin ${admin.username} was deleted`);
+      confirmAlert({
+        title: 'Confirm Deletion',
+        message: `Are you sure you want to delete ${admin.username}?`,
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => handleConfirmDelete(admin),
+          },
+          {
+            label: 'No',
+            onClick: () => {},
+          },
+        ],
       });
     } else {
-      alert("You dont have any permissions for it");
+      toast.error("You dont have any permissions for it");
     }
+  };
+
+  const handleConfirmDelete = (admin) => {
+    deleteAdminById(admin._id).then(() => {
+      setAdminList((prevList) => prevList.filter((x) => x.id !== admin._id));
+      toast.success(`Admin ${admin.username} was deleted`);
+
+    });
   };
   const handleCreate = () => {
     if (currentAdminRole === "chief admin") {
       navigate(`${adminDashboardLink}${adminLink}${createLink}`);
     } else {
-      alert("You dont have any permissions for it");
+      toast.error("You dont have any permissions for it");
     }
   };
 
@@ -201,6 +223,7 @@ const Admins = () => {
               })}
             </tbody>
           </table>
+          <ToastContainer/>
         </div>
       }
     />

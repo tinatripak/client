@@ -72,6 +72,7 @@ const AdminPanel = () => {
     }
   }, [decoded, navigate]);
 
+  console.log(decoded)
   const getAdmin = useCallback(() => {
     getAdminById(decoded?.id).then((data) => {
       setAdmin(data?.data);
@@ -82,7 +83,7 @@ const AdminPanel = () => {
     if (cookies?.token !== "undefined") {
       getAdmin();
     }
-  }, [getAdmin]);
+  }, [cookies?.token]);
 
   return (
     <div className={classes.panel}>

@@ -1,8 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { BsMoonStarsFill } from "react-icons/bs";
-import { LiaToggleOffSolid, LiaToggleOnSolid } from "react-icons/lia";
-import { FiSun } from "react-icons/fi";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import {
   Link,
   NavLink,
@@ -61,7 +57,7 @@ const AdminPanel = () => {
   const [cookies] = useCookies([]);
   const [admin, setAdmin] = useState([]);
   const decoded =
-    cookies?.token !== "undefined" && cookies?.token
+    (cookies?.token !== "undefined" && cookies?.token)
       ? jwtDecode(cookies.token)
       : null;
   const navigate = useNavigate();

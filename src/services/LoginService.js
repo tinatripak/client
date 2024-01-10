@@ -5,7 +5,6 @@ export const userVerification = async (cookies) => {
   const requestConfig = {
     method: "post",
     url: `${baseURL}`,
-    data: {},
     withCredentials: true,
     cookies,
   };

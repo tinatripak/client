@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Header, Footer } from "../../components";
 import classes from "./Login.module.scss";
 import { BiSolidLock } from "react-icons/bi";

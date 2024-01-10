@@ -47,6 +47,7 @@ import {
 import classes from "./AdminPanel.module.scss";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 
+
 const textDecorationStyles = ({ isActive }) => {
   return {
     textDecoration: isActive ? "underline" : "",
@@ -54,10 +55,10 @@ const textDecorationStyles = ({ isActive }) => {
 };
 
 const AdminPanel = () => {
-  const [cookies] = useCookies([]);
+  const [cookies, setCookie] = useCookies([]);
   const [admin, setAdmin] = useState([]);
   const decoded =
-    (cookies?.token !== "undefined" && cookies?.token)
+    cookies?.token !== undefined && cookies?.token
       ? jwtDecode(cookies.token)
       : null;
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const AdminPanel = () => {
     }
   }, [decoded, navigate]);
 
-  console.log(cookies)
+  console.log(jwtDecode(cookies.token))
   const getAdmin = useCallback(() => {
     getAdminById(decoded?.id).then((data) => {
       setAdmin(data?.data);
@@ -80,9 +81,7 @@ const AdminPanel = () => {
       getAdmin();
     }
   }, [cookies?.token]);
-  useEffect(() => {
-    console.log(cookies)
-  },[])
+
 
   return (
     <div className={classes.panel}>
@@ -156,34 +155,6 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        {/* <div className={classes.darkMod}>
-          {isSwitchOff ? (
-            <BsMoonStarsFill
-              size={21}
-              className={classes.icons__moon}
-            />
-          ) : (
-            <FiSun
-              size={29}
-              className={classes.icons__sun}
-            />
-          )}
-          <p>Dark mode</p>
-
-          {isSwitchOff ? (
-            <LiaToggleOffSolid
-              onClick={toggleSwitch}
-              size={26}
-              className={classes.icons__switch}
-            />
-          ) : (
-            <LiaToggleOnSolid
-              onClick={toggleSwitch}
-              size={26}
-              className={classes.icons__switch}
-            />
-          )}
-        </div> */}
       </div>
       <div className={classes.main}>
         <div className={classes.settings}>

@@ -4,12 +4,13 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import "./DropdownMenu.css";
 import { logoutUser } from "../../services/LoginService";
+import Cookies from 'js-cookie';
 
 const DropdownMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies([]);
+  const [cookies, removeCookie] = useCookies(['token']);
 
   let menuRef = useRef();
 
@@ -28,7 +29,7 @@ const DropdownMenu = () => {
   });
 
   const Logout = () => {
-    logoutUser(cookies);
+    removeCookie('token');
     navigate("/login");
   };
 

@@ -38,6 +38,7 @@ import {
   editLink,
   generalLink,
   homeLink,
+  loginLink,
   photographyLink,
   questionLink,
   questionsLink,
@@ -46,7 +47,7 @@ import {
 } from "../../constants";
 import classes from "./AdminPanel.module.scss";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
-
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const textDecorationStyles = ({ isActive }) => {
   return {
@@ -55,37 +56,30 @@ const textDecorationStyles = ({ isActive }) => {
 };
 
 const AdminPanel = () => {
-  const [cookies, setCookie] = useCookies([]);
-  
-  console.log(cookies?.token)
-  console.log(cookies)
+  const [cookies] = useCookies(["token"]);
   const [admin, setAdmin] = useState([]);
+  const navigate = useNavigate();
+
   const decoded =
-    cookies?.token !== undefined && cookies?.token
+    cookies?.token &&
+    cookies?.token !== "undefined" &&
+    cookies?.token !== undefined
       ? jwtDecode(cookies.token)
       : null;
-  const navigate = useNavigate();
-  console.log(decoded)
-
-  useEffect(() => {
-    if (!decoded) {
-      navigate("/login");
-    }
-  }, [decoded, navigate]);
-
-  console.log(jwtDecode(cookies.token))
+      
   const getAdmin = useCallback(() => {
     getAdminById(decoded?.id).then((data) => {
       setAdmin(data?.data);
     });
-  }, [decoded?.id]);
+  }, [decoded]);
 
   useEffect(() => {
-    if (cookies?.token !== "undefined") {
+    if (decoded == null) {
+      navigate("/login");
+    } else{
       getAdmin();
     }
-  }, [cookies?.token]);
-
+  }, [decoded]);
 
   return (
     <div className={classes.panel}>
@@ -158,7 +152,6 @@ const AdminPanel = () => {
             </div>
           </div>
         </div>
-
       </div>
       <div className={classes.main}>
         <div className={classes.settings}>
@@ -247,11 +240,25 @@ export default AdminPanel;
 
 const ProtectedRoute = ({
   adminRole,
-  redirecthPath = `${adminDashboardLink}${adminsLink}`,
+  redirectPath = `${adminDashboardLink}${adminsLink}`,
   children,
 }) => {
-  if (adminRole !== "chief admin") {
-    return <Navigate to={redirecthPath} replace />;
+  const [cookies] = useCookies([]);
+  const decoded =
+    cookies?.token &&
+    cookies?.token !== "undefined" &&
+    cookies?.token !== undefined
+      ? jwtDecode(cookies.token)
+      : null;
+  const navigate = useNavigate();
+
+  if (decoded === null) {
+    navigate(loginLink);
   }
+
+  if (!cookies.token || !decoded || adminRole !== "chief admin") {
+    return <Navigate to={redirectPath} replace />;
+  }
+
   return children;
 };

@@ -46,8 +46,7 @@ function App() {
           path={`${portfolioLink}/:name`}
           element={<PortfolioOneShoot />}
         />
-        <Route path={adminDashboardLink} element={<AdminAccount />} />
-        <Route path={`${adminDashboardLink}/*`} element={<AdminPanel />} />
+        <Route path={`${adminDashboardLink}/*`} element={<AdminAccount />} />
       </Routes>
     </div>
   );

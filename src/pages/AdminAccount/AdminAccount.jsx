@@ -8,23 +8,25 @@ import { loginLink } from "../../constants";
 
 const AdminAccount = () => {
   const navigate = useNavigate();
-  const [cookies, remove] = useCookies([]);
+  const [cookies, removeCookie] = useCookies(['token']);
 
-  const verifyCookie = async () => {
-    if (cookies?.token === "undefined") {
+  useEffect(() => {
+    if (!cookies?.token) {
       navigate(loginLink);
-    } else {
-      const { data } = await userVerification(cookies);
-      if (!data) {
-        remove("token");
+    }
+  });
+  
+  const verifyCookie = async () => {
+      const { status } = await userVerification(cookies);
+      if (!status) {
+        removeCookie('token');
         navigate(loginLink);
       }
-    }
   };
 
   useEffect(() => {
     verifyCookie();
-  }, [cookies, navigate, remove]);
+  }, [cookies]);
 
   return (
     <div>

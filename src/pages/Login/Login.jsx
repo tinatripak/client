@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Header, Footer } from "../../components";
 import classes from "./Login.module.scss";
 import { BiSolidLock } from "react-icons/bi";
@@ -11,7 +11,7 @@ import { adminDashboardLink, cameraImage, generalLink } from "../../constants";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [cookies] = useCookies([]);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -29,28 +29,27 @@ const Login = () => {
     [inputValue],
   );
 
-  const handleError = useCallback(
-    (err) =>
-      toast.error(err, {
-        position: "bottom-left",
-      }),
-    [],
-  );
-
-  const handleSuccess = useCallback(
-    (msg) =>
-      toast.success(msg, {
-        position: "bottom-left",
-      }),
-    [],
-  );
+  useEffect(() => {
+    if (cookies.token === 'undefined' || cookies.token === undefined) {
+      removeCookie("token");
+    }
+  }, [])
 
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
       try {
-        const { data } = await loginUser(inputValue, cookies);
+        const { data, token } = await loginUser(inputValue);
+
         if (data) {
+          setCookie("token", token, {
+            maxAge: 7200000,
+            sameSite: "None",
+            secure: true,
+            path: "/",
+          });
+          await new Promise(resolve => setTimeout(resolve, 1000));
+      
           setTimeout(() => {
             navigate(`${adminDashboardLink}${generalLink}`);
           }, 1000);
@@ -64,7 +63,7 @@ const Login = () => {
         password: "",
       });
     },
-    [inputValue, navigate, handleSuccess, handleError],
+    [inputValue],
   );
 
   return (

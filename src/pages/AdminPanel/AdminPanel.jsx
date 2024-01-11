@@ -56,12 +56,16 @@ const textDecorationStyles = ({ isActive }) => {
 
 const AdminPanel = () => {
   const [cookies, setCookie] = useCookies([]);
+  
+  console.log(cookies?.token)
+  console.log(cookies)
   const [admin, setAdmin] = useState([]);
   const decoded =
     cookies?.token !== undefined && cookies?.token
       ? jwtDecode(cookies.token)
       : null;
   const navigate = useNavigate();
+  console.log(decoded)
 
   useEffect(() => {
     if (!decoded) {

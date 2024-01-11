@@ -17,11 +17,7 @@ const AdminAccount = () => {
   });
   
   const verifyCookie = async () => {
-      const { status } = await userVerification(cookies);
-      if (!status) {
-        removeCookie('token');
-        navigate(loginLink);
-      }
+    await userVerification(cookies);
   };
 
   useEffect(() => {

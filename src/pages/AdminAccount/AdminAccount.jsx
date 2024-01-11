@@ -8,7 +8,7 @@ import { loginLink } from "../../constants";
 
 const AdminAccount = () => {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies(['token']);
+  const [cookies] = useCookies(['token']);
 
   useEffect(() => {
     if (!cookies?.token) {
@@ -17,11 +17,7 @@ const AdminAccount = () => {
   });
   
   const verifyCookie = async () => {
-      const { status } = await userVerification(cookies);
-      if (!status) {
-        removeCookie('token');
-        navigate(loginLink);
-      }
+    await userVerification(cookies);
   };
 
   useEffect(() => {
